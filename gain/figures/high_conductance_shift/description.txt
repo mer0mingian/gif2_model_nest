@@ -1,0 +1,7 @@
+Fig1 shows that, with rising membrane timeconstant tau (equivalent to high conductance at constant capacity), we yield a lower resonance frequency. In particular, by lowering the timescale from 2.5ms to 25ms, we can raise the expected resonance frequency from approx. 6.5Hz to approx. 10Hz. This is equivalent to a raise in conductance from 10nS to 100nS at C=0.25nF, g1=25nS, tau1=80ms.
+
+Fig2 illustrates, that the above mapping is mediated by g1, the conductance of the second, slow membrane variable of the GIF2 model. When g1 is doubled, compared to Fig1, the steepness of the resonance frequency curve increases: tau=10ms yields a f_R=8.6Hz, whereas tau=100ms now yields around 11.5Hz.
+
+As Fig3 shows, increasing C as the opposite effect of increasing g. We can control for the increase in C by either raising g1, or lowering tau1 (Fig4).  In the latter case however, the prediction of f_R will suffer, as tau1 >> tau is necessary for the transfer function to be accurate.
+
+Fig5 collects graphs from figures 2-4.

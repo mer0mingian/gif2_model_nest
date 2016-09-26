@@ -1,0 +1,52 @@
+mpi load
+mpirun
+[INFO] [2016.9.8 10:53:27 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:226 @ Network::create_rngs_] : Creating default RNGs
+[INFO] [2016.9.8 10:53:27 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:221 @ Network::create_rngs_] : Deleting existing random number generators
+[INFO] [2016.9.8 10:53:27 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:226 @ Network::create_rngs_] : Creating default RNGs
+[INFO] [2016.9.8 10:53:27 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:272 @ Network::create_grng_] : Creating new default global RNG
+
+              -- N E S T --
+
+  Copyright (C) 2004 The NEST Initiative
+  Version 2.10.0 Aug  2 2016 12:28:30
+
+This program is provided AS IS and comes with
+NO WARRANTY. See the file LICENSE for details.
+
+Problems or suggestions?
+  Visit http://www.nest-simulator.org
+
+Type 'nest.help()' to find out more about NEST.
+ext rate: 2.0, connection probability: 0.1
+threshold rate: 0.024, external rate: 0.048, stim rate: 66000.0
+Building network
+Connecting devices
+Connecting network
+Excitatory connections
+Defining Synapses
+Excitatory connections
+Resonating connections
+Inhibitory connections
+Simulating
+Brunel network simulation (Python)
+Number of neurons : 12500
+Number of synapses: 13100
+       Exitatory  : 6262500
+       Resonator  : 6262500
+       Inhibitory : 3125000
+Excitatory rate   : 8.85 Hz
+Resonating rate   : 0.00 Hz
+Inhibitory rate   : 8.27 Hz
+Building time     : 5.01 s
+Simulation time   : 284.76 s
+-------------------------------------------------------
+Primary job  terminated normally, but 1 process returned
+a non-zero exit code.. Per user-direction, the job has been aborted.
+-------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun detected that one or more processes exited with non-zero status, thus causing
+the job to be terminated. The first process to do so was:
+
+  Process name: [[13891,1],0]
+  Exit code:    1
+--------------------------------------------------------------------------

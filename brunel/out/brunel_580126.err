@@ -1,0 +1,1888 @@
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 6 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 8 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 8 is out of bounds for axis 0 with size 1
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 4 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 4 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 4 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 8 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 2 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 2 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 6 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 2 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 7 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 4 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 10 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 4 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 4 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 4 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 4 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 4 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 4 is out of bounds for axis 0 with size 1
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 4 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 4 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 4 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 4 is out of bounds for axis 0 with size 1
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 4 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 2 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 2 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 10 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 2 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 2 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 2 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 2 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 2 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 2 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 2 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 2 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 2 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 2 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 2 is out of bounds for axis 0 with size 1
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 2 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 2 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 14 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 2 is out of bounds for axis 0 with size 1
+IndexError: index 10 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 9 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 2 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 2 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 2 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 2 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 2 is out of bounds for axis 0 with size 1
+odule>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 11 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 12 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 14 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 7 is out of bounds for axis 0 with size 1
+IndexError: index 12 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 12 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 13 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 10 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 7 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 13 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 11 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 12 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 13 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 8 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 8 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 14 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 10 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 13 is out of bounds for axis 0 with size 1
+dule>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 8 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 14 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 8 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 13 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 14 is out of bounds for axis 0 with size 1
+dule>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 5 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 5 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 8 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 5 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 13 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 14 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 7 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 12 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 7 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 12 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 13 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 14 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 5 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 13 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 13 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 7 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 13 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 11 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 13 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 8 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 8 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 9 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 13 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 5 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 14 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 12 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 13 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 7 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 9 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 8 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 9 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 5 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+iverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 9 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 8 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 5 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 6 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 9 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 10 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 7 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 5 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 10 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 6 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 7 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 7 is out of bounds for axis 0 with size 1
+IndexError: index 10 is out of bounds for axis 0 with size 1
+verses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 9 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 8 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 8 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 8 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 8 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 10 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 8 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 13 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 6 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 7 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 8 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 12 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 13 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 14 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 8 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 8 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 13 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 7 is out of bounds for axis 0 with size 1
+odule>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 13 is out of bounds for axis 0 with size 1
+IndexError: index 13 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 12 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 10 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 13 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 14 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 7 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 8 is out of bounds for axis 0 with size 1
+r: index 10 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 7 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 8 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 13 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 7 is out of bounds for axis 0 with size 1
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 8 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 13 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 6 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 13 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 8 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 8 is out of bounds for axis 0 with size 1
+IndexError: index 8 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 12 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 13 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 13 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 13 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 13 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 13 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 12 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 8 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 8 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 7 is out of bounds for axis 0 with size 1
+IndexError: index 13 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 8 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 8 is out of bounds for axis 0 with size 1
+
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 7 is out of bounds for axis 0 with size 1
+odule>
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 12 is out of bounds for axis 0 with size 1
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 8 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 13 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 7 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 13 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 12 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 8 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 13 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 7 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 12 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 7 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 7 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 13 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 13 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 12 is out of bounds for axis 0 with size 1
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 7 is out of bounds for axis 0 with size 1
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 7 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 7 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 7 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 13 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 12 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 7 is out of bounds for axis 0 with size 1
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 7 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 12 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 12 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 12 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 12 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 12 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 12 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 12 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 14 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 12 is out of bounds for axis 0 with size 1
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 12 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 12 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 11 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 14 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 9 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 6 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 5 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 14 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 14 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 14 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 14 is out of bounds for axis 0 with size 1
+verses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 10 is out of bounds for axis 0 with size 1
+verses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 14 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 5 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 11 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 14 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 9 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+IndexError: index 12 is out of bounds for axis 0 with size 1
+IndexError: index 5 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+IndexError: index 5 is out of bounds for axis 0 with size 1
+iverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+IndexError: index 14 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+IndexError: index 5 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+IndexError: index 14 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+IndexError: index 9 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+IndexError: index 14 is out of bounds for axis 0 with size 1
+IndexError: index 11 is out of bounds for axis 0 with size 1
+IndexError: index 6 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+IndexError: index 11 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+IndexError: index 5 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+IndexError: index 15 is out of bounds for axis 0 with size 1
+IndexError: index 14 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 5 is out of bounds for axis 0 with size 1
+
+dule>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 6 is out of bounds for axis 0 with size 1
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 5 is out of bounds for axis 0 with size 1
+
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 11 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <mo    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexE    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 11 is out of bounds for axis 0 with size 1
+IndexError: index 15 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 5 is out of bounds for axis 0 with size 1
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 5 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 14 is out of bounds for axis 0 with size 1
+ 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 14 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 14 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 11 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 14 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 14 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 14 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 9 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 14 is out of bounds for axis 0 with size 1
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 14 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 11 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 9 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 5 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 9 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 10 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 11 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 5 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 9 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 5 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 11 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 5 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 10 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 5 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 5 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 10 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 5 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 6 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 11 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 5 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 5 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 9 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 11 is out of bounds for axis 0 with size 1
+dule>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 5 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 5 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 11 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <moIndexError: index 5 is out of bounds for axis 0 with size 1
+IndexError: index 9 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 9 is out of bounds for axis 0 with size 1
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 6 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 5 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 11 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 11 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 9 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 10 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 11 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 9 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 11 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 6 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 11 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 9 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 6 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 11 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 11 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 10 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 9 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 11 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 9 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 11 is out of bounds for axis 0 with size 1
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 9 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 10 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 6 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 9 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 10 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 9 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 9 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 11 is out of bounds for axis 0 with size 1
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 11 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 11 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 10 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 10 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 11 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 9 is out of bounds for axis 0 with size 1
+
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 9 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 11 is out of bounds for axis 0 with size 1
+index 11 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 9 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 9 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 10 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 10 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 9 is out of bounds for axis 0 with size 1
+
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 10 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 9 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 11 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 10 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 6 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 10 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 6 is out of bounds for axis 0 with size 1
+odule>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 10 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 10 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 10 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 6 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 6 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 6 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 6 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 10 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 6 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 10 is out of bounds for axis 0 with size 1
+verses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 10 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 6 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 6 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 6 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 6 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 6 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 6 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 10 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 6 is out of bounds for axis 0 with size 1Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 6 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 6 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 6 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 3 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 6 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 6 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 6 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 15 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/home/d.mingers/diverses/brunel/brunel_exp_blau3.py", line 63, in <module>
+    Vres = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
+IndexError: index 16 is out of bounds for axis 0 with size 1

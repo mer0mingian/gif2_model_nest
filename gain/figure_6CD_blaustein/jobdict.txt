@@ -1,0 +1,5 @@
+{'simindex': 1, 'N': 5000, 'stimtype': 'current', 't_sim': 5500., 't_rec': 5000., 't_recstart': 500, 'synweight': 40, 'nbins':150}
+{'simindex': 1, 'N': 5000, 'stimtype': 'current', 't_sim': 10500., 't_rec': 10000., 't_recstart': 500, 'synweight': 40, 'nbins':75}
+{'simindex': 1, 'N': 5000, 'stimtype': 'current', 't_sim': 10500., 't_rec': 10000., 't_recstart': 500, 'synweight': 40, 'nbins':5000}
+{'simindex': 1, 'N': 10000, 'stimtype': 'current', 't_sim': 11500., 't_rec': 10000., 't_recstart': 1500, 'synweight': 40, 'nbins':5000}
+{'simindex': 1, 'N': 15000, 'stimtype': 'current', 't_sim': 21500., 't_rec': 20000., 't_recstart': 1500, 'synweight': 40, 'nbins':5000}

@@ -1,0 +1,2 @@
+mpirun: Forwarding signal 18 to job
+slurmstepd: error: *** JOB 580047 ON blaustein10 CANCELLED AT 2016-09-06T20:34:41 ***

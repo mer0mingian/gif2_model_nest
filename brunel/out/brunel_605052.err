@@ -1,0 +1,23 @@
+mpirun: Forwarding signal 18 to job
+slurmstepd: error: *** JOB 605067 ON blaustein32 CANCELLED AT 2016-09-15T11:26:26 ***
+ANCELLED AT 2016-09-15T11:26:26 ***
+mpirun: Forwarding signal 18 to job
+mpirun: Forwarding signal 18 to job
+mpirun: Forwarding signal 18 to job
+slurmstepd: error: *** JOB 605058 ON blaustein23 CANCELLED AT 2016-09-15T11:26:30 ***
+slurmstepd: error: *** JOB 605068 ON blaustein01 CANCELLED AT 2016-09-15T11:26:28 ***
+slurmstepd: error: *** JOB 605065 ON blaustein30 CANCELLED AT 2016-09-15T11:26:27 ***
+slurmstepd: error: *** JOB 605060 ON blaustein25 CANCELLED AT 2016-09-15T11:26:30 ***
+mpirun: Forwarding signal 18 to job
+mpirun: Forwarding signal 18 to job
+ blaustein29 CANCELLED AT 2016-09-15T11:26:27 ***
+mpirun: Forwarding signal 18 to job
+mpirun: Forwarding signal 18 to job
+slurmstepd: error: *** JOB 605066 ON blaustein31 CANCELLED AT 2016-09-15T11:26:27 ***
+slurmstepd: error: *** JOB 605061 ON blaustein26 CANCELLED AT 2016-09-15T11:26:29 ***
+mpirun: Forwarding signal 18 to job
+slurmstepd: error: *** JOB 605055 ON blaustein20 CANCELLED AT 2016-09-15T11:26:30 ***
+slurmstepd: error: *** JOB 605059 ON blaustein24 CANCELLED AT 2016-09-15T11:26:32 ***
+slurmstepd: error: *** JOB 605057 ON blaustein22 CANCELLED AT 2016-09-15T11:26:30 ***
+slurmstepd: error: *** JOB 605062 ON blaustein27 CANCELLED AT 2016-09-15T11:26:30 ***
+slurmstepd: error: *** JOB 605056 ON blaustein21 CANCELLED AT 2016-09-15T11:26:31 ***
