@@ -28,21 +28,21 @@ rc('mathtext', default='regular')
 # -----------------------------------------------------------------------------
 
 
-def mysine(t, f2, amp, off):
+class sinus:
 	"""
-	Sine function for fitting only the amplitude, frequency and offset.
-	:return: sine function with given parameters
+	This class allows for initialisation of a fittable sine function with a
+	frequency fixed at the stimulation frequency.
 	"""
-	return amp * np.sin(2. * np.pi * f2 * t) + off
 
+	def __init__(self, freq):
+		self.f = freq
 
-def mysine2(t, f_reconstructed, amp, off, phi):
-	"""
-	Sine function for fitting amplitude, frequency, offset and phase.
-	:return: sine function with given parameters
-	"""
-	return amp * np.sin(2. * np.pi * f_reconstructed * t + phi) + off
-
+	def fit(self, t, amp, off, phi):
+		"""
+        Sine function for fitting amplitude, frequency, offset and phase.
+        :return: sine function with given parameters
+        """
+		return amp * np.sin(2. * np.pi * self.f * t + phi) + off
 
 # -----------------------------------------------------------------------------
 # Parser functions for handling parameters
@@ -154,11 +154,10 @@ def compute_histogram(spike_times, simparameterdict):
 	# Generate the histogram
 	if len(spike_times) > 1:
 		# compute the width of one bin from given number of bins:
-		hist_binwidth = float(simparameterdict[ 't_rec' ]) / int(
-			simparameterdict[ 'nbins' ])
+		hist_binwidth = simparameterdict[ 'binwidth' ]
 		# compute the time indices for the bins:
 		t_bins = np.arange(np.amin(spike_times), np.amax(spike_times),
-						   float(hist_binwidth))
+						   hist_binwidth)
 		# compute the bin heights n. bins = t_bins is just an additional
 		# output:
 		n, t_bins = np.histogram(spike_times, bins=t_bins)
@@ -167,44 +166,7 @@ def compute_histogram(spike_times, simparameterdict):
 	return t_bins, heights, hist_binwidth
 
 
-def compute_gain(bins, heights, hist_binwidth, I_1, f):
-	"""
-	Copmutes gain by fitting a sinus to the firing rate histogram.
-	popt2 contains: frequency, amplitude, offset, phase
-	:param bins: bin location for histogram
-	:param heights: bar height for histogram
-	:param hist_binwidth auxiliary parameter for shifting the bins
-	:param I_1 amplitude of the oscillatory signal for computing the gain
-	:param f: frequency
-	:return: gain[ amplitude, phase ]
-	"""
-	# set up auxiliary variables and start values for fitting:
-	gain = np.zeros(2)
-	r_0_reconstructed = np.mean(heights)  # mean firing rate
-	f_reconstructed = f / 1000.  # frequency, 1/ms instead of Hz
-	amp_guess = (max(heights) - min(heights)) / 2.
-	phase = 0.1  # current injection works with a delay of 0.1 ms
-	bins = bins[ 1: ]  # for compatibility with np.histogram
-
-	try:
-		# fit a sine to the firing rates
-		popt2, pcov2 = opti.curve_fit(mysine2, bins, heights, p0=(
-			f_reconstructed, amp_guess, r_0_reconstructed, phase))
-
-		# create the sine timeseries to calculate with
-		sinecurve = mysine2(bins - hist_binwidth, f_reconstructed, popt2[ 1 ],
-							popt2[ 2 ], popt2[ 3 ])
-		if f == 0:
-			exp_r_0 = popt2[ 2 ]
-		r_1_reconstructed = max(abs(sinecurve - abs(popt2[ 2 ])))
-		gain[ 0 ] = abs(r_1_reconstructed / I_1)
-		gain[ 1 ] = popt2[ 3 ]
-	except RuntimeError:
-		gain = np.array([ 0., 0. ])
-	return gain, r_0_reconstructed
-
-
-def compute_gain2(bins, heights, hist_binwidth, I_1, f, dt, voltage, multiplotindex, condition, alt_phase = False, printing=False):
+def compute_gain2(bins, heights, hist_binwidth, I_1, f, dt, voltage, condition):
 	"""
 	This version uses an alternate phase computation to get the difference in
 	phase between the fitted sinus and the driving signal.
@@ -218,65 +180,49 @@ def compute_gain2(bins, heights, hist_binwidth, I_1, f, dt, voltage, multiplotin
 	# get the stim params to set up start values:
 	simparams = import_params_as_dict(filename='jobdict.txt')
 	t_recstart = simparams[ 't_recstart' ]
-	N = simparams[ 'N' ]
+	t_rec = simparams[ 't_rec' ]
+	t_sim = t_rec - t_recstart
+	# N = simparams[ 'N' ]
 
 	# set up auxiliary variables and start values for fitting:
 	gain = np.zeros(2)
-	r_0_reconstructed = np.mean(heights)  # mean firing rate
-	I_0_reconstructed = np.mean(voltage)  # mean driving current
-	f_reconstructed = f / 1000.  # frequency, 1/ms instead of Hz
-	amp_guess_r = (max(heights) + min(heights)) / 2. - r_0_reconstructed
-	amp_guess_I = (max(voltage) + min(voltage)) / 2. - I_0_reconstructed
+	r_0_rc = np.mean(heights)  # mean firing rate
+	I_0_rc = np.mean(voltage)  # mean driving current
+	f_rc = f / 1000.  # frequency, 1/ms instead of Hz
+	amp_guess_r = (max(heights) - min(heights)) / 2.
+	amp_guess_I = (max(voltage) - min(voltage)) / 2.
 	if alt_phase:
 		phase = 0
 	else:
 		# current injection works with a delay of 0.1 ms
-		phase = -(((t_recstart - dt)/1000 * f_reconstructed) % 1) * 360
+		phase = -(((t_recstart - dt)/1000 * f_rc) % 1) * 360
 	bins = bins[ 1: ]  # for compatibility with np.histogram
+	mysine = Sinus(f)
 
 	try:
 		# fit a sine to the firing rates
-		popt2, pcov2 = opti.curve_fit(mysine2, bins, heights, p0=(f_reconstructed, amp_guess_r, r_0_reconstructed, phase))
+		popt2, pcov2 = opti.curve_fit(mysine.fit, bins, heights, p0=(amp_guess_r, r_0_rc, phase))
 
 		# create the sine timeseries to calculate with
-		sinecurve = mysine2(bins - hist_binwidth, f_reconstructed, popt2[ 1 ],
-							popt2[ 2 ], popt2[ 3 ])
+		sinecurve = mysine.fit(bins - hist_binwidth, popt2[ 1 ], popt2[ 2 ], popt2[ 3 ])
 		if f == 0:
 			exp_r_0 = popt2[ 2 ]
-		r_1_reconstructed = max(abs(sinecurve - abs(popt2[ 2 ])))
-		gain[ 0 ] = abs(r_1_reconstructed / I_1)
+		r_1_rc = max(abs(sinecurve - abs(popt2[ 2 ])))
+		gain[ 0 ] = abs(r_1_rc / I_1)
 		gain[ 1 ] = popt2[ 3 ]
+		# correct again for the phase delay of the generator:
+		gain[ 1 ] -= dt * 2 * np.pi
 		try:
 			# respect the phase of the driving signal!
-			popt3, pcov3 = opti.curve_fit(mysine2, bins, voltage, p0=(f_reconstructed, amp_guess_I, I_0_reconstructed, phase))
+			popt3, pcov3 = opti.curve_fit(mysine.fit, bins, voltage, p0=(amp_guess_I, I_0_rc, phase))
 			gain[ 1 ] = popt2[ 3 ] / popt3[ 3 ]
+			gain[ 1 ] -= dt * 2 * np.pi
 		except RuntimeError:
 			gain[ 1 ] = 0
 	except RuntimeError:
 		gain[ 0 ] = 0
 
-	# Do I want to have plots for the multiplot?
-	if printing:
-		row = (multiplotindex - (multiplotindex % 4)) / 4
-		col = multiplotindex % 4
-
-		if condition == 'r':
-			plt.bar(bins, heights, width=hist_binwidth, color="blue", edgecolor="blue")
-			condition2 = 0
-		elif condition =='R':
-			plt.bar(bins, heights, width=hist_binwidth, color="red", edgecolor="red")
-			condition2 = 1
-		plt.yticks([ int(x) for x in np.linspace(0.0, int(max(heights) * 1.1) + 5, 4) ])
-		plt.ylabel("rate [Hz]", size=12)
-		plt.xlabel("time [ms]", size=12)
-		plt.xlim([ t_recstart, t_sim ])
-
-		# mean firing rate
-		plt.plot(np.ones(t_sim + 1) * r_0_reconstructed, c="black", ls="-")
-		plt.plot(bins, sinecurve, color='black')
-		# save figure in readable format
-		plt.savefig('multiplotfigs/singlefit_{0}_{1}_{2}.png'.format(condition2, row, col), dpi=720)
-	return gain, r_0_reconstructed
+	return gain, r_0_rc
 
 
 # -----------------------------------------------------------------------------
@@ -336,7 +282,9 @@ def show_gain(gainmat, conditions, save=True):
 							 np.logspace(-1., 2., num=len(
 								 np.unique(gainmat[ :, 1 ])) -1 )))
 	# TODO: make this more flexible to allow for more conditions!!!
-	sinecurve = mysine(bins - hist_binwidth, f2, popt[ 1 ], popt[ 2 ])
+	f = 10. 
+	mysine = Sinus(f)
+	sinecurve = mysine.fit(bins - hist_binwidth, popt[ 1 ], popt[ 2 ])
 	plt.plot(bins, sinecurve, color='black')
 
 	freqinddict = dict()

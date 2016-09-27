@@ -1,4 +1,6 @@
 *~
 *.pyc
 deprecated/
-
+gain/deprecated/
+*.err
+*.out

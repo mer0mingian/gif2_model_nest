@@ -50,7 +50,7 @@ for condition in noise_conditions:
                           "overwrite_files": True})
 
     simparameterdict = import_params_as_dict(filename='jobdict.txt')
-    # contains N, nbins, current/poisson, t_sim, t_rec, t_recstart,
+    # contains N, binwidth, current/poisson, t_rec, t_recstart,
     # simindex, synweight
 
     neuronparamdict = import_params_as_dict(filename='neurondict.txt')
@@ -104,7 +104,7 @@ for condition in noise_conditions:
     nest.Connect(volty, stim_xi)
 
     # SIMULATE
-    nest.Simulate(simparameterdict[ 't_sim' ])
+    nest.Simulate(simparameterdict[ 't_rec' ] + simparameterdict[ 't_recstart' ])
 
 
     # RECORDING
