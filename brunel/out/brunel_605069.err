@@ -1,4 +1,0 @@
-Traceback (most recent call last):
-  File "/home/d.mingers/diverses/brunel/brunel_exp_blau4.py", line 78, in <module>
-    C_m2 = parspace[ int(sys.argv[ 2 ]) ]  # 250.0
-IndexError: list index out of range

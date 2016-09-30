@@ -1,4 +1,0 @@
-Traceback (most recent call last):
-  File "/home/d.mingers/diverses/brunel/brunel_exp_blau.py", line 220, in <module>
-    '$C = ${0}pF, $g = ${3}nS, $g_1 = ${1}nS, $t_1 = ${2}ms, $p_{rate} = ${4}'.format(C_m2, g_1, tau_1, g_m, p_rate),
-KeyError: 'rate'

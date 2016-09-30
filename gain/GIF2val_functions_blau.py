@@ -282,7 +282,7 @@ def show_gain(gainmat, conditions, save=True):
 							 np.logspace(-1., 2., num=len(
 								 np.unique(gainmat[ :, 1 ])) -1 )))
 	# TODO: make this more flexible to allow for more conditions!!!
-	f = 10. 
+	f = 10.
 	mysine = Sinus(f)
 	sinecurve = mysine.fit(bins - hist_binwidth, popt[ 1 ], popt[ 2 ])
 	plt.plot(bins, sinecurve, color='black')
