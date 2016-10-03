@@ -1,0 +1,99 @@
+frac = 0.5
+Excitatory rate   : 141.12 Hz
+Resonating rate   : 263.12 Hz
+Inhibitory rate   : 145.18 Hz
+Building time     : 0.91 s
+Simulation time   : 13.79 s
+mean CV for sim 10: 0.730126478426
+CVex 0.520256802726, CVre 1.15884969493, CVin 0.511272937626, CVexall0.839553248826
+$C = $450.0, $g = $25.0, $g_1 = $25.0, $t_1 = $100.0, $p = $48560.0862346, $h=$1.9, $p_2 =$66000.0
+
+frac = 0.55
+Excitatory rate   : 125.28 Hz
+Resonating rate   : 291.77 Hz
+Inhibitory rate   : 145.40 Hz
+Building time     : 0.94 s
+Simulation time   : 12.90 s
+mean CV for sim 11: 0.752585062809
+CVex 0.522357079758, CVre 1.15621284218, CVin 0.508861956824, CVexall0.874470992988
+$C = $450.0, $g = $25.0, $g_1 = $25.0, $t_1 = $100.0, $p = $48560.0862346, $h=$1.9, $p_2 =$66000.0
+
+frac = 0.6
+Excitatory rate   : 109.94 Hz
+Resonating rate   : 320.54 Hz
+Inhibitory rate   : 145.51 Hz
+Building time     : 0.96 s
+Simulation time   : 13.99 s
+mean CV for sim 12: 0.777979639361
+CVex 0.517550539202, CVre 1.16415538184, CVin 0.508582550333, CVexall0.912705128973
+$C = $450.0, $g = $25.0, $g_1 = $25.0, $t_1 = $100.0, $p = $48560.0862346, $h=$1.9, $p_2 =$66000.0
+
+frac = 0.65
+Excitatory rate   : 94.08 Hz
+Resonating rate   : 350.93 Hz
+Inhibitory rate   : 145.98 Hz
+Building time     : 1.02 s
+Simulation time   : 14.41 s
+mean CV for sim 13: 0.799620557867
+CVex 0.521903591276, CVre 1.15489202604, CVin 0.511043223029, CVexall0.943938088792
+$C = $450.0, $g = $25.0, $g_1 = $25.0, $t_1 = $100.0, $p = $48560.0862346, $h=$1.9, $p_2 =$66000.0
+
+frac = 0.7
+Excitatory rate   : 78.67 Hz
+Resonating rate   : 379.94 Hz
+Inhibitory rate   : 145.70 Hz
+Building time     : 0.93 s
+Simulation time   : 14.72 s
+mean CV for sim 14: 0.828699659404
+CVex 0.518701754453, CVre 1.16789868509, CVin 0.510871423538, CVexall0.987645566519
+$C = $450.0, $g = $25.0, $g_1 = $25.0, $t_1 = $100.0, $p = $48560.0862346, $h=$1.9, $p_2 =$66000.0
+
+frac = 0.75
+Excitatory rate   : 62.75 Hz
+Resonating rate   : 409.90 Hz
+Inhibitory rate   : 145.78 Hz
+Building time     : 0.91 s
+Simulation time   : 15.05 s
+mean CV for sim 15: 0.848585833639
+CVex 0.521717040372, CVre 1.16020722461, CVin 0.509212738123, CVexall1.01830632549
+$C = $450.0, $g = $25.0, $g_1 = $25.0, $t_1 = $100.0, $p = $48560.0862346, $h=$1.9, $p_2 =$66000.0
+
+frac = 0.8
+Excitatory rate   : 47.10 Hz
+Resonating rate   : 437.73 Hz
+Inhibitory rate   : 146.20 Hz
+Building time     : 0.95 s
+Simulation time   : 15.06 s
+mean CV for sim 16: 0.872639584208
+CVex 0.522556139614, CVre 1.16292118368, CVin 0.50556213059, CVexall1.05621502611
+$C = $450.0, $g = $25.0, $g_1 = $25.0, $t_1 = $100.0, $p = $48560.0862346, $h=$1.9, $p_2 =$66000.0
+
+frac = 0.85 
+Excitatory rate   : 31.37 Hz
+Resonating rate   : 468.03 Hz
+Inhibitory rate   : 146.61 Hz
+Building time     : 1.01 s
+Simulation time   : 17.61 s
+mean CV for sim 17: 0.896318715705
+CVex 0.519405302476, CVre 1.16049746587, CVin 0.510389347151, CVexall1.08932200064
+$C = $450.0, $g = $25.0, $g_1 = $25.0, $t_1 = $100.0, $p = $48560.0862346, $h=$1.9, $p_2 =$66000.0
+
+frac = 0.9
+Excitatory rate   : 15.70 Hz
+Resonating rate   : 497.08 Hz
+Inhibitory rate   : 146.41 Hz
+Building time     : 1.00 s
+Simulation time   : 17.14 s
+mean CV for sim 18: 0.926875595975
+CVex 0.52594253585, CVre 1.17219492156, CVin 0.507939836869, CVexall1.13638537748
+$C = $450.0, $g = $25.0, $g_1 = $25.0, $t_1 = $100.0, $p = $48560.0862346, $h=$1.9, $p_2 =$66000.0
+
+frac = 0.95
+Excitatory rate   : 0.06 Hz
+Resonating rate   : 526.71 Hz
+Inhibitory rate   : 146.38 Hz
+Building time     : 0.96 s
+Simulation time   : 17.32 s
+mean CV for sim 19: 0.951855250449
+CVex 0.334058858103, CVre 1.17358977006, CVin 0.508633329785, CVexall1.17342189745
+$C = $450.0, $g = $25.0, $g_1 = $25.0, $t_1 = $100.0, $p = $nan, $h=$1.9, $p_2 =$66000.0
