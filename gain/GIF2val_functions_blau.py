@@ -1,29 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-I am going to need these functions:
-	- set parameters from a string
-	- create devices from parameters
-	- simulate with fixed f, parameters	
-	- create histogram to fit with
-	- normalize histogram
-	- write histogram to file
-	- load histogram
-	- fit histogram
-	- compute gain from fit
-	
-	The functions in this file will later be imported into 
-	an executable python script. This python script will in
-	turn be called by a sbatch script that starts computation
-	on Blaustein.
+Functions for computing the gain and thus a validation of the gif2_model from
+Richardson et al. (2003) "From subthreshold resonance to firing-rate resonance"
+for PyNest 2.11.0. Should be in the same folder as GIF2val_execution.py.
 
-	Suggested workflow: JOB ARRAY
-	1.) run this scripit to set functions
-	2.) run a bash script that does the following:
-		2.1) run a function that write all the simulation parameters into a
-			 hash code file.
-		2.2) execute an array job with a script.
-			2.2.1) update the hash file
-		2.3) update
+Author: D. Mingers, Sep 2016
+
+Changelog:
+27.09.:
+- adapted amg_guesss
 """
 # -----------------------------------------------------------------------------
 # Imports and setup of Nest
@@ -31,6 +16,8 @@ I am going to need these functions:
 import numpy as np
 import scipy.optimize as opti
 import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
+import matplotlib.image as mpimg
 from matplotlib import rc
 
 rc('mathtext', default='regular')
@@ -76,11 +63,10 @@ def get_stim_params(paramdict, f, condition, dt=0.1):
 					C_m=250., g=25., g_1=25.,
 					I_0_manual=2000., I_1_manual=50., I_N_manual=100.,
 					synweight=40.
-	TODO: adjust the phase according to Jannis commentary!!!!!
 	"""
 	phase = 0.0
 	ac_phase = -(
-		((float(paramdict[ 't_recstart' ]) - 0.1) / 1000. * f) % 1) * 360
+		((float(paramdict[ 't_recstart' ]) - dt) / 1000. * f) % 1) * 360
 	if condition is not None:
 		if paramdict[ 'stimtype' ] == 'current':
 			r_stimdict = dict()
@@ -122,6 +108,9 @@ def get_stim_params(paramdict, f, condition, dt=0.1):
 
 
 def write_results(resultdict, filename='gains.csv'):
+	"""
+	exports the results for a single datapoint to the results file.
+	"""
 	myCsvRow = str('{0}:{1}:{2}:{3}\n'.format(resultdict[ 'freqindex' ],
 											  resultdict[ 'condition' ],
 											  resultdict[ 'gain' ][ 0 ],
@@ -134,6 +123,9 @@ def write_results(resultdict, filename='gains.csv'):
 
 
 def import_params_as_dict(filename='jobdict.txt'):
+	"""
+	imports simulation or neuron parameters from txt-file into distionary
+	"""
 	paramdict = dict()
 	with open(filename, 'r') as jobhashes:
 		lasthash = jobhashes.readlines()[ -1 ]
@@ -156,6 +148,9 @@ def import_params_as_dict(filename='jobdict.txt'):
 # -----------------------------------------------------------------------------
 
 def compute_histogram(spike_times, simparameterdict):
+	"""
+	compute a histogram to fit a sinusoidal to the firing rate
+	"""
 	# Generate the histogram
 	if len(spike_times) > 1:
 		# compute the width of one bin from given number of bins:
@@ -187,7 +182,7 @@ def compute_gain(bins, heights, hist_binwidth, I_1, f):
 	gain = np.zeros(2)
 	r_0_reconstructed = np.mean(heights)  # mean firing rate
 	f_reconstructed = f / 1000.  # frequency, 1/ms instead of Hz
-	amp_guess = (max(heights) + min(heights)) / 2. - r_0_reconstructed
+	amp_guess = (max(heights) - min(heights)) / 2.
 	phase = 0.1  # current injection works with a delay of 0.1 ms
 	bins = bins[ 1: ]  # for compatibility with np.histogram
 
@@ -206,6 +201,81 @@ def compute_gain(bins, heights, hist_binwidth, I_1, f):
 		gain[ 1 ] = popt2[ 3 ]
 	except RuntimeError:
 		gain = np.array([ 0., 0. ])
+	return gain, r_0_reconstructed
+
+
+def compute_gain2(bins, heights, hist_binwidth, I_1, f, dt, voltage, multiplotindex, condition, alt_phase = False, printing=False):
+	"""
+	This version uses an alternate phase computation to get the difference in
+	phase between the fitted sinus and the driving signal.
+	:param bins: bin location for histogram
+	:param heights: bar height for histogram
+	:param hist_binwidth auxiliary parameter for shifting the bins
+	:param I_1 amplitude of the oscillatory signal for computing the gain
+	:param f: frequency
+	:return: gain[ amplitude, phase ]
+	"""
+	# get the stim params to set up start values:
+	simparams = import_params_as_dict(filename='jobdict.txt')
+	t_recstart = simparams[ 't_recstart' ]
+	N = simparams[ 'N' ]
+
+	# set up auxiliary variables and start values for fitting:
+	gain = np.zeros(2)
+	r_0_reconstructed = np.mean(heights)  # mean firing rate
+	I_0_reconstructed = np.mean(voltage)  # mean driving current
+	f_reconstructed = f / 1000.  # frequency, 1/ms instead of Hz
+	amp_guess_r = (max(heights) + min(heights)) / 2. - r_0_reconstructed
+	amp_guess_I = (max(voltage) + min(voltage)) / 2. - I_0_reconstructed
+	if alt_phase:
+		phase = 0
+	else:
+		# current injection works with a delay of 0.1 ms
+		phase = -(((t_recstart - dt)/1000 * f_reconstructed) % 1) * 360
+	bins = bins[ 1: ]  # for compatibility with np.histogram
+
+	try:
+		# fit a sine to the firing rates
+		popt2, pcov2 = opti.curve_fit(mysine2, bins, heights, p0=(f_reconstructed, amp_guess_r, r_0_reconstructed, phase))
+
+		# create the sine timeseries to calculate with
+		sinecurve = mysine2(bins - hist_binwidth, f_reconstructed, popt2[ 1 ],
+							popt2[ 2 ], popt2[ 3 ])
+		if f == 0:
+			exp_r_0 = popt2[ 2 ]
+		r_1_reconstructed = max(abs(sinecurve - abs(popt2[ 2 ])))
+		gain[ 0 ] = abs(r_1_reconstructed / I_1)
+		gain[ 1 ] = popt2[ 3 ]
+		try:
+			# respect the phase of the driving signal!
+			popt3, pcov3 = opti.curve_fit(mysine2, bins, voltage, p0=(f_reconstructed, amp_guess_I, I_0_reconstructed, phase))
+			gain[ 1 ] = popt2[ 3 ] / popt3[ 3 ]
+		except RuntimeError:
+			gain[ 1 ] = 0
+	except RuntimeError:
+		gain[ 0 ] = 0
+
+	# Do I want to have plots for the multiplot?
+	if printing:
+		row = (multiplotindex - (multiplotindex % 4)) / 4
+		col = multiplotindex % 4
+
+		if condition == 'r':
+			plt.bar(bins, heights, width=hist_binwidth, color="blue", edgecolor="blue")
+			condition2 = 0
+		elif condition =='R':
+			plt.bar(bins, heights, width=hist_binwidth, color="red", edgecolor="red")
+			condition2 = 1
+		plt.yticks([ int(x) for x in np.linspace(0.0, int(max(heights) * 1.1) + 5, 4) ])
+		plt.ylabel("rate [Hz]", size=12)
+		plt.xlabel("time [ms]", size=12)
+		plt.xlim([ t_recstart, t_sim ])
+
+		# mean firing rate
+		plt.plot(np.ones(t_sim + 1) * r_0_reconstructed, c="black", ls="-")
+		plt.plot(bins, sinecurve, color='black')
+		# save figure in readable format
+		plt.savefig('multiplotfigs/singlefit_{0}_{1}_{2}.png'.format(condition2, row, col), dpi=720)
 	return gain, r_0_reconstructed
 
 
@@ -266,6 +336,8 @@ def show_gain(gainmat, conditions, save=True):
 							 np.logspace(-1., 2., num=len(
 								 np.unique(gainmat[ :, 1 ])) -1 )))
 	# TODO: make this more flexible to allow for more conditions!!!
+	sinecurve = mysine(bins - hist_binwidth, f2, popt[ 1 ], popt[ 2 ])
+	plt.plot(bins, sinecurve, color='black')
 
 	freqinddict = dict()
 	freqdict = dict()
@@ -337,4 +409,26 @@ def gain_plots(normalise=True, withone=False):
 		gains[ :, 2 ] /= gains[ 1, 2 ]
 		gains[ :, 3 ] /= gains[ 1, 3 ]
 	fig = show_gain(gains, conditions, save=True)
+	return fig
+
+
+# -----------------------------------------------------------------------------
+# Multiplots
+# -----------------------------------------------------------------------------
+
+def gain_fits_multiplot():
+	"""
+	create a multiplot, each showing a fit of a single datapoint.
+	"""
+	fig = plt.figure()
+	G = gridspec.GridSpec(4, 4)
+	for k in np.arange(0, 2):
+		for i in np.arange(0, 4):
+			for j in np.arange(0, 4):
+				img = mpimg.imread('multiplotfigs/singlefit_{0}_{1}_{2}.png'.format(k, i, j))
+				axis_new = plt.subplot(G[ i, j ])  # location on grid
+				plt.xticks(())
+				plt.yticks(())
+				imgplot = plt.imshow(img)  # insert new figure
+		plt.savefig('multiplot_{0}.png'.format(k), dpi=720)
 	return fig

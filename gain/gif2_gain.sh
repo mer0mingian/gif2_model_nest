@@ -8,4 +8,5 @@
 #SBATCH --exclusive
 #SBATCH --mem=10000
 ##################################################################
+conda activate mingpython
 srun python GIF2val_execution.py $SLURM_ARRAY_TASK_ID 107
