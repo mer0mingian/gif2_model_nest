@@ -14,7 +14,7 @@ import elephant.statistics as es
 import csv
 from itertools import product
 
-cluster = False
+cluster = True
 
 
 def write_excitability_results(filename, resultarray):
@@ -79,8 +79,8 @@ if __name__ == '__main__':
     p_rate = float(sys.argv[ 1 ])
     C_m2 = 100.0
     indexarray = np.zeros(10)
-    C_range = np.linspace(100.0, 600.0, 5)  # np.arange(100.0, 600.0, 25.0)
-    g_range = np.linspace(5.0, 90.0, 8)  # np.arange(5.0, 90.0, 5.0)
+    C_range = np.linspace(100.0, 600.0, 20)  # np.arange(100.0, 600.0, 25.0)
+    g_range = np.linspace(5.0, 90.0, 20)  # np.arange(5.0, 90.0, 5.0)
     cases = len(C_range) * len(g_range) * len(g_range)
     g_m = 5.0
     g_1 = 5.0

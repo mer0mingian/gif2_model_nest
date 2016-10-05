@@ -1,0 +1,35 @@
+/var/spool/slurm/slurmd/job645670/slurm_script: line 11: conda: command not found
+/var/spool/slurm/slurmd/job645671/slurm_script: line 11: conda: command not found
+/var/spool/slurm/slurmd/job645677/slurm_script: line 11: conda: command not found
+srun: got SIGCONT
+srun: got SIGCONT
+srun: got SIGCONT
+slurmstepd: error: *** STEP 645677.0 ON blaustein31 CANCELLED AT 2016-09-27T12:13:20 ***
+slurmstepd: error: *** JOB 645673 ON blaustein27 CANCELLED AT 2016-09-27T12:13:26 ***
+slurmstepd: error: *** JOB 645675 ON blaustein29 CANCELLED AT 2016-09-27T12:13:20 ***
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+srun: forcing job termination
+5673.0 ON blaustein27 CANCELLED AT 2016-09-27T12:13:26 ***
+slurmstepd: error: *** STEP 645675.0 ON blaustein29 CANCELLED AT 2016-09-27T12:13:20 ***
+srun: got SIGCONT
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+27T12:13:28 ***
+srun: got SIGCONT
+rted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 645671 ON blaustein25 CANCELLED AT 2016-09-27T12:13:24 ***
+slurmstepd: error: *** JOB 645670 ON blaustein24 CANCELLED AT 2016-09-27T12:13:28 ***
+srun: forcing job termination
+674 ON blaustein28 CANCELLED AT 2016-09-27T12:13:18 ***
+srun: forcing job termination
+slurmstepd: error: *** JOB 645672 ON blaustein26 CANCELLED AT 2016-09-27T12:13:23 ***
+srun: forcing job termination
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** STEP 645672.0 ON blaustein26 CANCELLED AT 2016-09-27T12:13:23 ***
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 645676 ON blaustein30 CANCELLED AT 2016-09-27T12:13:20 ***
+srun: forcing job termination
+srun: forcing job termination
+slurmstepd: error: *** STEP 645676.0 ON blaustein30 CANCELLED AT 2016-09-27T12:13:20 ***
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** STEP 645671.0 ON blaustein25 CANCELLED AT 2016-09-27T12:13:24 ***
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.

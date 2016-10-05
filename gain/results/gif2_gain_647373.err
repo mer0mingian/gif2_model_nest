@@ -1,0 +1,40 @@
+discarding /opt/software/pystuff_new/bin from PATH
+discarding /opt/software/pystuff_new/bin from PATH
+discarding /opt/software/pystuff_new/bin from PATH
+discarding /opt/software/pystuff_new/bin from PATH
+discarding /opt/software/pystuff_new/bin from PATH
+discarding /opt/software/pystuff_new/bin from PATH
+discarding /opt/software/pystuff_new/bin from PATH
+discarding /opt/software/pystuff_new/bin from PATH
+prepending /home/d.mingers/.conda/envs/mingpython/bin to PATH
+prepending /home/d.mingers/.conda/envs/mingpython/bin to PATH
+prepending /home/d.mingers/.conda/envs/mingpython/bin to PATH
+prepending /home/d.mingers/.conda/envs/mingpython/bin to PATH
+prepending /home/d.mingers/.conda/envs/mingpython/bin to PATH
+prepending /home/d.mingers/.conda/envs/mingpython/bin to PATH
+slurmstepd: error: *** STEP 647501.0 ON blaustein01 CANCELLED AT 2016-09-28T13:26:35 DUE TO TIME LIMIT ***
+slurmstepd: error: *** STEP 647503.0 ON blaustein21 CANCELLED AT 2016-09-28T13:26:41 DUE TO TIME LIMIT ***
+slurmstepd: error: *** JOB 647503 ON blaustein21 CANCELLED AT 2016-09-28T13:26:41 DUE TO TIME LIMIT ***
+**
+slurmstepd: error: *** STEP 647505.0 ON blaustein32 CANCELLED AT 2016-09-28T13:26:34 DUE TO TIME LIMIT *srun: got SIGCONT
+srun: got SIGCONT
+ *** JOB 647505 ON blaustein32 CANCELLED AT 2016-09-28T13:26:34 DUE TO TIME LIMIT ***
+srun: got SIGCONT
+slurmstepd: error: *** STEP 64srun: forcing job termination
+D AT 2016-09-28T13:26:39 DUE TO TIME LIMIT ***
+slurmstepd: error: *** JOB 647506 ON blaustein25 CANCELLED AT 2016-09-28T13:26:39 DUE TO TIME LIMIT ***
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+13:26:38 DUE TO TIME LIMIT ***
+srun: forcing job termination
+373 ON blaustein27 CANCELLED AT 2016-09-28T13:26:40 DUE TO TIME LIMIT ***
+slurmstepd: error: *** STEP 647507.0 ON blaustein26 CANCELLED AT 2016-09-28T13:26:38 DUE TO TIME LIMIT ***
+slurmstepd: error: *** STEP 647373.0 ON blaustein27 CANCELLED AT 2016-09-28T13:26:40 DUE TO TIME LIMIT ***
+srun: Job step abosrun: Job step aborted: Waiting up to 32 seconds for josrun: got SIGCONT
+rted: Waiting up to 32 seconds for job step to finish.
+srun: forcing job termination
+srun: forcing job termination
+srun: forcing job termination
+g up to 32 seconds for job step to finish.
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+srun: forcing job termination
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.

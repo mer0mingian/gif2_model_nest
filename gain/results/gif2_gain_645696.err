@@ -1,0 +1,38 @@
+discarding /home/d.mingers/.conda/envs/mingpython/bin from PATH
+discarding /home/d.mingers/.conda/envs/mingpython/bin from PATH
+discarding /home/d.mingers/.conda/envs/mingpython/bin from PATH
+discarding /home/d.mingers/.conda/envs/mingpython/bin from PATH
+discarding /home/d.mingers/.conda/envs/mingpython/bin from PATH
+discarding /home/d.mingers/.conda/envs/mingpython/bin from PATH
+prepending /home/d.mingers/.conda/envs/mingpython/bin to PATH
+prepending /home/d.mingers/.conda/envs/mingpython/bin to PATH
+prepending /home/d.mingers/.conda/envs/mingpython/bin to PATH
+prepending /home/d.mingers/.conda/envs/mingpython/bin to PATH
+prepending /home/d.mingers/.conda/envs/mingpython/bin to PATH
+prepending /home/d.mingers/.conda/envs/mingpython/bin to PATH
+prepending /home/d.mingers/.conda/envs/mingpython/bin to PATH
+prepending /home/d.mingers/.conda/envs/mingpython/bin to PATH
+srun: got SIGCONT
+ *** JOB 645704 ON blaustein07 CANCELLED AT 2016-09-27T12:32:27 ***
+srun: got SIGCONT
+srun: got SIGCONT
+ *** JOB 645703 ON blaustein06 CANCELLED AT 2016-09-27T12:32:28 ***
+slurmstepd: error: *** JOB 645701 ON blaustein04 CANCELLED AT 2016-09-27T12:32:27 ***
+**
+slurmstepd: error: *** JOB 645702 ON blaustein05 CANCELLED AT 2016-09-27Tsrun: forcing job termination
+ termination
+slurmstepd: error:srun: got SIGCONT
+termination
+n07 CANCELLED AT 2016-09-27T12:32:27 ***
+slurmstepd: error:slurmstepd: error: *** STEP 645698.0 ON blaustein01 CANCELLED AT 2016-09-27T12:32:29 ***
+slurmstepd: error: *** STEP 645701.0 ON blaustein04 CANCELLED AT 2016-09-27T12:32:27 ***
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+12:32:29 ***
+srun: forcing job termination
+g up to 32 seconds for job step to finish.
+srun: forcing job termination
+slurmstepd: error: *** STEP 645697.0 ON blaustein32 CANCELLED AT 2016-09-27T12:32:27 ***
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+srun: forcing job termination
+slurmstepd: error: *** STEP 645700.0 ON blaustein03 CANCELLED AT 2016-09-27T12:32:29 ***
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.

@@ -1,0 +1,59 @@
+prepending /home/d.mingers/.conda/envs/mingpython/bin to PATH
+discarding /home/d.mingers/.conda/envs/mingpython/bin from PATH
+prepending /home/d.mingers/.conda/envs/mingpython/bin to PATH
+Traceback (most recent call last):
+  File "brunel_exp_blau_brunelconn2.py", line 207, in <module>
+    rate_ex = events_ex / simtime * 1000.0 / N_rec
+TypeError: unsupported operand type(s) for /: 'dict' and 'float'
+srun: error: blaustein01: task 0: Exited with exit code 1
+Traceback (most recent call last):
+  File "brunel_exp_blau_brunelconn2.py", line 134, in <module>
+    nodes_ex = nest.Create("iaf_psc_exp", NE)
+  File "/home/d.mingers/opt/nest-gitclone/install/lib64/python2.7/site-packages/nest/lib/hl_api_helper.py", line 230, in stack_checker_func
+    return f(*args, **kwargs)
+  File "/home/d.mingers/opt/nest-gitclone/install/lib64/python2.7/site-packages/nest/lib/hl_api_nodes.py", line 57, in Create
+    sr(cmd)
+  File "/home/d.mingers/opt/nest-gitclone/install/lib64/python2.7/site-packages/nest/__init__.py", line 91, in catching_sli_run
+    errorname, commandname, message))
+pynestkernel.NESTError: RangeCheck in Create_l_i: 
+srun: error: blaustein26: task 0: Exited with exit code 1
+Traceback (most recent call last):
+  File "brunel_exp_blau_brunelconn2.py", line 207, in <module>
+    rate_ex = events_ex / simtime * 1000.0 / N_rec
+TypeError: unsupported operand type(s) for /: 'dict' and 'float'
+srun: error: blaustein32: task 0: Exited with exit code 1
+Traceback (most recent call last):
+  File "brunel_exp_blau_brunelconn2.py", line 207, in <module>
+    rate_ex = events_ex / simtime * 1000.0 / N_rec
+TypeError: unsupported operand type(s) for /: 'dict' and 'float'
+srun: error: blaustein22: task 0: Exited with exit code 1
+Traceback (most recent call last):
+  File "brunel_exp_blau_brunelconn2.py", line 207, in <module>
+    rate_ex = events_ex / simtime * 1000.0 / N_rec
+TypeError: unsupported operand type(s) for /: 'dict' and 'float'
+srun: error: blaustein02: task 0: Exited with exit code 1
+Traceback (most recent call last):
+  File "brunel_exp_blau_brunelconn2.py", line 207, in <module>
+    rate_ex = events_ex / simtime * 1000.0 / N_rec
+TypeError: unsupported operand type(s) for /: 'dict' and 'float'
+srun: error: blaustein21: task 0: Exited with exit code 1
+Traceback (most recent call last):
+  File "brunel_exp_blau_brunelconn2.py", line 207, in <module>
+    rate_ex = events_ex / simtime * 1000.0 / N_rec
+TypeError: unsupported operand type(s) for /: 'dict' and 'float'
+srun: error: blaustein23: task 0: Exited with exit code 1
+Traceback (most recent call last):
+  File "brunel_exp_blau_brunelconn2.py", line 207, in <module>
+    rate_ex = events_ex / simtime * 1000.0 / N_rec
+TypeError: unsupported operand type(s) for /: 'dict' and 'float'
+srun: error: blaustein24: task 0: Exited with exit code 1
+Traceback (most recent call last):
+  File "brunel_exp_blau_brunelconn2.py", line 207, in <module>
+    rate_ex = events_ex / simtime * 1000.0 / N_rec
+TypeError: unsupported operand type(s) for /: 'dict' and 'float'
+srun: error: blaustein25: task 0: Exited with exit code 1
+Traceback (most recent call last):
+  File "brunel_exp_blau_brunelconn2.py", line 207, in <module>
+    rate_ex = events_ex / simtime * 1000.0 / N_rec
+TypeError: unsupported operand type(s) for /: 'dict' and 'float'
+srun: error: blaustein27: task 0: Exited with exit code 1
