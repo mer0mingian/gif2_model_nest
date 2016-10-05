@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name gif2_gain
 #SBATCH --array 0-47%8
-#SBATCH --time 00:23:59
+#SBATCH --time 23:59:59
 # %A will be replaced by the job ID and %a by the array index
 #SBATCH -o /home/d.mingers/gif2_model_nest/gain/results/gif2_gain_%A.out
 #SBATCH -e /home/d.mingers/gif2_model_nest/gain/results/gif2_gain_%A.err
