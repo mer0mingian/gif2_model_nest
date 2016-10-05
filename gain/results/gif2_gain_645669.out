@@ -1,0 +1,46 @@
+[INFO] [2016.9.27 11:49:1 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:226 @ Network::create_rngs_] : Creating default RNGs
+
+[INFO] [2016.9.27 11:49:9 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:221 @ Network::create_rngs_] : Deleting existing random number generators
+[INFO] [2016.9.27 11:48:59 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:221 @ Network::create_rngs_] : Deleting existing random number generators[INFO] [2016.9.27 11:49:1 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:221 @ Network::create_rngs_] : Deleting existing random number generators
+[INFO] [2016.9.27 11:49:5 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:226 @ Network::create_rngs_] : Creating default RNGs
+lobal RNG
+[INFO] [2016.9.27 11:49:4 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:272 @ Network::create_grng_] : Creating new default global RNG
+[INFO] [2016.9.27 11:49:5 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:272 @ Network::create_grng_] : Creating new default global RNG
+[INFO] [2016.9.27 11:49:1 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:226 @ Network::create_rngs_] : Creating default RNGs
+[INFO] [2016.9.27 11:49:1 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:272 @ Network::create_grng_] : Creating new default global RNG
+
+              -- N E S T --
+
+   Copyright (C) 2004 The NEST Initiative
+  Version 2.11.0 Sep 16 2016 15:44:15
+
+             -- N E S T --
+ 15:44:15
+
+This program is provided AS IS and comes with
+NNO WARRANTY. See the file LICENSE for details.N
+ Version 2.11.0 Sep 16 2016 15:44:15
+et  Vers
+on 2.11.0 Sep 16 2016 15:44:15
+This program is provided AS This program is provided AS IS and com
+ Visit 
+ Copyright (C) 2004 The NEST Initiativ
+O WARRANTY. See the file LICENSE for details.
+  Version 2.11.0 Sep 16 2016 15:44:15
+out NEST.
+Problems or suggestions?
+d out more about NEST.
+  Copyright (C) 2004 The NEST Initiati
+ VThis program is provided AS IS and 
+ Version 2Type 'nest.help()' to find NO WARRANTY. See the Type 'nest.help()' to find
+out more about NEST.
+Problems or suggestions?
+AS IS and comes with
+  Visit http://www.nest-simulator.org
+details.
+
+
+roblems or suggestions?
+Type 'nest.help()' to find out more ab
+ut NEST.
+Type 'nest.help()' to find out more about NEST.

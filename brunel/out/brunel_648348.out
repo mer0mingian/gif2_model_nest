@@ -1,0 +1,274 @@
+[INFO] [2016.9.29 0:0:33 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:226 @ Network::create_rngs_] : Creating default RNGs
+[INFO] [2016.9.29 0:0:33 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:221 @ Network::create_rngs_] : Deleting existing random number generators
+[INFO] [2016.9.29 0:0:33 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:226 @ Network::create_rngs_] : Creating default RNGs
+[INFO] [2016.9.29 0:0:33 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:272 @ Network::create_grng_] : Creating new default global RNG
+[INFO] [2016.9.29 0:0:38 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:226 @ Network::create_rngs_] : Creating default RNGs
+[INFO] [2016.9.29 0:0:38 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:221 @ Network::create_rngs_] : Deleting existing random number generators
+[INFO] [2016.9.29 0:0:38 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:226 @ Network::create_rngs_] : Creating default RNGs
+[INFO] [2016.9.29 0:0:38 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:272 @ Network::create_grng_] : Creating new default global RNG
+
+              -- N E S T --
+
+  Copyright (C) 2004 The NEST Initiative
+  Version 2.11.0 Sep 16 2016 15:44:15
+
+This program is provided AS IS and comes with
+NO WARRANTY. See the file LICENSE for details.
+
+Problems or suggestions?
+  Visit http://www.nest-simulator.org
+
+Type 'nest.help()' to find out more about NEST.
+[INFO] [2016.9.29 0:0:38 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:226 @ Network::create_rngs_] : Creating default RNGs
+
+              -- N E S T --
+
+  Copyright (C) 2004 The NEST Initiative
+  Version 2.11.0 Sep 16 2016 15:44:15
+
+This program is provided AS IS and comes with
+NO WARRANTY. See the file LICENSE for details.
+
+Problems or suggestions?
+  Visit http://www.nest-simulator.org
+
+Type 'nest.help()' to find out more about NEST.
+[INFO] [2016.9.29 0:0:38 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:221 @ Network::create_rngs_] : Deleting existing random number generators
+[INFO] [2016.9.29 0:0:38 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:226 @ Network::create_rngs_] : Creating default RNGs
+[INFO] [2016.9.29 0:0:38 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:272 @ Network::create_grng_] : Creating new default global RNG
+
+              -- N E S T --
+
+  Copyright (C) 2004 The NEST Initiative
+  Version 2.11.0 Sep 16 2016 15:44:15
+
+This program is provided AS IS and comes with
+NO WARRANTY. See the file LICENSE for details.
+
+Problems or suggestions?
+  Visit http://www.nest-simulator.org
+
+Type 'nest.help()' to find out more about NEST.
+[INFO] [2016.9.29 0:0:38 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:226 @ Network::create_rngs_] : Creating default RNGs
+[INFO] [2016.9.29 0:0:39 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:226 @ Network::create_rngs_] : Creating default RNGs
+[INFO] [2016.9.29 0:0:38 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:221 @ Network::create_rngs_] : Deleting existing random number generators
+[INFO] [2016.9.29 0:0:38 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:226 @ Network::create_rngs_] : Creating default RNGs
+[INFO] [2016.9.29 0:0:38 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:272 @ Network::create_grng_] : Creating new default global RNG
+[INFO] [2016.9.29 0:0:39 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:221 @ Network::create_rngs_] : Deleting existing random number generators
+[INFO] [2016.9.29 0:0:39 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:226 @ Network::create_rngs_] : Creating default RNGs
+[INFO] [2016.9.29 0:0:39 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:272 @ Network::create_grng_] : Creating new default global RNG
+
+              -- N E S T --
+
+  Copyright (C) 2004 The NEST Initiative
+  Version 2.11.0 Sep 16 2016 15:44:15
+
+This program is provided AS IS and comes with
+NO WARRANTY. See the file LICENSE for details.
+
+Problems or suggestions?
+  Visit http://www.nest-simulator.org
+
+Type 'nest.help()' to find out more about NEST.
+
+              -- N E S T --
+
+  Copyright (C) 2004 The NEST Initiative
+  Version 2.11.0 Sep 16 2016 15:44:15
+
+This program is provided AS IS and comes with
+NO WARRANTY. See the file LICENSE for details.
+
+Problems or suggestions?
+  Visit http://www.nest-simulator.org
+
+Type 'nest.help()' to find out more about NEST.
+[INFO] [2016.9.29 0:0:37 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:226 @ Network::create_rngs_] : Creating default RNGs
+[INFO] [2016.9.29 0:0:37 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:221 @ Network::create_rngs_] : Deleting existing random number generators
+[INFO] [2016.9.29 0:0:37 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:226 @ Network::create_rngs_] : Creating default RNGs
+[INFO] [2016.9.29 0:0:37 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:272 @ Network::create_grng_] : Creating new default global RNG
+
+              -- N E S T --
+
+  Copyright (C) 2004 The NEST Initiative
+  Version 2.11.0 Sep 16 2016 15:44:15
+
+This program is provided AS IS and comes with
+NO WARRANTY. See the file LICENSE for details.
+
+Problems or suggestions?
+  Visit http://www.nest-simulator.org
+
+Type 'nest.help()' to find out more about NEST.
+[INFO] [2016.9.29 0:0:43 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:226 @ Network::create_rngs_] : Creating default RNGs
+[INFO] [2016.9.29 0:0:43 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:221 @ Network::create_rngs_] : Deleting existing random number generators
+[INFO] [2016.9.29 0:0:43 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:226 @ Network::create_rngs_] : Creating default RNGs
+[INFO] [2016.9.29 0:0:43 /home/d.mingers/opt/nest-gitclone/nestkernel/rng_manager.cpp:272 @ Network::create_grng_] : Creating new default global RNG
+
+              -- N E S T --
+
+  Copyright (C) 2004 The NEST Initiative
+  Version 2.11.0 Sep 16 2016 15:44:15
+
+This program is provided AS IS and comes with
+NO WARRANTY. See the file LICENSE for details.
+
+Problems or suggestions?
+  Visit http://www.nest-simulator.org
+
+Type 'nest.help()' to find out more about NEST.
+ext rate: 2.0, connection probability: 0.1
+Building network
+Connecting devices
+Connecting network
+Excitatory connections
+Resonating connections
+Inhibitory connections
+Simulating
+Brunel network simulation (Python)
+Number of neurons : 7500
+Excitatory rate   : 141.12 Hz
+Resonating rate   : 263.12 Hz
+Inhibitory rate   : 145.18 Hz
+Building time     : 0.98 s
+Simulation time   : 13.07 s
+mean CV for sim 10: 0.730126478426
+CVex 0.520256802726, CVre 1.15884969493, CVin 0.511272937626, CVexall0.839553248826
+ext rate: 2.0, connection probability: 0.1
+Building network
+ext rate: 2.0, connection probability: 0.1
+Building network
+Connecting devices
+Connecting network
+Excitatory connections
+Resonating connections
+Inhibitory connections
+Simulating
+Brunel network simulation (Python)
+Number of neurons : 7499
+Excitatory rate   : 125.28 Hz
+Resonating rate   : 291.77 Hz
+Inhibitory rate   : 145.40 Hz
+Building time     : 1.01 s
+Simulation time   : 13.36 s
+mean CV for sim 11: 0.752585062809
+CVex 0.522357079758, CVre 1.15621284218, CVin 0.508861956824, CVexall0.874470992988
+ext rate: 2.0, connection probability: 0.1
+Building network
+Connecting devices
+Connecting network
+Excitatory connections
+Resonating connections
+Inhibitory connections
+Simulating
+Brunel network simulation (Python)
+Number of neurons : 7499
+Excitatory rate   : 109.94 Hz
+Resonating rate   : 320.54 Hz
+Inhibitory rate   : 145.51 Hz
+Building time     : 1.00 s
+Simulation time   : 14.14 s
+mean CV for sim 12: 0.777979639361
+CVex 0.517550539202, CVre 1.16415538184, CVin 0.508582550333, CVexall0.912705128973
+ext rate: 2.0, connection probability: 0.1
+Building network
+Connecting devices
+Connecting network
+Excitatory connections
+Resonating connections
+Inhibitory connections
+Simulating
+Brunel network simulation (Python)
+Number of neurons : 7499
+Excitatory rate   : 94.08 Hz
+Resonating rate   : 350.93 Hz
+Inhibitory rate   : 145.98 Hz
+Building time     : 0.99 s
+Simulation time   : 14.50 s
+mean CV for sim 13: 0.799620557867
+CVex 0.521903591276, CVre 1.15489202604, CVin 0.511043223029, CVexall0.943938088792
+ext rate: 2.0, connection probability: 0.1
+Building network
+Connecting devices
+Connecting network
+Excitatory connections
+Resonating connections
+Inhibitory connections
+Simulating
+Brunel network simulation (Python)
+Number of neurons : 7499
+Excitatory rate   : 62.75 Hz
+Resonating rate   : 409.90 Hz
+Inhibitory rate   : 145.78 Hz
+Building time     : 0.99 s
+Simulation time   : 14.91 s
+mean CV for sim 15: 0.848585833639
+CVex 0.521717040372, CVre 1.16020722461, CVin 0.509212738123, CVexall1.01830632549
+ext rate: 2.0, connection probability: 0.1
+Building network
+Connecting devices
+Connecting network
+Excitatory connections
+Resonating connections
+Inhibitory connections
+Simulating
+Brunel network simulation (Python)
+Number of neurons : 7499
+Excitatory rate   : 31.37 Hz
+Resonating rate   : 468.03 Hz
+Inhibitory rate   : 146.61 Hz
+Building time     : 0.94 s
+Simulation time   : 15.38 s
+mean CV for sim 17: 0.896318715705
+CVex 0.519405302476, CVre 1.16049746587, CVin 0.510389347151, CVexall1.08932200064
+ext rate: 2.0, connection probability: 0.1
+Building network
+Connecting devices
+Connecting network
+Excitatory connections
+Resonating connections
+Inhibitory connections
+Simulating
+Brunel network simulation (Python)
+Number of neurons : 7499
+Excitatory rate   : 15.70 Hz
+Resonating rate   : 497.08 Hz
+Inhibitory rate   : 146.41 Hz
+Building time     : 0.94 s
+Simulation time   : 15.49 s
+mean CV for sim 18: 0.926875595975
+CVex 0.52594253585, CVre 1.17219492156, CVin 0.507939836869, CVexall1.13638537748
+ext rate: 2.0, connection probability: 0.1
+Building network
+Connecting devices
+Connecting network
+Excitatory connections
+Resonating connections
+Inhibitory connections
+Simulating
+Brunel network simulation (Python)
+Number of neurons : 7499
+Excitatory rate   : 47.10 Hz
+Resonating rate   : 437.73 Hz
+Inhibitory rate   : 146.20 Hz
+Building time     : 0.96 s
+Simulation time   : 16.66 s
+mean CV for sim 16: 0.872639584208
+CVex 0.522556139614, CVre 1.16292118368, CVin 0.50556213059, CVexall1.05621502611
+ext rate: 2.0, connection probability: 0.1
+Building network
+Connecting devices
+Connecting network
+Excitatory connections
+Resonating connections
+Inhibitory connections
+Simulating
+Brunel network simulation (Python)
+Number of neurons : 7499
+Excitatory rate   : 78.67 Hz
+Resonating rate   : 379.94 Hz
+Inhibitory rate   : 145.70 Hz
+Building time     : 1.04 s
+Simulation time   : 18.35 s
+mean CV for sim 14: 0.828699659404
+CVex 0.518701754453, CVre 1.16789868509, CVin 0.510871423538, CVexall0.987645566519
