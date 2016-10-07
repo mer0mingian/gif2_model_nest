@@ -92,6 +92,7 @@ if __name__ == '__main__':
     V_range = 6.0
     synweight = 87.8
     J_ex = 0.125
+    J_re = 0.125
 
     j = 0
     p_range = np.linspace(5000.0, 20000.0, 20)
@@ -110,8 +111,7 @@ if __name__ == '__main__':
                       "V_m":        0.0,
                       "V_reset":    V_theta - V_range,
                       "E_L":        0.0,
-                      "V_th":       V_theta,
-                      "w":          0.0}
+                      "V_th":       V_theta}
 
         iaf_params = {"C_m":        250.0,
                       "tau_m":      10.0,
@@ -142,9 +142,14 @@ if __name__ == '__main__':
         gifspikes = nest.Create("spike_detector", params=det_params)
         gif = nest.Create("gif2_psc_exp")
         iaf = nest.Create("iaf_neuron")
+        nest.SetStatus(gif, gif_params)
+        nest.SetStatus(iaf, iaf_params)
 
         # Connect everything
-        nest.Connect(drive, gif + iaf, syn_spec="excitatory")
+        nest.Connect(drive, gif, syn_spec={"model": "static_synapse",
+                                    "weight": J_ex * synweight, "delay": 0.5})
+        nest.Connect(drive, iaf, syn_spec={"model": "static_synapse",
+                                    "weight": J_ex * synweight, "delay": 0.5})
         nest.Connect(gif, gifspikes)
         nest.Connect(iaf, iafspikes)
 
@@ -168,7 +173,7 @@ if __name__ == '__main__':
                 i[ 2 ], tau_1, V_range, rate_gif, rate_iaf, cv_gif, cv_iaf])))
 
     write_excitability_results('excite.csv', indexarray)
-    np.savetxt('excitability.txt', indexarray[1:, :], fmt="%12.8G")
+    np.savetxt('excitability.txt', indexarray[1:, :], fmt="%12.6G")
     solutionlyarray = np.hstack((indexarray[:, 1:4], indexarray[:, 6:8]))
 
     # save to text:

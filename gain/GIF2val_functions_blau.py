@@ -350,7 +350,7 @@ def gain_plots(normalise=True, withone=False):
 	"""
 	gains, conditions = import_gain(filename='gains.csv')
 
-	if normalise and not withone :
+	if normalise and not withone:
 		gains[ :, 2 ] /= gains[ 0, 2 ]
 		gains[ :, 3 ] /= gains[ 0, 3 ]
 	elif normalise and withone :
