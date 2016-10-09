@@ -166,6 +166,10 @@ def compute_histogram(spike_times, simparameterdict):
 	return t_bins, heights, hist_binwidth
 
 
+def compute_gain(bins, heights, hist_binwidth, I_1, f, dt, ):
+
+	return 0
+
 def compute_gain2(bins, heights, hist_binwidth, I_1, f, dt, voltage, condition):
 	"""
 	This version uses an alternate phase computation to get the difference in

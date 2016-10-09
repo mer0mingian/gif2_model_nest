@@ -136,11 +136,11 @@ for condition in noise_conditions:
                       condition=condition)
 
     # Make plots for both conditions for 25 datapoints
-    if maxindex > 16 and multiplotindex == 0:
-        print('load png files for each condition')
-        print('make current fits')
-        print('print the fits')
-        print('save the files')
+    #if maxindex > 16 and multiplotindex == 0:
+    #    print('load png files for each condition')
+    #    print('make current fits')
+    #    print('print the fits')
+    #    print('save the files')
 
     write_results(resultdict)
     nest.ResetKernel()

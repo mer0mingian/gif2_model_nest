@@ -11,42 +11,9 @@ Parameters indices are deliverd via sys.argv to be run on a queing system.
 import numpy as np
 import sys
 import elephant.statistics as es
-import csv
 from itertools import product
 
 cluster = True
-
-
-def write_excitability_results(filename, resultarray):
-    """
-	exports the results for a single datapoint to the results file.
-	"""
-    with open(filename, 'a') as csvfile:
-        somewriter = csv.writer(csvfile, delimiter=';')
-        for rows in np.arange(0, resultarray.shape[ 1 ]):
-            somewriter.writerow(list(resultarray[ :, rows ]))
-    csvfile.close()
-
-
-def read_excitability_results(filename='excitability_results1.csv'):
-    """
-	imports simulation or neuron parameters from txt-file into distionary
-	"""
-    paramdict = dict()
-    with open(filename, 'r') as jobhashes:
-        lasthash = jobhashes.readlines()[ -1 ]
-    lasthash = lasthash.strip('\n').strip('{').strip('}')
-    splitstring = lasthash.split(',')
-    for item in splitstring:
-        splititem = item.strip(' ').split(':')
-        paramdict[ splititem[ 0 ].strip('\'') ] = splititem[ 1 ].strip(
-            ' ').strip('\'')
-    for item in paramdict:
-        try:
-            paramdict[ item ] = float(paramdict[ item ])
-        except ValueError:
-            pass
-    return paramdict
 
 
 def read_solution():
@@ -95,11 +62,9 @@ if __name__ == '__main__':
 
     j = 0
     p_range = np.linspace(50000.0, 125000.0, 25)
-    with open('excitability.gz', 'a') as output:
-        np.savetxt(output, header='input rate, C, g1, g, tau1={0}, '
-                                  'tauSyn={1}, V_theta={2}, V_range={3}, '
-                                  'synweight={4}, J_ex={5}'.format(tau_1,
-                                            V_theta, V_range, synweight, J_ex))
+    headerstr = 'input rate, C, g1, g, tau1, V_range, rate_gif, rate_iaf, cv_gif, cv_iaf'
+    with open('excitability_{0}.gz'.format(sys.argv[ 1 ]), 'a') as output:
+        np.savetxt(output, np.array([]), header=headerstr)
         for i in product(C_range, g_range, g_range, p_range):
             j += 1
             nest.ResetKernel()
@@ -181,5 +146,12 @@ if __name__ == '__main__':
             indexarray = np.array(
                 [ p_rate, i[ 0 ], i[ 1 ], i[ 2 ], tau_1, V_range, rate_gif,
                   rate_iaf, cv_gif, cv_iaf ])
-            np.savetxt(output, indexarray[ 1:, : ], fmt="%12.6G")
+            np.savetxt(output, indexarray, fmt="%12.6G")
+    footerstr = 'tauSyn={1}, V_theta={2}, V_range={3}, synweight={4}, ' \
+                'J_ex={5}'.format(tauSyn, V_theta, V_range, synweight, J_ex)
+    np.savetxt(output, np.array([ ]), footer=footerstr)
     output.close()
+
+
+# TODO: put p_rate into seperate loop. after each iteration on it, write
+    # results to file. Should limit writeout time.
