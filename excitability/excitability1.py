@@ -23,30 +23,30 @@ def write_excitability_results(filename, resultarray):
 	"""
     with open(filename, 'a') as csvfile:
         somewriter = csv.writer(csvfile, delimiter=';')
-        for rows in np.arange(0, resultarray.shape[1]):
+        for rows in np.arange(0, resultarray.shape[ 1 ]):
             somewriter.writerow(list(resultarray[ :, rows ]))
     csvfile.close()
 
 
 def read_excitability_results(filename='excitability_results1.csv'):
-	"""
+    """
 	imports simulation or neuron parameters from txt-file into distionary
 	"""
-	paramdict = dict()
-	with open(filename, 'r') as jobhashes:
-		lasthash = jobhashes.readlines()[ -1 ]
-	lasthash = lasthash.strip('\n').strip('{').strip('}')
-	splitstring = lasthash.split(',')
-	for item in splitstring:
-		splititem = item.strip(' ').split(':')
-		paramdict[ splititem[ 0 ].strip('\'') ] = splititem[ 1 ].strip(
-			' ').strip('\'')
-	for item in paramdict:
-		try:
-			paramdict[ item ] = float(paramdict[ item ])
-		except ValueError:
-			pass
-	return paramdict
+    paramdict = dict()
+    with open(filename, 'r') as jobhashes:
+        lasthash = jobhashes.readlines()[ -1 ]
+    lasthash = lasthash.strip('\n').strip('{').strip('}')
+    splitstring = lasthash.split(',')
+    for item in splitstring:
+        splititem = item.strip(' ').split(':')
+        paramdict[ splititem[ 0 ].strip('\'') ] = splititem[ 1 ].strip(
+            ' ').strip('\'')
+    for item in paramdict:
+        try:
+            paramdict[ item ] = float(paramdict[ item ])
+        except ValueError:
+            pass
+    return paramdict
 
 
 def read_solution():
@@ -54,10 +54,10 @@ def read_solution():
     return solutionlyarray
 
 
-
 if __name__ == '__main__':
     # Configure Nest
     import nest
+
     nest.set_verbosity('M_WARNING')
     nest.ResetKernel()
     dt = 0.1  # the resolution in ms
@@ -69,7 +69,6 @@ if __name__ == '__main__':
         nest.Install("gif2_module")
     except:
         pass
-
 
     # Simulation setup
     recstart = 1000.0
@@ -95,86 +94,92 @@ if __name__ == '__main__':
     J_re = 0.125
 
     j = 0
-    p_range = np.linspace(5000.0, 20000.0, 20)
-    for i in product(C_range, g_range, g_range, p_range):
-        j += 1
-        nest.ResetKernel()
-        p_rate = i[ 3 ]
+    p_range = np.linspace(50000.0, 125000.0, 25)
+    with open('excitability.gz', 'a') as output:
+        np.savetxt(output, header='input rate, C, g1, g, tau1={0}, '
+                                  'tauSyn={1}, V_theta={2}, V_range={3}, '
+                                  'synweight={4}, J_ex={5}'.format(tau_1,
+                                            V_theta, V_range, synweight, J_ex))
+        for i in product(C_range, g_range, g_range, p_range):
+            j += 1
+            nest.ResetKernel()
+            p_rate = i[ 3 ]
 
-        # adopt neuron parameters
-        gif_params = {"tau_1":      tau_1,
-                      "C_m":        i[ 0 ],  # C_m2,
-                      "tau_syn_ex": tauSyn,
-                      "tau_syn_in": tauSyn,
-                      "g_rr":       i[ 2 ],  # g_1,
-                      "g":          i[ 1 ],  # g_m,
-                      "V_m":        0.0,
-                      "V_reset":    V_theta - V_range,
-                      "E_L":        0.0,
-                      "V_th":       V_theta}
+            # adopt neuron parameters
+            gif_params = {"tau_1":      tau_1,
+                          "C_m":        i[ 0 ],  # C_m2,
+                          "tau_syn_ex": tauSyn,
+                          "tau_syn_in": tauSyn,
+                          "g_rr":       i[ 2 ],  # g_1,
+                          "g":          i[ 1 ],  # g_m,
+                          "V_m":        0.0,
+                          "V_reset":    V_theta - V_range,
+                          "E_L":        0.0,
+                          "V_th":       V_theta}
 
-        iaf_params = {"C_m":        250.0,
-                      "tau_m":      10.0,
-                      "tau_syn_ex": tauSyn,
-                      "tau_syn_in": tauSyn,
-                      "t_ref":      2.0,
-                      "E_L":        0.0,
-                      "V_reset":    0.0,
-                      "V_m":        0.0,
-                      "V_th":       V_theta}
+            iaf_params = {"C_m":        250.0,
+                          "tau_m":      10.0,
+                          "tau_syn_ex": tauSyn,
+                          "tau_syn_in": tauSyn,
+                          "t_ref":      2.0,
+                          "E_L":        0.0,
+                          "V_reset":    0.0,
+                          "V_m":        0.0,
+                          "V_th":       V_theta}
 
-        det_params = {"withtime": True,
-                      "withgid":  False,
-                      "to_file":  False,
-                      "start":    recstart}
+            det_params = {"withtime": True,
+                          "withgid":  False,
+                          "to_file":  False,
+                          "start":    recstart}
 
-        stm_params = {"rate":      p_rate,
-                      "amplitude": 0.025 * p_rate,
-                      "frequency": 10.0,
-                      "phase":     0.0}
+            stm_params = {"rate":      p_rate,
+                          "amplitude": 0.025 * p_rate,
+                          "frequency": 10.0,
+                          "phase":     0.0}
 
-        nest.CopyModel("static_synapse", "excitatory",
-                       {"weight": J_ex * synweight, "delay": 1.0})
+            nest.CopyModel("static_synapse", "excitatory",
+                           {"weight": J_ex * synweight, "delay": 1.0})
 
-        # Create devices and neurons
-        drive = nest.Create("sinusoidal_poisson_generator", params=stm_params)
-        iafspikes = nest.Create("spike_detector", params=det_params)
-        gifspikes = nest.Create("spike_detector", params=det_params)
-        gif = nest.Create("gif2_psc_exp")
-        iaf = nest.Create("iaf_neuron")
-        nest.SetStatus(gif, gif_params)
-        nest.SetStatus(iaf, iaf_params)
+            # Create devices and neurons
+            drive = nest.Create("sinusoidal_poisson_generator",
+                                params=stm_params)
+            iafspikes = nest.Create("spike_detector", params=det_params)
+            gifspikes = nest.Create("spike_detector", params=det_params)
+            gif = nest.Create("gif2_psc_exp")
+            iaf = nest.Create("iaf_psc_exp")
+            nest.SetStatus(gif, gif_params)
+            nest.SetStatus(iaf, iaf_params)
 
-        # Connect everything
-        nest.Connect(drive, gif, syn_spec={"model": "static_synapse",
-                                    "weight": J_ex * synweight, "delay": 0.5})
-        nest.Connect(drive, iaf, syn_spec={"model": "static_synapse",
-                                    "weight": J_ex * synweight, "delay": 0.5})
-        nest.Connect(gif, gifspikes)
-        nest.Connect(iaf, iafspikes)
+            # Connect everything
+            nest.Connect(drive, gif, syn_spec={"model":  "static_synapse",
+                                               "weight": J_ex * synweight,
+                                               "delay":  0.5})
+            nest.Connect(drive, iaf, syn_spec={"model":  "static_synapse",
+                                               "weight": J_ex * synweight,
+                                               "delay":  0.5})
+            nest.Connect(gif, gifspikes)
+            nest.Connect(iaf, iafspikes)
 
-        # Simulate
-        if not cluster:
-            sys.stdout.write('\r')
-            sys.stdout.write('case {0}/{1}'.format(j, cases))
-            sys.stdout.flush()
-        nest.Simulate(recstart + simtime)
+            # Simulate
+            if not cluster:
+                sys.stdout.write('\r')
+                sys.stdout.write('case {0}/{1}'.format(j, cases))
+                sys.stdout.flush()
+            nest.Simulate(recstart + simtime)
 
-        # Evaluate
-        rate_iaf = nest.GetStatus(iafspikes, "n_events")[ 0 ] / simtime * 1000.
-        rate_gif = nest.GetStatus(gifspikes, "n_events")[ 0 ] / simtime * 1000.
-        cv_gif = es.cv(es.isi(nest.GetStatus(gifspikes, "events")
-                              [ 0 ][ "times" ]))
-        cv_iaf = es.cv(es.isi(nest.GetStatus(iafspikes, "events")
-                              [ 0 ][ "times" ]))
+            # Evaluate
+            rate_iaf = nest.GetStatus(iafspikes, "n_events")[
+                           0 ] / simtime * 1000.
+            rate_gif = nest.GetStatus(gifspikes, "n_events")[
+                           0 ] / simtime * 1000.
+            cv_gif = es.cv(es.isi(nest.GetStatus(gifspikes, "events")
+                                  [ 0 ][ "times" ]))
+            cv_iaf = es.cv(es.isi(nest.GetStatus(iafspikes, "events")
+                                  [ 0 ][ "times" ]))
 
-        # write out
-        indexarray = np.vstack((indexarray, np.array([p_rate, i[ 0 ], i[ 1 ],
-                i[ 2 ], tau_1, V_range, rate_gif, rate_iaf, cv_gif, cv_iaf])))
-
-    write_excitability_results('excite.csv', indexarray)
-    np.savetxt('excitability.txt', indexarray[1:, :], fmt="%12.6G")
-    solutionlyarray = np.hstack((indexarray[:, 1:4], indexarray[:, 6:8]))
-
-    # save to text:
-    np.savetxt('solutionarray.txt', solutionlyarray[1:, :], fmt="%12.6G")
+            # write out
+            indexarray = np.array(
+                [ p_rate, i[ 0 ], i[ 1 ], i[ 2 ], tau_1, V_range, rate_gif,
+                  rate_iaf, cv_gif, cv_iaf ])
+            np.savetxt(output, indexarray[ 1:, : ], fmt="%12.6G")
+    output.close()
