@@ -45,8 +45,8 @@ if __name__ == '__main__':
     p_rate = float(sys.argv[ 1 ])
     C_m2 = 100.0
     indexarray = np.zeros(10)
-    C_range = np.linspace(100.0, 600.0, 20)  # np.arange(100.0, 600.0, 25.0)
-    g_range = np.linspace(5.0, 90.0, 20)  # np.arange(5.0, 90.0, 5.0)
+    C_range = np.linspace(100.0, 600.0, 5)  # np.arange(100.0, 600.0, 25.0)
+    g_range = np.linspace(5.0, 90.0, 5)  # np.arange(5.0, 90.0, 5.0)
     cases = len(C_range) * len(g_range) * len(g_range)
     g_m = 5.0
     g_1 = 5.0
@@ -61,9 +61,10 @@ if __name__ == '__main__':
     J_re = 0.125
 
     j = 0
+    j = 0
     p_range = np.linspace(50000.0, 125000.0, 25)
     headerstr = 'input rate, C, g1, g, tau1, V_range, rate_gif, rate_iaf, cv_gif, cv_iaf'
-    with open('excitability_{0}.gz'.format(sys.argv[ 1 ]), 'a') as output:
+    with open('excitability_{0}.txt'.format(sys.argv[ 1 ]), 'a') as output:
         np.savetxt(output, np.array([]), header=headerstr)
         for i in product(C_range, g_range, g_range, p_range):
             j += 1
@@ -147,9 +148,10 @@ if __name__ == '__main__':
                 [ p_rate, i[ 0 ], i[ 1 ], i[ 2 ], tau_1, V_range, rate_gif,
                   rate_iaf, cv_gif, cv_iaf ])
             np.savetxt(output, indexarray, fmt="%12.6G")
-    footerstr = 'tauSyn={1}, V_theta={2}, V_range={3}, synweight={4}, ' \
-                'J_ex={5}'.format(tauSyn, V_theta, V_range, synweight, J_ex)
-    np.savetxt(output, np.array([ ]), footer=footerstr)
+    footerstr = 'tauSyn={0}, V_theta={1}, V_range={2}, synweight={3}, ' \
+                'J_ex={4}'.format(tauSyn, V_theta, V_range, synweight, J_ex)
+    print(footerstr)
+	# np.savetxt(output, np.array([ ]), footer=footerstr)
     output.close()
 
 
