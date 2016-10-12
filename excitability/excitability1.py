@@ -16,9 +16,23 @@ from itertools import product
 cluster = True
 
 
-def read_solution():
-    solutionlyarray = np.genfromtxt('solutionarray.txt', unpack=True)
-    return solutionlyarray
+def read_solution(filename):
+    compmat = np.loadtxt(filename)
+    # restore columns
+    compmat.reshape((-1, 10))
+    # replace nans by 0.0
+    compmat = np.nan_to_num(compmat)
+    # compare via spike rates:
+    closevec = np.isclose(compmat[ :, 6 ], compmat[ :, 7 ])
+    # find non-zero rates among these:
+    nonzeroclose = np.all((closevec, a[ :, 6 ] != 0.0), axis=0)
+    print('There are {0} simulated cases of equal rates!'.format(
+        np.sum(nonzeroclose)))
+    print('Maximal values: {0}'.format(
+        np.max(compmat[ nonzeroclose, : ], axis=0)))
+    print('Minimal values: {0}'.format(
+        np.min(compmat[ nonzeroclose, : ], axis=0)))
+    return compmat, nonzeroclose
 
 
 if __name__ == '__main__':
@@ -45,6 +59,7 @@ if __name__ == '__main__':
     p_rate = float(sys.argv[ 1 ])
     C_m2 = 100.0
     indexarray = np.zeros(10)
+    p_range = np.linspace(50000.0, 125000.0, 25)
     C_range = np.linspace(100.0, 600.0, 5)  # np.arange(100.0, 600.0, 25.0)
     g_range = np.linspace(5.0, 90.0, 5)  # np.arange(5.0, 90.0, 5.0)
     cases = len(C_range) * len(g_range) * len(g_range)
@@ -61,8 +76,6 @@ if __name__ == '__main__':
     J_re = 0.125
 
     j = 0
-    j = 0
-    p_range = np.linspace(50000.0, 125000.0, 25)
     headerstr = 'input rate, C, g1, g, tau1, V_range, rate_gif, rate_iaf, cv_gif, cv_iaf'
     with open('excitability_{0}.txt'.format(sys.argv[ 1 ]), 'a') as output:
         np.savetxt(output, np.array([]), header=headerstr)
