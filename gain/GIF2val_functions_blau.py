@@ -155,22 +155,56 @@ def compute_histogram(spike_times, simparameterdict):
 	if len(spike_times) > 1:
 		# compute the width of one bin from given number of bins:
 		hist_binwidth = simparameterdict[ 'binwidth' ]
+		t_rec = simparameterdict[ 't_rec' ]
 		# compute the time indices for the bins:
-		t_bins = np.arange(np.amin(spike_times), np.amax(spike_times),
-						   hist_binwidth)
-		# compute the bin heights n. bins = t_bins is just an additional
-		# output:
+		t_bins = np.arange(0.0, t_rec, hist_binwidth)  # TODO: np.amin(spike_times)/amax as borders 0?
+		# compute the bin heights n. bins=t_bins is just an additional output:
 		n, t_bins = np.histogram(spike_times, bins=t_bins)
 		# correct n for the number of neurons that were averaged:
 		heights = 1000. * n / (hist_binwidth * simparameterdict[ 'N' ])
+	else:
+		raise ValueError('no spikes recorded for histogram computation')
 	return t_bins, heights, hist_binwidth
 
 
-def compute_gain(bins, heights, hist_binwidth, I_1, f, dt, ):
+def compute_gain(bins, heights, hist_binwidth, I_1, f, dt, condition):
+	I_1 = I_stimdict[ 'amplitude' ]
+	I_0 = I_stimdict[ 'offset' ]
 
-	return 0
+	# get the stim params to set up start values:
+	simparams = import_params_as_dict(filename='jobdict.txt')
+	t_recstart = 0.0 #  simparams[ 't_recstart' ] TODO!
+	t_rec = 1500.0  # simparams[ 't_rec' ]
+	t_sim = t_rec - t_recstart
 
-def compute_gain2(bins, heights, hist_binwidth, I_1, f, dt, voltage, condition):
+	gain = np.zeros(2)
+	r_0_rc = np.mean(heights)  # mean firing rate
+	f_rc = f / 1000.  # frequency, 1/ms instead of Hz
+	amp_guess_r = (max(heights) - min(heights)) / 2.
+
+	# current injection works with a delay of dt
+	phase = -(((t_recstart - dt)/1000 * f_rc) % 1) * 360
+	bins = bins[ :-1 ]  # for compatibility with np.histogram
+	mysine = sinus(f)
+
+	# fit a sine to the firing rates to extract sine parameters
+	popt, pcov = opti.curve_fit(mysine.fit, bins, heights, p0=(amp_guess_r, r_0_rc, phase))
+	# content: popt = [ amplitude, offset, phase ]
+
+	print('fitted values: {0}'.format(popt))
+	gain[ 0 ] = abs(popt[ 0 ]) / I_1
+	gain[ 1 ] = popt[ 2 ] - dt * 2 * np.pi
+
+	# TODO: does it work like this?
+	# generate the time series for the true current sinsusoidal
+	# stim_sinecurve = mysine.fit(bins - hist_binwidth, I_1, I_0, phase)
+	# find the zero-crossings in both time series
+	# compute the mean difference between zero crossings of both series
+	return gain, r_0_rc
+
+
+
+def compute_gain2(bins, heights, hist_binwidth, I_1, f, dt, condition):
 	"""
 	This version uses an alternate phase computation to get the difference in
 	phase between the fitted sinus and the driving signal.

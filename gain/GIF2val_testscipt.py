@@ -24,6 +24,7 @@ f = 5.0
 simparameterdict = import_params_as_dict(filename='jobdict.txt')
 # contains N, binwidth, current/poisson, t_rec, t_recstart,
 # simindex, synweight
+simparameterdict['t_recstart'] = 0.0
 
 neuronparamdict = import_params_as_dict(filename='neurondict.txt')
 # contains tau_1, C_m, g_rr=g_1, g, V_m, V_reset, E_L, V_th
@@ -49,13 +50,6 @@ neuron = nest.Create('gif2_psc_exp',
 
 stim_I = nest.Create('ac_generator', params=I_stimdict)
 stim_xi = nest.Create('noise_generator', params=xi_stimdict)
-
-volty = nest.Create('voltmeter')
-nest.SetStatus(volty, {"withgid":        False,
-                       "withtime":       True,
-                       "to_accumulator": True,
-                       "interval":       dt})
-
 spikedetector = nest.Create('spike_detector')
 nest.SetStatus(spikedetector, {"withgid":               True,
                                "withtime":              True,
@@ -63,37 +57,27 @@ nest.SetStatus(spikedetector, {"withgid":               True,
                                "to_file":               False})
 
 # BUILD NETWORK
-# if flag_stim_type == 'poisson':
-#    nest.Connect(stim_r, neuron, syn_spec={'weight': wfactor * synweight})
-# elif flag_stim_type == 'current':
 nest.Connect(stim_I, neuron)
 nest.Connect(stim_xi, neuron)
 nest.Connect(neuron, spikedetector)
-nest.Connect(volty, stim_I)
-nest.Connect(volty, stim_xi)
 
 # SIMULATE
-nest.Simulate(100.0)
+nest.Simulate(1500.0)
 
 # RECORDING
 spike_senders = nest.GetStatus(spikedetector, "events")[ 0 ][ "senders" ]
 spike_times = nest.GetStatus(spikedetector, "events")[ 0 ][ "times" ]
-voltage_trace = nest.GetStatus(volty, "events")[ 0 ][ "V_m" ]
-voltage_times = nest.GetStatus(volty, "events")[ 0 ][ "times" ]
 
 # EVALUATE
 # Create the istogram to fit with
 hist_bins, hist_heights, hist_binwidth = compute_histogram(
     spike_times, simparameterdict)
-voltages = voltage_trace[ np.array(hist_bins, dtype=int) ]
 
 # Fit and compute gain
-I_1 = I_stimdict[ 'amplitude' ]
-gain, exp_r_0 = compute_gain2(hist_bins, hist_heights, hist_binwidth, I_1,
-                              f, dt, voltages, multiplotindex, condition,
-                              alt_phase=False, printing=True)
+gain, exp_r_0 = compute_gain(hist_bins, hist_heights, hist_binwidth,
+                             I_stimdict, f, dt, condition)
 
-resultdict = dict(freqindex=freqindex,
+resultdict = dict(freqindex=0,
                   gain=gain,
                   exp_r_0=exp_r_0,
                   neuronparamdict=neuronparamdict,

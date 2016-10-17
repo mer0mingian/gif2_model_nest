@@ -79,13 +79,6 @@ for condition in noise_conditions:
 
     stim_I = nest.Create('ac_generator', params=I_stimdict)
     stim_xi = nest.Create('noise_generator', params=xi_stimdict)
-
-    volty = nest.Create('voltmeter')
-    nest.SetStatus(volty, {"withgid": False,
-                           "withtime": True,
-                           "to_accumulator": True,
-                           "interval": dt})
-
     spikedetector = nest.Create('spike_detector')
     nest.SetStatus(spikedetector, {"withgid": True,
                                    "withtime": True,
@@ -94,14 +87,9 @@ for condition in noise_conditions:
 
 
     # BUILD NETWORK
-    # if flag_stim_type == 'poisson':
-    #    nest.Connect(stim_r, neuron, syn_spec={'weight': wfactor * synweight})
-    # elif flag_stim_type == 'current':
     nest.Connect(stim_I, neuron)
     nest.Connect(stim_xi, neuron)
     nest.Connect(neuron, spikedetector)
-    nest.Connect(volty, stim_I)
-    nest.Connect(volty, stim_xi)
 
     # SIMULATE
     nest.Simulate(simparameterdict[ 't_rec' ] + simparameterdict[ 't_recstart' ])
@@ -110,23 +98,16 @@ for condition in noise_conditions:
     # RECORDING
     spike_senders = nest.GetStatus(spikedetector, "events")[ 0 ][ "senders" ]
     spike_times = nest.GetStatus(spikedetector, "events")[ 0 ][ "times" ]
-    voltage_trace = nest.GetStatus(volty, "events")[ 0 ][ "V_m" ]
-    voltage_times = nest.GetStatus(volty, "events")[ 0 ][ "times" ]
 
     # EVALUATE
     # Create the istogram to fit with
     hist_bins, hist_heights, hist_binwidth = compute_histogram(
         spike_times, simparameterdict)
-    voltages = voltage_trace[ np.array(hist_bins, dtype=int) ]
 
 
     # Fit and compute gain
-    I_1 = I_stimdict[ 'amplitude' ]
-    multiplotindex = freqindex % (maxindex - (maxindex % 16))/16
-    gain, exp_r_0 = compute_gain2(hist_bins, hist_heights, hist_binwidth, I_1,
-                                  f, dt, voltages, multiplotindex, condition,
-                                  alt_phase=False, printing=True)
-
+    gain, exp_r_0 = compute_gain(hist_bins, hist_heights, hist_binwidth,
+                                 I_stimdict, f, dt, condition)
 
     resultdict = dict(freqindex=freqindex,
                       gain=gain,
@@ -134,13 +115,6 @@ for condition in noise_conditions:
                       neuronparamdict=neuronparamdict,
                       simparameterdict=simparameterdict,
                       condition=condition)
-
-    # Make plots for both conditions for 25 datapoints
-    #if maxindex > 16 and multiplotindex == 0:
-    #    print('load png files for each condition')
-    #    print('make current fits')
-    #    print('print the fits')
-    #    print('save the files')
 
     write_results(resultdict)
     nest.ResetKernel()
