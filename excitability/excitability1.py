@@ -66,8 +66,8 @@ def read_solution(filename, rt=0.0, at=15.0):
     # print('Filtered solutions with CV = 0...')
     # output = np.all((nonzerocv2, compmat[ :, 2 ] <= 10e3), axis=0)
     # print('{0} of these non.zero CVs!'.format(np.sum(nonzerocv2)))
-    print('Maximal values: {0}'.format(np.max(compmat[ output, : ], axis=0)))
-    print('Minimal values: {0}'.format(np.min(compmat[ output, : ], axis=0)))
+    # print('Maximal values: {0}'.format(np.max(compmat[ output, : ], axis=0)))
+    # print('Minimal values: {0}'.format(np.min(compmat[ output, : ], axis=0)))
     return compmat, output
 
 
