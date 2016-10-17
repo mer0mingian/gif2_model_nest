@@ -10,4 +10,4 @@ module load mpi/openmpi/1.10.0
 module load pystuff_new
 source activate mingpython
 
-srun python /home/d.mingers/gif2_model_nest/excitability/excitability1.py $SLURM_JOBID
+srun python /home/d.mingers/gif2_model_nest/excitability/excitability1.py $SLURM_JOBID 1
