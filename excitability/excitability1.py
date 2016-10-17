@@ -15,6 +15,34 @@ import elephant.statistics as es
 from itertools import product
 
 
+def compute_str_freq(C, t1, g, g1, verbose=False):
+    a = g * t1 / C
+    b = g1 * t1 / C
+    h1 = (a + b + 1.0)**2
+    h2 = (a + 1.0)**2
+    h3 = np.sqrt(h1 - h2)
+    fR = np.sqrt(h3 - 1.0)
+    if verbose:
+        # stability:
+        if a > -1 and a + b > 0:
+            print('Membrane potential stable')
+        else:
+            print('Membrane potential unstable')
+        # Subthreshold resonance?
+        if b > np.sqrt((a + 1.0)**2 + 1.0) - 1.0 - a:
+            print('Subthreshold resonance will occur.')
+        else:
+            print('Subthreshold resonance will not occur.')
+        # Phase lag:
+        if b > 1:
+            print('Zero phase-lag.')
+        elif a < 0:
+            print('Phase-lag > 90 deg.')
+        # TODO: add behaviour for square pulse currents
+    return fR
+
+
+
 def read_solution(filename, rt=0.0, at=15.0):
     compmat = np.loadtxt(filename)
     # restore columns
@@ -26,13 +54,17 @@ def read_solution(filename, rt=0.0, at=15.0):
     # find non-zero rates among these:
     nonzeroclose = np.all((closevec, compmat[ :, 6 ] != 0.0), axis=0)
     print('There are {0} simulated cases of equal rates!'.format(np.sum(nonzeroclose)))
-    equalcond = np.all((nonzeroclose, np.isclose(compmat[ :, 2 ], compmat[ :, 3 ], rtol=0.0, atol=15.0)), axis=0)
-    print('{0} of these have similar conductances!'.format(np.sum(equalcond)))
-    nonzerocv1 = np.all((equalcond, compmat[ :,7 ] != 0.0), axis=0)
-    nonzerocv2 = np.all((nonzerocv1, compmat[ :,9 ] != 0.0), axis=0)
-    print('Filtered solutions with CV = 0...')
-    output = np.all((nonzerocv2, compmat[ :,2 ] <= 10e3), axis=0)
-    print('{0} of these non.zero CVs!'.format(np.sum(nonzerocv2)))
+    # compute the subthreshold resonance frequency:
+    f_R = compute_str_freq(compmat[ :, 1 ], 100.0 * np.ones_like(compmat[ :, 1 ]), compmat[ :, 2 ], compmat[ :, 3 ], verbose=False)
+    resonating = np.isclose(f_R, 10.0 * np.ones_like(f_R), atol=5.0)
+    output = np.all((nonzeroclose, resonating), axis=0)
+    # equalcond = np.all((nonzeroclose, np.isclose(compmat[ :, 2 ], compmat[ :, 3 ], rtol=0.0, atol=15.0)), axis=0)
+    # print('{0} of these have similar conductances!'.format(np.sum(equalcond)))
+    # nonzerocv1 = np.all((equalcond, compmat[ :, 7 ] != 0.0), axis=0)
+    # nonzerocv2 = np.all((nonzerocv1, compmat[ :, 9 ] != 0.0), axis=0)
+    # print('Filtered solutions with CV = 0...')
+    # output = np.all((nonzerocv2, compmat[ :, 2 ] <= 10e3), axis=0)
+    # print('{0} of these non.zero CVs!'.format(np.sum(nonzerocv2)))
     print('Maximal values: {0}'.format(np.max(compmat[ output, : ], axis=0)))
     print('Minimal values: {0}'.format(np.min(compmat[ output, : ], axis=0)))
     return compmat, output
