@@ -21,7 +21,7 @@ def compute_str_freq(C, t1, g, g1, verbose=False):
     h1 = (a + b + 1.0)**2
     h2 = (a + 1.0)**2
     h3 = np.sqrt(h1 - h2)
-    fR = np.sqrt(h3 - 1.0)
+    fR = np.sqrt(h3 - 1.0) / 2 / t1 / np.pi
     if verbose:
         # stability:
         if a > -1 and a + b > 0:
@@ -58,6 +58,7 @@ def read_solution(filename, rt=0.0, at=15.0):
     f_R = compute_str_freq(compmat[ :, 1 ], 100.0 * np.ones_like(compmat[ :, 1 ]), compmat[ :, 2 ], compmat[ :, 3 ], verbose=False)
     resonating = np.isclose(f_R, 10.0 * np.ones_like(f_R), atol=5.0)
     output = np.all((nonzeroclose, resonating), axis=0)
+    print('Among these, {0} are resonating near 10Hz'.format(np.sum(output)))
     # equalcond = np.all((nonzeroclose, np.isclose(compmat[ :, 2 ], compmat[ :, 3 ], rtol=0.0, atol=15.0)), axis=0)
     # print('{0} of these have similar conductances!'.format(np.sum(equalcond)))
     # nonzerocv1 = np.all((equalcond, compmat[ :, 7 ] != 0.0), axis=0)
