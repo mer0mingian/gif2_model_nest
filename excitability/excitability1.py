@@ -21,7 +21,7 @@ def compute_str_freq(C, t1, g, g1, verbose=False):
     h1 = (a + b + 1.0)**2
     h2 = (a + 1.0)**2
     h3 = np.sqrt(h1 - h2)
-    fR = np.sqrt(h3 - 1.0) / 2 / t1 / np.pi
+    fR = np.sqrt(h3 - 1.0) / t1 / np.pi * 500.0
     if verbose:
         # stability:
         if a > -1 and a + b > 0:
