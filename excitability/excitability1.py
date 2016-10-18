@@ -245,7 +245,7 @@ if __name__ == '__main__':
     nest.SetKernelStatus(
         {"resolution": dt, "print_time": False, "overwrite_files": True})
     if cluster:
-        nest.SetKernelStatus({"local_num_threads": 4})
+        nest.SetKernelStatus({"local_num_threads": 16})
     try:
         nest.Install("gif2_module")
     except:
@@ -259,9 +259,9 @@ if __name__ == '__main__':
     p_rate = float(sys.argv[ 1 ])
     C_m2 = 100.0
     indexarray = np.zeros(10)
-    p_range = np.linspace(50000.0, 125000.0, 25)
-    C_range = np.linspace(100.0, 600.0, 5)  # np.arange(100.0, 600.0, 25.0)
-    g_range = np.linspace(5.0, 90.0, 5)  # np.arange(5.0, 90.0, 5.0)
+    p_range = np.arange(50000.0, 125000.0, 5000.0)
+    C_range = np.arange(100.0, 400.0, 10.0)  # np.arange(100.0, 600.0, 25.0)
+    g_range = np.arange(5.0, 45.0, 2.5)  # np.arange(5.0, 90.0, 5.0)
     cases = len(C_range) * len(g_range) * len(g_range)
     g_m = 5.0
     g_1 = 5.0

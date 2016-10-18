@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --ntasks 1
-#SBATCH -o /home/d.mingers/gif2_model_nest/excitability/out/brunel_%A.out
-#SBATCH -e /home/d.mingers/gif2_model_nest/excitability/out/brunel_%A.err
+#SBATCH -o /home/d.mingers/gif2_model_nest/excitability/out/excitability_%A.out
+#SBATCH -e /home/d.mingers/gif2_model_nest/excitability/out/excitability_%A.err
 #SBATCH --exclusive
 #SBATCH --mem=10000
 #SBATCH --time 23:59:00

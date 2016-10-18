@@ -1,0 +1,7 @@
+excitability_701171: 
+    p_range = np.linspace(50000.0, 125000.0, 25)
+    C_range = np.linspace(100.0, 600.0, 5)
+    g_range = np.linspace(5.0, 90.0, 5)
+
+
+

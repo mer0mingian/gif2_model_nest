@@ -52,6 +52,13 @@ for condition in noise_conditions:
     simparameterdict = import_params_as_dict(filename='jobdict.txt')
     # contains N, binwidth, current/poisson, t_rec, t_recstart,
     # simindex, synweight
+    simparameterdict[ 'simindex' ] = int(simparameterdict[ 'simindex' ] + 1)
+    # with open('jobdict.txt', 'a') as fs:
+    #     fs.write("\n{")
+    #     [ fs.write("'{0}': '{1}', ".format(key, value)) for key, value in simparameterdict.items()[ :-1 ] ]
+    #     fs.write("'{0}': '{1}'".format(simparameterdict.items()[ -1 ][0], simparameterdict.items()[ -1 ][1]))
+    #     fs.write("}")
+    #     fs.close()
 
     neuronparamdict = import_params_as_dict(filename='neurondict.txt')
     # contains tau_1, C_m, g_rr=g_1, g, V_m, V_reset, E_L, V_th

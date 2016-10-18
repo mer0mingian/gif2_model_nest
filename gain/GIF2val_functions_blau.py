@@ -111,6 +111,8 @@ def write_results(resultdict, filename='gains.csv'):
 	"""
 	exports the results for a single datapoint to the results file.
 	"""
+	index = resultdict['simparameterdict']['simindex']
+	filename = 'gains_{0}.csv'.format(index)
 	myCsvRow = str('{0}:{1}:{2}:{3}\n'.format(resultdict[ 'freqindex' ],
 											  resultdict[ 'condition' ],
 											  resultdict[ 'gain' ][ 0 ],
@@ -175,7 +177,6 @@ def compute_gain(bins, heights, hist_binwidth, I_1, f, dt, condition):
 	simparams = import_params_as_dict(filename='jobdict.txt')
 	t_recstart = 0.0 #  simparams[ 't_recstart' ] TODO!
 	t_rec = 1500.0  # simparams[ 't_rec' ]
-	t_sim = t_rec - t_recstart
 
 	gain = np.zeros(2)
 	r_0_rc = np.mean(heights)  # mean firing rate
@@ -219,8 +220,6 @@ def compute_gain2(bins, heights, hist_binwidth, I_1, f, dt, condition):
 	simparams = import_params_as_dict(filename='jobdict.txt')
 	t_recstart = simparams[ 't_recstart' ]
 	t_rec = simparams[ 't_rec' ]
-	t_sim = t_rec - t_recstart
-	# N = simparams[ 'N' ]
 
 	# set up auxiliary variables and start values for fitting:
 	gain = np.zeros(2)
@@ -314,16 +313,14 @@ def show_gain(gainmat, conditions, save=True):
 	# exp_f_r, exp_r_0, C_m, g, g_1, tau_1:
 	paramdict = import_params_as_dict('jobdict.txt')
 
-	# extract indices of successfully computed gain values for all conditions
-
 	frequencies = np.hstack((np.array([ 0 ]),
 							 np.logspace(-1., 2., num=len(
 								 np.unique(gainmat[ :, 1 ])) -1 )))
 	# TODO: make this more flexible to allow for more conditions!!!
-	f = 10.
-	mysine = Sinus(f)
-	sinecurve = mysine.fit(bins - hist_binwidth, popt[ 1 ], popt[ 2 ])
-	plt.plot(bins, sinecurve, color='black')
+	#f = 10.
+	#mysine = sinus(f)
+	#sinecurve = mysine.fit(bins - hist_binwidth, popt[ 1 ], popt[ 2 ])
+	#plt.plot(bins, sinecurve, color='black')
 
 	freqinddict = dict()
 	freqdict = dict()
@@ -346,9 +343,9 @@ def show_gain(gainmat, conditions, save=True):
 	# plot the gains
 	fig = plt.figure("Noise-dependent gain of the GIF2")
 	plt.subplot(211)
-	plt.semilogx(freqs_high[ 1: ], gains_high[ 1:, 0 ], color='blue',
+	plt.semilogx(freqs_high[ 1:-2 ], gains_high[ 1:-2, 0 ], color='blue',
 				 marker='o', ls=' ')
-	plt.semilogx(freqs_low[ 1: ], gains_low[ 1:, 0 ], color='red',
+	plt.semilogx(freqs_low[ 1:-2 ], gains_low[ 1:-2, 0 ], color='red',
 				 marker='o', ls=' ')
 	plt.grid(True)
 	# plt.text(0.25, 3.3,
@@ -364,9 +361,9 @@ def show_gain(gainmat, conditions, save=True):
 	# plt.ylim([ 0, 3.5 ])
 	plt.subplot(212)
 	plt.grid(True)
-	plt.semilogx(freqs_high[ 1: ], gains_high[ 1:, 1 ], color='blue',
+	plt.semilogx(freqs_high[ 1:-2 ], gains_high[ 1:-2, 1 ], color='blue',
 				 marker='o', ls=' ')
-	plt.semilogx(freqs_low[ 1: ], gains_low[ 1:, 1 ], color='red',
+	plt.semilogx(freqs_low[ 1:-2 ], gains_low[ 1:-2, 1 ], color='red',
 				 marker='o', ls=' ')
 	plt.xlabel('Frequency [Hz]', size=9.)
 	plt.ylabel('Phase of signal gain', size=9.)
@@ -375,7 +372,7 @@ def show_gain(gainmat, conditions, save=True):
 	# plt.axvline(x=exp_f_r * 1000)
 	# plt.axvline(x=exp_r_0)
 	if save == True:
-		plt.savefig('Richardson_Fig6CD.png')
+		plt.savefig('Richardson_Fig6CD_{0}.png'.format(paramdict[ 'simindex' ]))
 	else:
 		plt.ion()
 		plt.show()
@@ -387,11 +384,11 @@ def gain_plots(normalise=True, withone=False):
 	generates the plots for figure 6 from saved data files.
 	"""
 	gains, conditions = import_gain(filename='gains.csv')
-
+	plt.clf()
 	if normalise and not withone:
 		gains[ :, 2 ] /= gains[ 0, 2 ]
 		gains[ :, 3 ] /= gains[ 0, 3 ]
-	elif normalise and withone :
+	elif normalise and withone:
 		gains[ :, 2 ] /= gains[ 1, 2 ]
 		gains[ :, 3 ] /= gains[ 1, 3 ]
 	fig = show_gain(gains, conditions, save=True)
