@@ -1,7 +1,1 @@
-{'simindex': 1, 'N': 5000, 'stimtype': 'current', 't_sim': 5500., 't_rec': 5000., 't_recstart': 500, 'synweight': 40, 'nbins': 150}
-{'simindex': 1, 'N': 5000, 'stimtype': 'current', 't_sim': 10500., 't_rec': 10000., 't_recstart': 500, 'synweight': 40, 'nbins': 75}
-{'simindex': 1, 'N': 5000, 'stimtype': 'current', 't_sim': 10500., 't_rec': 10000., 't_recstart': 500, 'synweight': 40, 'nbins': 5000}
-{'simindex': 1, 'N': 10000, 'stimtype': 'current', 't_sim': 11500., 't_rec': 10000., 't_recstart': 1500, 'synweight': 40, 'nbins': 5000}
-{'simindex': 1, 'N': 10000, 'stimtype': 'current', 't_sim': 16500., 't_rec': 15000., 't_recstart': 1500, 'synweight': 40, 'nbins': 15000}
-{'simindex': 1, 'N': 7500, 'stimtype': 'current', 't_sim': 16500., 't_rec': 10000., 't_recstart': 1500, 'synweight': 40, 'nbins': 7500}
-{'simindex': 1, 'N': 7500, 'stimtype': 'current', 't_rec': 12500., 't_recstart': 1500., 'synweight': 40., 'binwidth': 1.0} 
+{'simindex': 5, 'N': 5000, 'stimtype': 'current', 't_rec': 10000., 't_recstart': 1500., 'binwidth': 1.0}

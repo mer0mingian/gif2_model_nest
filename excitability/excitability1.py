@@ -13,6 +13,7 @@ np.set_printoptions(precision=4, suppress=True)
 import sys
 import elephant.statistics as es
 from itertools import product
+import matplotlib.pyplot as plt
 
 
 def compute_str_freq(C, t1, g, g1, verbose=False):
@@ -44,6 +45,9 @@ def compute_str_freq(C, t1, g, g1, verbose=False):
 
 
 def read_solution(filename, rt=0.0, at=15.0):
+    """
+    the first thing to do
+    """
     compmat = np.loadtxt(filename)
     # restore columns
     compmat = compmat.reshape((-1, 10))
@@ -56,18 +60,16 @@ def read_solution(filename, rt=0.0, at=15.0):
     print('There are {0} simulated cases of equal rates!'.format(np.sum(nonzeroclose)))
     # compute the subthreshold resonance frequency:
     f_R = compute_str_freq(compmat[ :, 1 ], 100.0 * np.ones_like(compmat[ :, 1 ]), compmat[ :, 2 ], compmat[ :, 3 ], verbose=False)
-    resonating = np.isclose(f_R, 10.0 * np.ones_like(f_R), atol=5.0)
+    resonating = np.isclose(f_R, 10.0 * np.ones_like(f_R), atol=3.5)
     output = np.all((nonzeroclose, resonating), axis=0)
     print('Among these, {0} are resonating near 10Hz'.format(np.sum(output)))
-    # equalcond = np.all((nonzeroclose, np.isclose(compmat[ :, 2 ], compmat[ :, 3 ], rtol=0.0, atol=15.0)), axis=0)
-    # print('{0} of these have similar conductances!'.format(np.sum(equalcond)))
-    # nonzerocv1 = np.all((equalcond, compmat[ :, 7 ] != 0.0), axis=0)
-    # nonzerocv2 = np.all((nonzerocv1, compmat[ :, 9 ] != 0.0), axis=0)
-    # print('Filtered solutions with CV = 0...')
-    # output = np.all((nonzerocv2, compmat[ :, 2 ] <= 10e3), axis=0)
-    # print('{0} of these non.zero CVs!'.format(np.sum(nonzerocv2)))
-    # print('Maximal values: {0}'.format(np.max(compmat[ output, : ], axis=0)))
-    # print('Minimal values: {0}'.format(np.min(compmat[ output, : ], axis=0)))
+    equalcond = np.isclose(compmat[ :, 2 ], compmat[ :, 3 ], rtol=0.0, atol=15.0)
+    output = np.all((output, equalcond), axis=0)
+    print('{0} of these have similar conductances!'.format(np.sum(output)))
+    nonzerocv1 = ~np.isclose(compmat[ :, 8 ], np.zeros_like(compmat[ :, 8 ]), rtol=0.0, atol=1e-3)
+    nonzerocv2 = ~np.isclose(compmat[ :, 9 ], np.zeros_like(compmat[ :, 9 ]), rtol=0.0, atol=1e-3)
+    output = np.all((output, nonzerocv1, nonzerocv2), axis=0)
+    print('{0} of these have a CV different from 0.0.'.format(np.sum(output)))
     return compmat, output
 
 
@@ -87,7 +89,7 @@ def find_unique_paramsets(compmat):
     filter solutions that differ only in rate
     """
     mat = compmat[ :, 1:4 ]
-    uniquelines = np.array()
+    uniquelines = np.zeros(3)
     unique_c = np.unique(mat[ :, 0 ])
     for i in unique_c:
         unique_c_mat = mat[ mat[ :, 0 ] == i, : ]
@@ -95,11 +97,14 @@ def find_unique_paramsets(compmat):
             unique_cg_mat = unique_c_mat[ unique_c_mat[ :, 1 ] == j, : ]
             for k in np.unique(unique_cg_mat[ :, 2 ]):
                 if k != j:
-                    uniquelines = np.vstack(uniquelines, np.array([i, j, k]))
-    return uniquelines
+                    uniquelines = np.vstack((uniquelines, np.array([i, j, k])))
+    return uniquelines[ 1:, : ]
 
 
 def scatter_solutions(matrix):
+    """
+    make a scatterplot of similar behaviours for parameters C, g, g1 of gif2
+    """
     from mpl_toolkits.mplot3d import Axes3D
     import matplotlib.pyplot as plt
     fig = plt.figure()
@@ -114,34 +119,29 @@ def scatter_solutions(matrix):
     return fig    
 
 
-def run_specific_comparison(p_rate, C, g, g1):
-    # Configure Nest
+def run_specific_comparison(C, g, g1, runs=200):
+    """
+    compare rates and CV of preconfigured iaf and gif with input params at runs
+    different input rates.
+    :return: matrix with input rates | output gif | output iaf | CV1 | CV2
+    """
     import nest
-
-    nest.set_verbosity('M_WARNING')
+    nest.set_verbosity('M_ERROR')
     nest.ResetKernel()
     dt = 0.1  # the resolution in ms
     nest.SetKernelStatus(
         {"resolution": dt, "print_time": False, "overwrite_files": True})
-    try:
-        nest.Install("gif2_module")
-    except:
-        pass
-
-    # Simulation setup
+    try: nest.Install("gif2_module")
+    except: pass
     recstart = 1500.0
     simtime = 5000.0
-
-    # Shared/fixed neuron parameters
+    resultarray = np.zeros(5)
     tauSyn = 0.5
     V_theta = 15.0
     tau_1 = 100.0
     V_range = 6.0
     synweight = 87.8
     J_ex = 0.125
-    J_re = 0.125
-
-    # setup dictionaries
     gif_params = {"tau_1":      tau_1,
                   "C_m":        C,  # C_m2,
                   "tau_syn_ex": tauSyn,
@@ -168,25 +168,21 @@ def run_specific_comparison(p_rate, C, g, g1):
                   "to_file":  False,
                   "start":    recstart}
 
-    stm_params = {"rate":      p_rate,
-                  "amplitude": 0.025 * p_rate,
+    stm_params = {"rate":      0.0,
+                  "amplitude": 0.025 * 0.0,
                   "frequency": 10.0,
                   "phase":     0.0}
 
     nest.CopyModel("static_synapse", "excitatory",
                    {"weight": J_ex * synweight, "delay": 1.0})
 
-    # Create devices and neurons
-    drive = nest.Create("sinusoidal_poisson_generator",
-                        params=stm_params)
+    drive = nest.Create("sinusoidal_poisson_generator", params=stm_params)
     iafspikes = nest.Create("spike_detector", params=det_params)
     gifspikes = nest.Create("spike_detector", params=det_params)
     gif = nest.Create("gif2_psc_exp")
     iaf = nest.Create("iaf_psc_exp")
     nest.SetStatus(gif, gif_params)
     nest.SetStatus(iaf, iaf_params)
-
-    # Connect everything
     nest.Connect(drive, gif, syn_spec={"model":  "static_synapse",
                                        "weight": J_ex * synweight,
                                        "delay":  0.5})
@@ -195,23 +191,37 @@ def run_specific_comparison(p_rate, C, g, g1):
                                        "delay":  0.5})
     nest.Connect(gif, gifspikes)
     nest.Connect(iaf, iafspikes)
+    for p in np.linspace(50000.0, 125000.0, runs):
+        nest.ResetNetwork()
+        nest.SetStatus(gif, gif_params)
+        nest.SetStatus(iaf, iaf_params)
+        stm_params = {"rate":      p,
+                      "amplitude": 0.025 * p,
+                      "frequency": 10.0,
+                      "phase":     0.0}
+        nest.SetStatus(drive, stm_params)
+        nest.Simulate(recstart + simtime)
+        rate_iaf = nest.GetStatus(iafspikes, "n_events")[ 0 ] / simtime * 1000.
+        rate_gif = nest.GetStatus(gifspikes, "n_events")[ 0 ] / simtime * 1000.
+        cv_gif = es.cv(es.isi(nest.GetStatus(gifspikes, "events")[ 0 ][ "times" ]))
+        cv_iaf = es.cv(es.isi(nest.GetStatus(iafspikes, "events")[ 0 ][ "times" ]))
+        indexarray = np.array([ p, rate_gif, rate_iaf, cv_gif, cv_iaf ])
+        resultarray = np.vstack((resultarray, indexarray))
+    return resultarray[1:, :]
 
-    # Simulate
-    nest.Simulate(recstart + simtime)
 
-    # Evaluate
-    rate_iaf = nest.GetStatus(iafspikes, "n_events")[
-                   0 ] / simtime * 1000.
-    rate_gif = nest.GetStatus(gifspikes, "n_events")[
-                   0 ] / simtime * 1000.
-    cv_gif = es.cv(es.isi(nest.GetStatus(gifspikes, "events")
-                          [ 0 ][ "times" ]))
-    cv_iaf = es.cv(es.isi(nest.GetStatus(iafspikes, "events")
-                          [ 0 ][ "times" ]))
-
-    # write out
-    indexarray = np.array([ rate_gif, rate_iaf, cv_gif, cv_iaf ])
-    return indexarray, nest.GetStatus(gifspikes, "events")[ 0 ][ "times" ]
+def plot_comparison_resultarray(results):
+    """
+    plots I/F-curve
+    :param results: stim rates | gif rates | iaf rates
+    :return: figure
+    """
+    fig = plt.figure('IF-curves')
+    plt.plot(results[ :, 0 ], results[ :, 1 ], color='r', label='gif2')
+    plt.plot(results[ :, 0 ], results[ :, 2 ], color='b', label='iaf')
+    plt.legend(loc='upper left')
+    plt.xlim([50000.0, 125000.0])
+    return fig
 
 
 def show_solution_rates(matrix):
@@ -219,17 +229,59 @@ def show_solution_rates(matrix):
     plot spike courses of all gifs in solutions
     :param matrix: output from read_solution
     """
-    import matplotlib.pyplot as plt
     fig = plt.figure('spikes by gifs')
     ax = fig.add_axes([0, 0, 1, 1])
     for i in np.arange(0, matrix.shape[0]):
         sys.stdout.write('\r')
         sys.stdout.write('case {0}/{1}'.format(i, matrix.shape[ 0 ]))
         sys.stdout.flush()
-        index, spikes = run_specific_comparison(matrix[ i, 0 ], matrix[ i, 1 ],
-                                                matrix[ i, 2 ], matrix[ i, 3 ])
+        spikes = run_specific_comparison(matrix[ i, 1 ], matrix[ i, 2 ], matrix[ i, 3 ])
         ax.scatter(spikes, i * np.ones(len(spikes)))
     return fig
+
+
+def maketenplotsfromsolutions(filename, numgraphs=10):
+    """
+    work in progress
+    """
+    a, b = read_solution(filename)
+    c = a[ b, : ]
+    print('Acquired {0} solutions from file {1}.'.format(c.shape[0], filename))
+    assert(c.shape[0] > 10)
+    displayindices = np.array(np.ceil(np.linspace(0, c.shape[0], numgraphs, endpoint=False)), dtype=int)
+    solution = dict()
+    solution[ 'all_results' ] = a
+    solution[ 'resultfiltervector' ] = b
+    solution[ 'comparison' ] = dict()
+    for (i, j) in enumerate(displayindices):
+        # counter output
+        sys.stdout.write('\r')
+        sys.stdout.write('simulating case {0}/{1}'.format(i, numgraphs))
+        sys.stdout.flush()
+        #actual simulation:
+        solution[ 'comparison' ][ i ] = dict()
+        solution[ 'comparison' ][ i ][ 'results' ] = \
+            run_specific_comparison(c[ j, 1 ], c[ j, 2 ], c[ j, 3 ], runs=20)
+        solution[ 'comparison' ][ i ][ 'index' ] = j
+    # printing stuff
+    sn = solution[ 'comparison' ][ 0 ][ 'results' ]
+    plt.clf()
+    fig1 = plt.figure('Different gif2 rates')
+    for (k, val) in solution[ 'comparison' ].iteritems():
+        # counter output
+        sys.stdout.write('\r')
+        sys.stdout.write('plotting case {0}/{1}'.format(k, numgraphs))
+        sys.stdout.flush()
+        # actual plotting:
+        plt.plot(val['results'][ :, 0 ]/1000., val['results'][ :, 1 ], label='C={0}pF, g={1}nS, g1={2}nS'.format(c[val[ 'index' ], 1], c[val[ 'index' ], 2], c[val[ 'index' ], 3]))
+    plt.plot(sn[ :, 0 ]/1000., sn[ :, 2 ], label='iaf neuron: C=250.0pF, g=25.0nS', linestyle="--")
+    plt.xlabel('Stimulation rate [spikes/sec]')
+    plt.ylabel('Spike response [spikes/sec]')
+    plt.legend(loc='upper left')
+    plt.xlim([50.0, 125.0])
+    return solution, fig1
+
+
 
 
 if __name__ == '__main__':
@@ -259,8 +311,8 @@ if __name__ == '__main__':
     p_rate = float(sys.argv[ 1 ])
     C_m2 = 100.0
     indexarray = np.zeros(10)
-    p_range = np.arange(50000.0, 125000.0, 5000.0)
-    C_range = np.arange(100.0, 400.0, 10.0)  # np.arange(100.0, 600.0, 25.0)
+    p_range = np.arange(50000.0, 125000.0, 2500.0)
+    C_range = np.arange(100.0, 400.0, 5.0)  # np.arange(100.0, 600.0, 25.0)
     g_range = np.arange(5.0, 45.0, 2.5)  # np.arange(5.0, 90.0, 5.0)
     cases = len(C_range) * len(g_range) * len(g_range)
     g_m = 5.0
@@ -276,9 +328,7 @@ if __name__ == '__main__':
     J_re = 0.125
 
     j = 0
-    headerstr = 'input rate, C, g1, g, tau1, V_range, rate_gif, rate_iaf, cv_gif, cv_iaf'
-    with open('excitability_{0}.txt'.format(sys.argv[ 1 ]), 'a') as output:
-        np.savetxt(output, np.array([]), header=headerstr)
+    with open('excitability_{0}.csv'.format(sys.argv[ 1 ]), 'a') as output:
         for i in product(C_range, g_range, g_range, p_range):
             j += 1
             nest.ResetKernel()
@@ -360,11 +410,11 @@ if __name__ == '__main__':
             indexarray = np.array(
                 [ p_rate, i[ 0 ], i[ 1 ], i[ 2 ], tau_1, V_range, rate_gif,
                   rate_iaf, cv_gif, cv_iaf ])
-            np.savetxt(output, indexarray, fmt="%12.6G")
-    footerstr = 'tauSyn={0}, V_theta={1}, V_range={2}, synweight={3}, ' \
-                'J_ex={4}'.format(tauSyn, V_theta, V_range, synweight, J_ex)
-    print(footerstr)
-	# np.savetxt(output, np.array([ ]), footer=footerstr)
+            np.savetxt(output, indexarray, fmt="%12.6G", newline=' ')
+            output.write(' \n')
+    headerstr = 'input rate, C, g1, g, tau1, V_range, rate_gif, rate_iaf, cv_gif, cv_iaf'
+    footerstr = 'tauSyn={0}, V_theta={1}, V_range={2}, synweight={3}, J_ex={4}'.format(tauSyn, V_theta, V_range, synweight, J_ex)
+    output.write(headerstr + '\n' + footerstr)
     output.close()
 
 

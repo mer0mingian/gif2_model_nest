@@ -32,7 +32,7 @@ freqindex = int(sys.argv[ 1 ])
 maxindex = int(sys.argv[ 2 ])
 nest.SetKernelStatus({"resolution": dt,
                       "print_time": False,
-                      "overwrite_files": True})
+                      "overwrite_files": False})
 
 # setting up the frequency array and determining the frequency from the array
 frequencies = np.hstack((np.array([ 0 ]),
@@ -47,9 +47,9 @@ noise_conditions = ['R', 'r']
 for condition in noise_conditions:
     nest.SetKernelStatus({"resolution": dt,
                           "print_time": False,
-                          "overwrite_files": True})
+                          "overwrite_files": False})
 
-    simparameterdict = import_params_as_dict(filename='jobdict.txt')
+    simparameterdict = import_params_as_dict(filename='jobdict2.txt')
     # contains N, binwidth, current/poisson, t_rec, t_recstart,
     # simindex, synweight
     simparameterdict[ 'simindex' ] = int(simparameterdict[ 'simindex' ] + 1)
@@ -61,7 +61,7 @@ for condition in noise_conditions:
     #     fs.close()
 
     neuronparamdict = import_params_as_dict(filename='neurondict.txt')
-    # contains tau_1, C_m, g_rr=g_1, g, V_m, V_reset, E_L, V_th
+    # contains tau_1, C_m, g_rr=g_1, g, V_reset, E_L, V_th
 
     I_stimdict, r_stimdict, xi_stimdict = \
         get_stim_params(simparameterdict, f, condition, dt)
@@ -123,7 +123,7 @@ for condition in noise_conditions:
                       simparameterdict=simparameterdict,
                       condition=condition)
 
-    write_results(resultdict)
+    write_results(resultdict, int(sys.argv[ 3 ]))
     nest.ResetKernel()
 
 
