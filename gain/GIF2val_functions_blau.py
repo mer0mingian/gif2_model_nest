@@ -107,12 +107,12 @@ def get_stim_params(paramdict, f, condition, dt=0.1):
 	return I_stimdict, r_stimdict, xi_stimdict
 
 
-def write_results(resultdict, index2, filename='gains.csv'):
+def write_results(resultdict, filename='gains.csv'):
 	"""
 	exports the results for a single datapoint to the results file.
 	"""
 	index = resultdict['simparameterdict']['simindex']
-	filename = 'gains_{0}_{1}.csv'.format(index, index2)
+	filename = 'gains_{0}.csv'.format(index)
 	myCsvRow = str('{0}:{1}:{2}:{3}\n'.format(resultdict[ 'freqindex' ],
 											  resultdict[ 'condition' ],
 											  resultdict[ 'gain' ][ 0 ],

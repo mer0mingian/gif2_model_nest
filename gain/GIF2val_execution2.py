@@ -123,7 +123,7 @@ for condition in noise_conditions:
                       simparameterdict=simparameterdict,
                       condition=condition)
 
-    write_results(resultdict, int(sys.argv[ 3 ]))
+    write_results(resultdict)
     nest.ResetKernel()
 
 
