@@ -49,7 +49,7 @@ for condition in noise_conditions:
                           "print_time": False,
                           "overwrite_files": False})
 
-    simparameterdict = import_params_as_dict(filename='jobdict2.txt')
+    simparameterdict = import_params_as_dict(filename='jobdict.txt')
     # contains N, binwidth, current/poisson, t_rec, t_recstart,
     # simindex, synweight
     simparameterdict[ 'simindex' ] = int(simparameterdict[ 'simindex' ] + 1)
@@ -113,8 +113,10 @@ for condition in noise_conditions:
 
 
     # Fit and compute gain
-    gain, exp_r_0 = compute_gain(hist_bins, hist_heights, hist_binwidth,
-                                 I_stimdict, f, dt, condition)
+    gain, exp_r_0 = compute_gain(hist_bins, hist_heights,
+                                 simparameterdict[ 't_rec' ],
+                                 simparameterdict[ 't_recstart' ],
+                                 I_stimdict, f, dt)
 
     resultdict = dict(freqindex=freqindex,
                       gain=gain,
@@ -123,7 +125,7 @@ for condition in noise_conditions:
                       simparameterdict=simparameterdict,
                       condition=condition)
 
-    write_results(resultdict, int(sys.argv[ 3 ]))
+    write_results(resultdict)
     nest.ResetKernel()
 
 

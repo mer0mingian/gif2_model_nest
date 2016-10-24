@@ -1,1 +1,0 @@
-{'simindex': 5, 'N': 5000, 'stimtype': 'current', 't_rec': 10000., 't_recstart': 1500., 'binwidth': 1.0}

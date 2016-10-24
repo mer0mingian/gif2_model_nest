@@ -169,14 +169,14 @@ def compute_histogram(spike_times, simparameterdict):
 	return t_bins, heights, hist_binwidth
 
 
-def compute_gain(bins, heights, hist_binwidth, I_1, f, dt, condition):
+def compute_gain(bins, heights, t_rec, t_recstart, I_stimdict, f, dt):
 	I_1 = I_stimdict[ 'amplitude' ]
 	I_0 = I_stimdict[ 'offset' ]
 
 	# get the stim params to set up start values:
 	simparams = import_params_as_dict(filename='jobdict.txt')
-	t_recstart = 0.0 #  simparams[ 't_recstart' ] TODO!
-	t_rec = 1500.0  # simparams[ 't_rec' ]
+	# t_recstart = 0.0 #  simparams[ 't_recstart' ]
+	# t_rec = 1500.0  # simparams[ 't_rec' ]
 
 	gain = np.zeros(2)
 	r_0_rc = np.mean(heights)  # mean firing rate
@@ -205,7 +205,7 @@ def compute_gain(bins, heights, hist_binwidth, I_1, f, dt, condition):
 
 
 
-def compute_gain2(bins, heights, hist_binwidth, I_1, f, dt, condition):
+def compute_gain2(bins, heights, hist_binwidth, I_1, f, dt, condition, voltage, alt_phase):
 	"""
 	This version uses an alternate phase computation to get the difference in
 	phase between the fitted sinus and the driving signal.
@@ -234,7 +234,7 @@ def compute_gain2(bins, heights, hist_binwidth, I_1, f, dt, condition):
 		# current injection works with a delay of 0.1 ms
 		phase = -(((t_recstart - dt)/1000 * f_rc) % 1) * 360
 	bins = bins[ 1: ]  # for compatibility with np.histogram
-	mysine = Sinus(f)
+	mysine = sinus(f)
 
 	try:
 		# fit a sine to the firing rates
@@ -379,11 +379,11 @@ def show_gain(gainmat, conditions, save=True):
 	return fig
 
 
-def gain_plots(normalise=True, withone=False):
+def gain_plots(filename='gains.csv', normalise=True, withone=False):
 	"""
 	generates the plots for figure 6 from saved data files.
 	"""
-	gains, conditions = import_gain(filename='gains.csv')
+	gains, conditions = import_gain(filename)
 	plt.clf()
 	if normalise and not withone:
 		gains[ :, 2 ] /= gains[ 0, 2 ]
