@@ -9,3 +9,4 @@
 {'simindex': 3, 'N': 7500, 'stimtype': 'current', 't_rec': 5000000., 't_recstart': 1500., 'synweight': 40., 'binwidth': 1.0}
 {'simindex': 4, 'N': 5000, 'stimtype': 'current', 't_rec': 50000., 't_recstart': 1500., 'binwidth': 1.0}
 {'simindex': 5, 'N': 5000, 'stimtype': 'current', 't_rec': 50000., 't_recstart': 1500., 'binwidth': 1.0}
+{'simindex': 6, 'N': 15000, 'stimtype': 'current', 't_rec': 100000., 't_recstart': 1500., 'binwidth': 1.0}

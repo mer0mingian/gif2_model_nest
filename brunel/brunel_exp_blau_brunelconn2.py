@@ -234,7 +234,7 @@ if __name__ == '__main__':
 
     # Simulation parameters
     recstart = 0.0
-    simtime = 2000.0    # Simulation time in ms
+    simtime = 10000.0    # Simulation time in ms
     delay = 1.0         # synaptic delay in ms
     g = 5.0             # ratio inhibitory weight/excitatory weight
     eta = 2.0           # external rate relative to threshold rate
@@ -271,10 +271,14 @@ if __name__ == '__main__':
                     "V_m":        0.0,
                     "V_th":       theta}
 
-    tau_1 = 100.0
-    C_m2 = 450.
-    g_1 = 25.0  # 85.0
+    tau_1 = 120.0
+    C_m2 = 150.
+    g_1 = 10.0  # 85.0
     g_m = 25.0  # 35.0
+#    tau_1 = 100.0
+#    C_m2 = 450.
+#    g_1 = 25.0  # 85.0
+#    g_m = 25.0  # 35.0
     neuron_params2 = {
                     "tau_1":      tau_1,
                     "C_m":        C_m2,
@@ -283,7 +287,7 @@ if __name__ == '__main__':
                     "g_rr":       g_1,
                     "g":          g_m,
                     "V_m":        0.0,
-                    "V_reset":    9.0,
+                    "V_reset":    3.0,
                     "E_L":        0.0,
                     "V_th":       15.0}
 

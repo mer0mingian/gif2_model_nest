@@ -7,9 +7,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 import nest
 from excitability1 import read_solution
+import sys
 
 
-def fit_spikerates(filename):
+def fit_spikerates(filename, weighted=False):
     """
     fit the spike rates depending on input frequency
     """
@@ -21,19 +22,39 @@ def fit_spikerates(filename):
     if c.shape[ 1 ] > 1000:
         print('Found {0} possible solutions. This might take a while.'.format(
             c.shape[ 1 ]))
-    c = np.hstack((c, np.zeros_like(c[ :, -1 ])))
+    c = np.hstack((c, np.zeros((c.shape[ 0 ], 1))))
     # rows of c are:
     #      0       1   2    3     4       5          6          7        8
     #    9          10
     # input rate | C | g | g1 | tau1 | V_range | rate_gif | rate_iaf | cv_gif
     # | cv_iaf | rmse diff
 
-    for i in np.arange(0, c.shape[ 1 ]):
+    for i in np.arange(0, c.shape[ 0 ]):
+        # sys.stdout.write('\r')
+        # sys.stdout.write('case {0}/{1}'.format(i, c.shape[ 0 ]))
+        # sys.stdout.flush()
         results = run_sims(c[ i, 1 ], c[ i, 2 ], c[ i, 3 ])
-        results[ 3 ] = compute_rmse(results)
-        with open('ratefit_{0}.csv'.format(sys.argv[ 1 ]), 'a') as output:
-            np.savetxt(output, results, fmt="%12.6G", newline=' ')
-            output.write(' \n')
+        if not weighted:
+            results = compute_rmse(results)
+        else:
+            results = compute_rmse(results, weighted=True)
+        c[ i, -1 ] = results[ 3 ]
+        if weighted:
+            with open('ratefit_weighted_{0}.csv'.format(sys.argv[ 1 ]), 'a') as output:
+                print('weighted')
+                np.savetxt(output, results, fmt="%12.6G", newline=' ')
+                output.write(' \n')
+        else:
+            with open('ratefit_{0}.csv'.format(sys.argv[ 1 ]), 'a') as output:
+                np.savetxt(output, results, fmt="%12.6G", newline=' ')
+                output.write(' \n')
+    if weighted:
+        with open('fitted_excitability_weighted_{0}.csv'.format(sys.argv[ 1 ]), 'w') as output:
+            np.savetxt(output, c, fmt="%12.6G")  # , newline=' ')
+            print('weighted')
+    else:
+        with open('fitted_excitability_{0}.csv'.format(sys.argv[ 1 ]), 'w') as output:
+            np.savetxt(output, c, fmt="%12.6G")  # , newline=' ')
     return c
 
 
@@ -59,7 +80,7 @@ def run_sims(C, g, g1):
     except:
         pass
     recstart = 500.0
-    simtime = 1500.0
+    simtime = 2000.0
     tauSyn = 0.5
     V_theta = 15.0
     tau_1 = 100.0
@@ -115,12 +136,12 @@ def run_sims(C, g, g1):
                                        "delay":  0.5})
     nest.Connect(gif, gifspikes)
     nest.Connect(iaf, iafspikes)
-    for p in np.linspace(50000.0, 125000.0, runs):  # TODO: change indexing!
+    for p, q in enumerate(np.linspace(50000.0, 125000.0, runs)):
         nest.ResetNetwork()
         nest.SetStatus(gif, gif_params)
         nest.SetStatus(iaf, iaf_params)
-        stm_params = {"rate":      p,
-                      "amplitude": 0.025 * p,
+        stm_params = {"rate":      q,
+                      "amplitude": 0.025 * q,
                       "frequency": 10.0,
                       "phase":     0.0}
         nest.SetStatus(drive, stm_params)
@@ -132,17 +153,54 @@ def run_sims(C, g, g1):
     return resultarray
 
 
-def compute_rmse(simdata):
+def squared_weighting(points):
+    """
+    weights along an array of points, s.th. minimum in center = 0.25 and max
+     at the edges of 80 Hz = 4.0 with parabolic slope.
+    """
+    ratio = 3.75 / 1600
+    return ratio * ( points - 40.0 )**2 + 0.25
+
+
+def compute_rmse(simdata, weighted=False):
     """
     this computes the rmse for a given array of simulated data
     """
     runs = 51
     npoints = 0
     rmse = 0.0
-    for j in np.arange(0, 51):
-        if resultarray[ 5 + j ] <= 80.0 and resultarray[ 5 + runs + j ] <= 80.0:
+    # do the weighting:
+    if weighted:
+        weights = squared_weighting(np.linspace(0, 80.0, runs))
+    else:
+        weights = np.ones(runs)
+    # loop over the timeseries and compute:
+    for j in np.arange(0, runs):
+        if simdata[ 5 + j ] <= 80.0 or simdata[ 5 + runs + j ] <= 80.0:
             npoints += 1
-            rmse += (resultarray[ 5 + j ] - resultarray[ 5 + runs + j ])**2
-    simdata[ 3 ] = rmse
+            rmse += weights[ j ] * (simdata[ 5 + j ] - simdata[ 5 + runs + j ])**2
+    simdata[ 3 ] = np.sqrt(rmse)
     simdata[ 4 ] = npoints
     return simdata
+
+
+def return_n_smallest_rmses(n, solarray):
+    """
+    for a given array of solutions with the rmse in the last column extract the
+    lines with the n smallest rmses
+    """
+    lastcol = solarray[ :, -1 ]
+    ind = np.argpartition(lastcol, -n)[ -n: ]
+    return solarray[ ind ]
+
+
+if __name__ == '__main__':
+    import numpy as np
+    import matplotlib.pyplot as plt
+    import nest
+    from excitability1 import read_solution
+    import sys
+
+    filestring = 'excitability_{0}.csv'.format(sys.argv[ 1 ])
+    fit_spikerates(filestring, weighted=bool(sys.argv[ 2 ]))
+    plt.ion()

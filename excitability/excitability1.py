@@ -119,7 +119,7 @@ def scatter_solutions(matrix):
     return fig    
 
 
-def run_specific_comparison(C, g, g1, runs=200):
+def run_specific_comparison(C, g, g1, tau_1=100.0, V_dist=6.0, runs=200):
     """
     compare rates and CV of preconfigured iaf and gif with input params at runs
     different input rates.
@@ -138,8 +138,6 @@ def run_specific_comparison(C, g, g1, runs=200):
     resultarray = np.zeros(5)
     tauSyn = 0.5
     V_theta = 15.0
-    tau_1 = 100.0
-    V_range = 6.0
     synweight = 87.8
     J_ex = 0.125
     gif_params = {"tau_1":      tau_1,
@@ -149,7 +147,7 @@ def run_specific_comparison(C, g, g1, runs=200):
                   "g_rr":       g1,  # g_1,
                   "g":          g,  # g_m,
                   "V_m":        0.0,
-                  "V_reset":    V_theta - V_range,
+                  "V_reset":    V_theta - V_dist,
                   "E_L":        0.0,
                   "V_th":       V_theta}
 
@@ -191,7 +189,7 @@ def run_specific_comparison(C, g, g1, runs=200):
                                        "delay":  0.5})
     nest.Connect(gif, gifspikes)
     nest.Connect(iaf, iafspikes)
-    for p in np.linspace(50000.0, 125000.0, runs):
+    for p in np.linspace(50000.0, 90000.0, runs):  # 125000.0, runs):
         nest.ResetNetwork()
         nest.SetStatus(gif, gif_params)
         nest.SetStatus(iaf, iaf_params)
@@ -210,17 +208,21 @@ def run_specific_comparison(C, g, g1, runs=200):
     return resultarray[1:, :]
 
 
-def plot_comparison_resultarray(results):
+def plot_comparison_resultarray(results, color='k', limity=True, lif=True, add_label=None):
     """
     plots I/F-curve
     :param results: stim rates | gif rates | iaf rates
     :return: figure
     """
     fig = plt.figure('IF-curves')
-    plt.plot(results[ :, 0 ], results[ :, 1 ], color='r', label='gif2')
-    plt.plot(results[ :, 0 ], results[ :, 2 ], color='b', label='iaf')
+    plt.plot(results[ :, 0 ], results[ :, 1 ],
+             color=color, label='gif2'+add_label)
+    if lif:
+        plt.plot(results[ :, 0 ], results[ :, 2 ], color='b', label='iaf')
     plt.legend(loc='upper left')
-    plt.xlim([50000.0, 125000.0])
+    plt.xlim([50000.0, 90000.0])
+    if limity:
+        plt.ylim([ 0.0, 100.0 ])
     return fig
 
 
@@ -282,9 +284,16 @@ def maketenplotsfromsolutions(filename, numgraphs=10):
     return solution, fig1
 
 
-
-
-
+def makeoneplotfromsolutions(filename, color='k', lif=True):
+    """
+    work in progress
+    """
+    datamat = np.loadtxt(filename)
+    c = datamat[ np.argmin(datamat[ :, 10 ]), : ]
+    results = run_specific_comparison(c[ 1 ], c[ 2 ], c[ 3 ], tau_1=c[ 4 ], V_dist=c[ 5 ], runs=30)
+    add_label = ': C={0}, g={1}, g1={2}, t1={3}, dV={4}'.format(c[ 1 ], c[ 2 ], c[ 3 ], c[ 4 ], c[ 5 ])
+    fig1 = plot_comparison_resultarray(results, color=color, limity=True, lif=lif, add_label=add_label)
+    return fig1
 
 
 if __name__ == '__main__':
@@ -314,10 +323,13 @@ if __name__ == '__main__':
     p_rate = float(sys.argv[ 1 ])
     C_m2 = 100.0
     indexarray = np.zeros(10)
-    p_range = np.arange(50000.0, 125000.0, 2500.0)
-    C_range = np.arange(100.0, 400.0, 5.0)  # np.arange(100.0, 600.0, 25.0)
-    g_range = np.arange(5.0, 45.0, 2.5)  # np.arange(5.0, 90.0, 5.0)
-    cases = len(C_range) * len(g_range) * len(g_range)
+    p_range = np.arange(50000.0, 95000.0, 5000.0)
+    C_range = np.arange(200.0, 750.0, 50.0)
+    g_range = np.arange(15.0, 40.0, 5.0)
+    g1_range = np.arange(15.0, 120.0, 5.0)
+    V_range = np.arange(6.0, 15.0, 3.0)
+    tau_1_range = np.arange(80.0, 130.0, 10.0)
+    cases = len(C_range) * len(g_range) * len(g1_range) * len(V_range) * len(tau_1_range)
     g_m = 5.0
     g_1 = 5.0
 
@@ -325,98 +337,103 @@ if __name__ == '__main__':
     tauSyn = 0.5
     V_theta = 15.0
     tau_1 = 100.0
-    V_range = 6.0
+    V_dist = 6.0
     synweight = 87.8
     J_ex = 0.125
-    J_re = 0.125
+    J_re = 0.250
 
     j = 0
     with open('excitability_{0}.csv'.format(sys.argv[ 1 ]), 'a') as output:
-        for i in product(C_range, g_range, g_range, p_range):
-            j += 1
-            nest.ResetKernel()
-            p_rate = i[ 3 ]
+        for i in product(C_range, g_range, g1_range, p_range, V_range, tau_1_range):
+            fr = compute_str_freq(i[ 0 ], i[ 5 ], i[ 1 ], i[ 2 ])
+            if np.isclose(fr, 10.0, atol=3.5, rtol=0.0):
+                j += 1
+                # check for resonance frequency here
+                nest.ResetKernel()
+                p_rate = i[ 3 ]
+                V_dist = i[ 4 ]
+                tau_1 = i[ 5 ]
 
-            # adopt neuron parameters
-            gif_params = {"tau_1":      tau_1,
-                          "C_m":        i[ 0 ],  # C_m2,
-                          "tau_syn_ex": tauSyn,
-                          "tau_syn_in": tauSyn,
-                          "g_rr":       i[ 2 ],  # g_1,
-                          "g":          i[ 1 ],  # g_m,
-                          "V_m":        0.0,
-                          "V_reset":    V_theta - V_range,
-                          "E_L":        0.0,
-                          "V_th":       V_theta}
+                # adopt neuron parameters
+                gif_params = {"tau_1":      tau_1,
+                              "C_m":        i[ 0 ],  # C_m2,
+                              "tau_syn_ex": tauSyn,
+                              "tau_syn_in": tauSyn,
+                              "g_rr":       i[ 2 ],  # g_1,
+                              "g":          i[ 1 ],  # g_m,
+                              "V_m":        0.0,
+                              "V_reset":    V_theta - V_dist,
+                              "E_L":        0.0,
+                              "V_th":       V_theta}
 
-            iaf_params = {"C_m":        250.0,
-                          "tau_m":      10.0,
-                          "tau_syn_ex": tauSyn,
-                          "tau_syn_in": tauSyn,
-                          "t_ref":      2.0,
-                          "E_L":        0.0,
-                          "V_reset":    0.0,
-                          "V_m":        0.0,
-                          "V_th":       V_theta}
+                iaf_params = {"C_m":        250.0,
+                              "tau_m":      10.0,
+                              "tau_syn_ex": tauSyn,
+                              "tau_syn_in": tauSyn,
+                              "t_ref":      2.0,
+                              "E_L":        0.0,
+                              "V_reset":    0.0,
+                              "V_m":        0.0,
+                              "V_th":       V_theta}
 
-            det_params = {"withtime": True,
-                          "withgid":  False,
-                          "to_file":  False,
-                          "start":    recstart}
+                det_params = {"withtime": True,
+                              "withgid":  False,
+                              "to_file":  False,
+                              "start":    recstart}
 
-            stm_params = {"rate":      p_rate,
-                          "amplitude": 0.025 * p_rate,
-                          "frequency": 10.0,
-                          "phase":     0.0}
+                stm_params = {"rate":      p_rate,
+                              "amplitude": 0.025 * p_rate,
+                              "frequency": 10.0,
+                              "phase":     0.0}
 
-            nest.CopyModel("static_synapse", "excitatory",
-                           {"weight": J_ex * synweight, "delay": 1.0})
+                nest.CopyModel("static_synapse", "excitatory",
+                               {"weight": J_ex * synweight, "delay": 1.0})
 
-            # Create devices and neurons
-            drive = nest.Create("sinusoidal_poisson_generator",
-                                params=stm_params)
-            iafspikes = nest.Create("spike_detector", params=det_params)
-            gifspikes = nest.Create("spike_detector", params=det_params)
-            gif = nest.Create("gif2_psc_exp")
-            iaf = nest.Create("iaf_psc_exp")
-            nest.SetStatus(gif, gif_params)
-            nest.SetStatus(iaf, iaf_params)
+                # Create devices and neurons
+                drive = nest.Create("sinusoidal_poisson_generator",
+                                    params=stm_params)
+                iafspikes = nest.Create("spike_detector", params=det_params)
+                gifspikes = nest.Create("spike_detector", params=det_params)
+                gif = nest.Create("gif2_psc_exp")
+                iaf = nest.Create("iaf_psc_exp")
+                nest.SetStatus(gif, gif_params)
+                nest.SetStatus(iaf, iaf_params)
 
-            # Connect everything
-            nest.Connect(drive, gif, syn_spec={"model":  "static_synapse",
-                                               "weight": J_ex * synweight,
-                                               "delay":  0.5})
-            nest.Connect(drive, iaf, syn_spec={"model":  "static_synapse",
-                                               "weight": J_ex * synweight,
-                                               "delay":  0.5})
-            nest.Connect(gif, gifspikes)
-            nest.Connect(iaf, iafspikes)
+                # Connect everything
+                nest.Connect(drive, gif, syn_spec={"model":  "static_synapse",
+                                                   "weight": J_ex * synweight,
+                                                   "delay":  0.5})
+                nest.Connect(drive, iaf, syn_spec={"model":  "static_synapse",
+                                                   "weight": J_ex * synweight,
+                                                   "delay":  0.5})
+                nest.Connect(gif, gifspikes)
+                nest.Connect(iaf, iafspikes)
 
-            # Simulate
-            if not cluster:
-                sys.stdout.write('\r')
-                sys.stdout.write('case {0}/{1}'.format(j, cases))
-                sys.stdout.flush()
-            nest.Simulate(recstart + simtime)
+                # Simulate
+                if not cluster:
+                    sys.stdout.write('\r')
+                    sys.stdout.write('case {0}/{1}'.format(j, cases))
+                    sys.stdout.flush()
+                nest.Simulate(recstart + simtime)
 
-            # Evaluate
-            rate_iaf = nest.GetStatus(iafspikes, "n_events")[
-                           0 ] / simtime * 1000.
-            rate_gif = nest.GetStatus(gifspikes, "n_events")[
-                           0 ] / simtime * 1000.
-            cv_gif = es.cv(es.isi(nest.GetStatus(gifspikes, "events")
-                                  [ 0 ][ "times" ]))
-            cv_iaf = es.cv(es.isi(nest.GetStatus(iafspikes, "events")
-                                  [ 0 ][ "times" ]))
+                # Evaluate
+                rate_iaf = nest.GetStatus(iafspikes, "n_events")[
+                               0 ] / simtime * 1000.
+                rate_gif = nest.GetStatus(gifspikes, "n_events")[
+                               0 ] / simtime * 1000.
+                cv_gif = es.cv(es.isi(nest.GetStatus(gifspikes, "events")
+                                      [ 0 ][ "times" ]))
+                cv_iaf = es.cv(es.isi(nest.GetStatus(iafspikes, "events")
+                                      [ 0 ][ "times" ]))
 
-            # write out
-            indexarray = np.array(
-                [ p_rate, i[ 0 ], i[ 1 ], i[ 2 ], tau_1, V_range, rate_gif,
-                  rate_iaf, cv_gif, cv_iaf ])
-            np.savetxt(output, indexarray, fmt="%12.6G", newline=' ')
-            output.write(' \n')
-    headerstr = 'input rate, C, g1, g, tau1, V_range, rate_gif, rate_iaf, cv_gif, cv_iaf'
-    footerstr = 'tauSyn={0}, V_theta={1}, V_range={2}, synweight={3}, J_ex={4}'.format(tauSyn, V_theta, V_range, synweight, J_ex)
+                # write out
+                indexarray = np.array(
+                    [ i[ 3 ], i[ 0 ], i[ 1 ], i[ 2 ], i[ 5 ], i[ 4 ], rate_gif,
+                      rate_iaf, cv_gif, cv_iaf ])
+                np.savetxt(output, indexarray, fmt="%12.6G", newline=' ')
+                output.write(' \n')
+    headerstr = 'input rate, C, g1, g, tau1, V_dist, rate_gif, rate_iaf, cv_gif, cv_iaf'
+    footerstr = 'tauSyn={0}, V_theta={1}, V_dist={2}, synweight={3}, J_ex={4}'.format(tauSyn, V_theta, V_dist, synweight, J_ex)
     output.write(headerstr + '\n' + footerstr)
     output.close()
 

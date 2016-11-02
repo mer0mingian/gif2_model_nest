@@ -4,3 +4,4 @@ deprecated/
 gain/deprecated/
 *.err
 *.out
+*.csv

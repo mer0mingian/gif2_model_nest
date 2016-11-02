@@ -8,4 +8,4 @@
 module load mpi/openmpi/1.10.0
 module load pystuff_new
 source activate mingpython
-srun python brunel_exp_blau_brunelconn.py
+srun python brunel_exp_blau_brunelconn2.py

@@ -22,6 +22,7 @@ import sys, getopt
 import numpy as np
 execfile('GIF2val_functions_blau.py')
 
+import time
 import nest
 try: nest.set_verbosity('M_ERROR')
 except: print('Changing the nest verbosity did not succeed')
@@ -45,6 +46,7 @@ noise_conditions = ['R', 'r']
 
 
 for condition in noise_conditions:
+    starttime = time.time()
     nest.SetKernelStatus({"resolution": dt,
                           "print_time": False,
                           "overwrite_files": False})
@@ -127,5 +129,6 @@ for condition in noise_conditions:
 
     write_results(resultdict)
     nest.ResetKernel()
-
+    endtime = time.time()
+    print('condition {0} with frequency {1} took {2}ms.'.format(condition, f, endtime - starttime))
 
