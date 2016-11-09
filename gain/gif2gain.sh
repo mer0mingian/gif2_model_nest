@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name gif2_gain
+#SBATCH --job-name gif2gain
 #SBATCH --array 0-47%16
 #SBATCH --time 03-23:59:59
 # %A will be replaced by the job ID and %a by the array index
@@ -9,4 +9,4 @@
 ##################################################################
 module load pystuff_new
 source activate mingpython
-srun python GIF2val_execution.py $SLURM_ARRAY_TASK_ID 47 $SLURM_JOBID
+srun python GIF2val_execution.py $SLURM_ARRAY_TASK_ID 47 0 $SLURM_ARRAY_JOB_ID 

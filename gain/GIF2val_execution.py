@@ -15,10 +15,11 @@ generators and uses a phase difference to a fit to the driving signal instead
 of just the phase extracted from the sine fitted to rates.
 
 v3:
-lanning to add the option to give a plot with 25 subplots from single data
-point fits.
+with sys.arg[3] give the option for multiple outputs, each showing the fitted
+ function to the histogram.
 """
-import sys, getopt
+import getopt
+import sys
 import numpy as np
 execfile('GIF2val_functions_blau.py')
 
@@ -31,9 +32,8 @@ except: print ("The GIF2 model had already been installed")
 dt = 0.01  # simulation timestep
 freqindex = int(sys.argv[ 1 ])
 maxindex = int(sys.argv[ 2 ])
-nest.SetKernelStatus({"resolution": dt,
-                      "print_time": False,
-                      "overwrite_files": False})
+show_fits = bool(sys.argv[ 3 ])
+queueid = int(sys.argv[ 4 ])
 
 # setting up the frequency array and determining the frequency from the array
 frequencies = np.hstack((np.array([ 0 ]),
@@ -44,23 +44,17 @@ f = frequencies[ freqindex ]
 # It's strings should be recognised by get_stim_params()!
 noise_conditions = ['R', 'r']
 
-
 for condition in noise_conditions:
     starttime = time.time()
-    nest.SetKernelStatus({"resolution": dt,
+    nest.ResetKernel()
+    nest.SetKernelStatus({#"local_num_threads": 16,
                           "print_time": False,
-                          "overwrite_files": False})
+                          "overwrite_files": False,
+                          "resolution": dt})
 
     simparameterdict = import_params_as_dict(filename='jobdict.txt')
     # contains N, binwidth, current/poisson, t_rec, t_recstart,
     # simindex, synweight
-    simparameterdict[ 'simindex' ] = int(simparameterdict[ 'simindex' ] + 1)
-    # with open('jobdict.txt', 'a') as fs:
-    #     fs.write("\n{")
-    #     [ fs.write("'{0}': '{1}', ".format(key, value)) for key, value in simparameterdict.items()[ :-1 ] ]
-    #     fs.write("'{0}': '{1}'".format(simparameterdict.items()[ -1 ][0], simparameterdict.items()[ -1 ][1]))
-    #     fs.write("}")
-    #     fs.close()
 
     neuronparamdict = import_params_as_dict(filename='neurondict.txt')
     # contains tau_1, C_m, g_rr=g_1, g, V_reset, E_L, V_th
@@ -71,15 +65,6 @@ for condition in noise_conditions:
     # -------------------------------------------------------------------------
     # Starting simulation part here
     # -------------------------------------------------------------------------
-    # CALCULATE SECOND-ORDER PARAMETERS
-    # alpha = g * tau_1 / C_m  # regime determining constant 1
-    # beta = g_1 * tau_1 / C_m  # regime determining constant 2
-    # factor = np.sqrt((alpha + 1.) * (alpha + 1.) + 1.) - (1. + alpha)
-    # t_sim = t_rec + t_recstart  # length of data acquisition time
-    # exp_f_r = 1. / (2. * np.pi * tau_1) * np.sqrt(np.sqrt(
-    #     (alpha + beta + 1.) * (alpha + beta + 1.) - (alpha + 1.) * (
-    #     alpha + 1.)) - 1.)
-    # # formula A6, p.2552
 
     # CREATE DEVICES
     neuron = nest.Create('gif2_psc_exp',
@@ -101,7 +86,8 @@ for condition in noise_conditions:
     nest.Connect(neuron, spikedetector)
 
     # SIMULATE
-    nest.Simulate(simparameterdict[ 't_rec' ] + simparameterdict[ 't_recstart' ])
+    nest.Simulate(simparameterdict[ 't_rec' ] +
+                  simparameterdict[ 't_recstart' ])
 
 
     # RECORDING
@@ -116,8 +102,7 @@ for condition in noise_conditions:
 
     # Fit and compute gain
     gain, exp_r_0 = compute_gain(hist_bins, hist_heights,
-                                 simparameterdict[ 't_rec' ],
-                                 simparameterdict[ 't_recstart' ],
+                                 simparameterdict,
                                  I_stimdict, f, dt)
 
     resultdict = dict(freqindex=freqindex,
@@ -127,8 +112,14 @@ for condition in noise_conditions:
                       simparameterdict=simparameterdict,
                       condition=condition)
 
+    if show_fits:
+        multiplot(condition, simparameterdict[ 'simindex' ], freqindex, hist_bins,
+                  hist_heights, f, gain[ 0 ] * I_stimdict[ 'amplitude' ],
+                  gain[ 1 ], exp_r_0)
+
     write_results(resultdict)
-    nest.ResetKernel()
+    #nest.ResetKernel()
     endtime = time.time()
-    print('condition {0} with frequency {1} took {2}ms.'.format(condition, f, endtime - starttime))
+    print('condition {0} with frequency {1} took {2}ms.'.format(
+        condition, f, endtime - starttime))
 

@@ -16,6 +16,8 @@ import time
 # import pylab
 # from numpy import exp
 import sys
+import matplotlib as mpl
+mpl.use('Agg')
 import matplotlib.pyplot as plt
 from mingtools1 import *
 from elephant.statistics import isi, cv

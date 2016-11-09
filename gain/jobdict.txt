@@ -10,3 +10,9 @@
 {'simindex': 4, 'N': 5000, 'stimtype': 'current', 't_rec': 50000., 't_recstart': 1500., 'binwidth': 1.0}
 {'simindex': 5, 'N': 5000, 'stimtype': 'current', 't_rec': 50000., 't_recstart': 1500., 'binwidth': 1.0}
 {'simindex': 6, 'N': 15000, 'stimtype': 'current', 't_rec': 100000., 't_recstart': 1500., 'binwidth': 1.0}
+{'simindex': 7, 'N': 10000, 'stimtype': 'current', 't_rec': 100000., 't_recstart': 1500., 'binwidth': 1.0}
+{'simindex': 8, 'N': 7500, 'stimtype': 'current', 't_rec': 1000., 't_recstart': 1500., 'binwidth': 1.0}
+{'simindex': 9, 'N': 7500, 'stimtype': 'current', 't_rec': 1000., 't_recstart': 1500., 'binwidth': 1.0}
+{'simindex': 10, 'N': 7500, 'stimtype': 'current', 't_rec': 1000., 't_recstart': 1500., 'binwidth': 1.0}
+{'simindex': 11, 'N': 7500, 'stimtype': 'current', 't_rec': 10000., 't_recstart': 1500., 'binwidth': 1.0}
+{'simindex': 12, 'N': 750, 'stimtype': 'current', 't_rec': 2500., 't_recstart': 1500., 'binwidth': 1.0}
