@@ -189,7 +189,7 @@ def run_specific_comparison(C, g, g1, tau_1=100.0, V_dist=6.0, runs=200):
                                        "delay":  0.5})
     nest.Connect(gif, gifspikes)
     nest.Connect(iaf, iafspikes)
-    for p in np.linspace(50000.0, 90000.0, runs):  # 125000.0, runs):
+    for p in np.linspace(50000.0, 100000.0, runs):  # 125000.0, runs):
         nest.ResetNetwork()
         nest.SetStatus(gif, gif_params)
         nest.SetStatus(iaf, iaf_params)
@@ -263,7 +263,7 @@ def maketenplotsfromsolutions(filename, numgraphs=10):
         #actual simulation:
         solution[ 'comparison' ][ i ] = dict()
         solution[ 'comparison' ][ i ][ 'results' ] = \
-            run_specific_comparison(c[ j, 1 ], c[ j, 2 ], c[ j, 3 ], runs=20)
+            run_specific_comparison(c[ j, 1 ], c[ j, 2 ], c[ j, 3 ], runs=21)
         solution[ 'comparison' ][ i ][ 'index' ] = j
     # printing stuff
     sn = solution[ 'comparison' ][ 0 ][ 'results' ]
@@ -280,7 +280,7 @@ def maketenplotsfromsolutions(filename, numgraphs=10):
     plt.xlabel('Stimulation rate [spikes/sec]')
     plt.ylabel('Spike response [spikes/sec]')
     plt.legend(loc='upper left')
-    plt.xlim([50.0, 125.0])
+    plt.xlim([50.0, 100.0])
     return solution, fig1
 
 
