@@ -47,7 +47,7 @@ noise_conditions = ['R', 'r']
 for condition in noise_conditions:
     starttime = time.time()
     nest.ResetKernel()
-    nest.SetKernelStatus({#"local_num_threads": 16,
+    nest.SetKernelStatus({"local_num_threads": 16,
                           "print_time": False,
                           "overwrite_files": False,
                           "resolution": dt})
@@ -112,12 +112,13 @@ for condition in noise_conditions:
                       simparameterdict=simparameterdict,
                       condition=condition)
 
+    write_results(resultdict)
+
     if show_fits:
         multiplot(condition, simparameterdict[ 'simindex' ], freqindex, hist_bins,
                   hist_heights, f, gain[ 0 ] * I_stimdict[ 'amplitude' ],
                   gain[ 1 ], exp_r_0)
 
-    write_results(resultdict)
     #nest.ResetKernel()
     endtime = time.time()
     print('condition {0} with frequency {1} took {2}ms.'.format(

@@ -144,6 +144,8 @@ def import_params_as_dict(filename='jobdict.txt'):
 # -----------------------------------------------------------------------------
 # Visualise the results
 # -----------------------------------------------------------------------------
+
+
 def sort_gain(gainmat):
 	"""
 	sorts the matrix with gains such that the first component is sorted by
@@ -185,24 +187,27 @@ def import_gain(filename='gains.csv'):
 	return gain, conditions
 
 
-def show_gain(gainmat, conditions, save=True):
+def split_gain_conditions(gainmat, normalise=True, withone=False):
 	"""
-	creates the fig6 plots from richardson et al., 2003
+	Separate the conditions for low and high noise in the gain matrix
 	"""
 	# exp_f_r, exp_r_0, C_m, g, g_1, tau_1:
 	paramdict = import_params_as_dict('jobdict.txt')
 
 	frequencies = np.hstack((np.array([ 0 ]),
 							 np.logspace(-1., 2., num=len(
-								 np.unique(gainmat[ :, 1 ])) -1 )))
+								 np.unique(gainmat[ :, 1 ])) - 1)))
 	freqinddict = dict()
 	freqdict = dict()
 	for i in np.unique(gainmat[ :, 0 ]):
-		freqinddict[i] = np.array(gainmat[ gainmat[ :, 0 ] == i ][ :, 1 ], dtype=int)
-		freqdict[i] = frequencies[ freqinddict[ i ] ]
+		freqinddict[ i ] = np.array(gainmat[ gainmat[ :, 0 ] == i ][ :, 1 ],
+									dtype=int)
+		freqdict[ i ] = frequencies[ freqinddict[ i ] ]
 	# extract the indices of successful computed gain values
-	freqs_high_ind = np.array(gainmat[ gainmat[ :, 0 ] == 0 ][ :, 1 ], dtype=int)
-	freqs_low_ind = np.array(gainmat[ gainmat[ :, 0 ] == 1 ][ :, 1 ], dtype=int)
+	freqs_high_ind = np.array(gainmat[ gainmat[ :, 0 ] == 0 ][ :, 1 ],
+							  dtype=int)
+	freqs_low_ind = np.array(gainmat[ gainmat[ :, 0 ] == 1 ][ :, 1 ],
+							 dtype=int)
 
 	# find the frequencies for these indices
 	freqs_low = frequencies[ freqs_low_ind ]
@@ -211,6 +216,63 @@ def show_gain(gainmat, conditions, save=True):
 	# find the gains
 	gains_high = gainmat[ gainmat[ :, 0 ] == 0 ][ :, 2: ]
 	gains_low = gainmat[ gainmat[ :, 0 ] == 1 ][ :, 2: ]
+
+	# smooth the phases
+	gains_high = smooth_gain_phase_period(gains_high)
+	gains_low = smooth_gain_phase_period(gains_low)
+
+	# normalise?
+	if normalise and not withone:
+		gains_high[ :, 0 ] /= gains_high[ 0, 0 ]
+		gains_high[ :, 1 ] /= gains_high[ 0, 1 ]
+		gains_low[ :, 0 ] /= gains_low[ 0, 0 ]
+		gains_low[ :, 1 ] /= gains_low[ 0, 1 ]
+	elif normalise and withone:
+		gains_high[ :, 0 ] /= gains_high[ 1, 0 ]
+		gains_high[ :, 1 ] /= gains_high[ 0, 1 ]
+		gains_low[ :, 0 ] /= gains_low[ 1, 0 ]
+		gains_low[ :, 1 ] /= gains_low[ 0, 1 ]
+
+	# smooth the phases again
+	gains_high = smooth_gain_phase_period(gains_high)
+	gains_low = smooth_gain_phase_period(gains_low)
+
+
+	# Correct the phases for periodicity
+
+	# while np.sum(gains_high >= 180.0) > 0 or np.sum(gains_high <= -180.0) > 0:
+	# 	gains_high[ gains_high >= 180.0 ] -= 360.0
+	# 	gains_high[ gains_high <= -180.0 ] += 360.0
+	# 	gains_low[ gains_low >= 180.0 ] -= 360.0
+	# 	gains_low[ gains_low <= -180.0 ] += 360.0
+
+	plotdict = dict(gains_low=gains_low,
+					gains_high=gains_high,
+					freqs_low=freqs_low,
+					freqs_high=freqs_high)
+	return plotdict
+
+
+def smooth_gain_phase_period(gains_sep):
+	"""
+	Smoothing the large angle jumps in the gain phase
+	:param gain_sep: array(amplitudes, phases)
+	:return: array(amplitudes, smooth phases)
+	"""
+	gains_sep[ :, 1 ] = np.deg2rad(gains_sep[ :, 1 ])
+	gains_sep[ :, 1 ] = np.unwrap(gains_sep[ :, 1 ])
+	gains_sep[ :, 1 ] = np.rad2deg(gains_sep[ :, 1 ])
+	return gains_sep
+
+
+def show_gain(plotdict, save=True):
+	"""
+	creates the fig6 plots from richardson et al., 2003
+	"""
+	gains_low = plotdict[ 'gains_low' ]	
+	gains_high = plotdict[ 'gains_high' ]
+	freqs_low = plotdict[ 'freqs_low' ]	
+	freqs_high = plotdict[ 'freqs_high' ]
 
 	# plot the gains
 	fig = plt.figure("Noise-dependent gain of the GIF2")
@@ -242,14 +304,8 @@ def gain_plots(filename='gains.csv', normalise=True, withone=False):
 	generates the plots for figure 6 from saved data files.
 	"""
 	gains, conditions = import_gain(filename)
-	plt.clf()
-	if normalise and not withone:
-		gains[ :, 2 ] /= gains[ 0, 2 ]
-		gains[ :, 3 ] /= gains[ 0, 3 ]
-	elif normalise and withone:
-		gains[ :, 2 ] /= gains[ 1, 2 ]
-		gains[ :, 3 ] /= gains[ 1, 3 ]
-	fig = show_gain(gains, conditions, save=True)
+	gaindict = split_gain_conditions(gains, normalise=normalise, withone=withone)
+	fig = show_gain(gaindict, save=True)
 	return fig
 
 
@@ -280,8 +336,8 @@ def multiplot(condition, queueid, freqindex, bins, bars, f, amp, phase, offset):
 			mysine = sinus(f/1000.)
 			sineplot = mysine.fit(bins, amp, offset, phase)
 			ax.plot(bins, sineplot)
-			plt.savefig(outputname, format='png', dpi=600,
-					pad_inches=0.1, bbox_inches='tight')
+			plt.savefig(outputname, format='png', dpi=600)  #,
+					# pad_inches=0.1, bbox_inches='tight')
 
 
 # -----------------------------------------------------------------------------
@@ -342,10 +398,13 @@ def compute_gain(bins, heights, simparamdict, I_stimdict, f, dt):
 	# fit a sine to the firing rates to extract sine parameters
 	popt, pcov = opti.curve_fit(mysine.fit, bins, heights, p0=(amp_guess_r, r_0_rc, phase))
 	# content: popt = [ amplitude, offset, phase ]
+	# sine_values = mysine.fit(bins, popt[ 0 ], popt[ 1 ], popt[ 2 ])
+	# sine_phase = np.arcsin((sine_values - popt[ 2 ])/popt[ 0 ]) - 2*np.pi*f_rc*bin
+	# print(sine_phase)
 
 	print('fitted values: {0} for f={1}'.format(popt, f))
 	gain[ 0 ] = abs(popt[ 0 ]) / I_1
-	gain[ 1 ] = popt[ 2 ] - dt * 2 * np.pi
+	gain[ 1 ] = popt[ 2 ] - dt  # * 2 * np.pi
 
 	# generate the time series for the true current sinsusoidal
 	# stim_sinecurve = mysine.fit(bins - hist_binwidth, I_1, I_0, phase)
