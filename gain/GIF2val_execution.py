@@ -22,6 +22,9 @@ import getopt
 import sys
 import numpy as np
 execfile('GIF2val_functions_blau.py')
+import matplotlib as mpl
+mpl.use('Agg')
+import matplotlib.pyplot as plt
 
 import time
 import nest
@@ -114,13 +117,13 @@ for condition in noise_conditions:
 
     write_results(resultdict)
 
+    endtime = time.time()
+    print('condition {0} with frequency {1} took {2}ms.'.format(
+            condition, f, endtime - starttime))
     if show_fits:
         multiplot(condition, simparameterdict[ 'simindex' ], freqindex, hist_bins,
                   hist_heights, f, gain[ 0 ] * I_stimdict[ 'amplitude' ],
                   gain[ 1 ], exp_r_0)
 
     #nest.ResetKernel()
-    endtime = time.time()
-    print('condition {0} with frequency {1} took {2}ms.'.format(
-        condition, f, endtime - starttime))
 
