@@ -19,3 +19,4 @@
 {'simindex': 13, 'N': 7500, 'stimtype': 'current', 't_rec': 10000., 't_recstart': 2500., 'binwidth': 1.0}
 {'simindex': 14, 'N': 7500, 'stimtype': 'current', 't_rec': 10000., 't_recstart': 2500., 'binwidth': 1.0}
 {'simindex': 15, 'N': 7500, 'stimtype': 'current', 't_rec': 10000., 't_recstart': 2500., 'binwidth': 1.0}
+{'simindex': 16, 'N': 7500, 'stimtype': 'current', 't_rec': 10000., 't_recstart': 2500., 'binwidth': 1.0}

@@ -26,104 +26,105 @@ import matplotlib as mpl
 mpl.use('Agg')
 import matplotlib.pyplot as plt
 
-import time
-import nest
-try: nest.set_verbosity('M_ERROR')
-except: print('Changing the nest verbosity did not succeed')
-try: nest.Install("gif2_module")
-except: print ("The GIF2 model had already been installed")
-dt = 0.01  # simulation timestep
-freqindex = int(sys.argv[ 1 ])
-maxindex = int(sys.argv[ 2 ])
-show_fits = bool(sys.argv[ 3 ])
-queueid = int(sys.argv[ 4 ])
-
-# setting up the frequency array and determining the frequency from the array
-frequencies = np.hstack((np.array([ 0 ]),
-                         np.logspace(-1., 2., num=maxindex )))
-f = frequencies[ freqindex ]
-
-# The script will iterate over all conditions in this list.
-# It's strings should be recognised by get_stim_params()!
-noise_conditions = ['R', 'r']
-
-for condition in noise_conditions:
-    starttime = time.time()
-    nest.ResetKernel()
-    nest.SetKernelStatus({"local_num_threads": 16,
-                          "print_time": False,
-                          "overwrite_files": False,
-                          "resolution": dt})
-
-    simparameterdict = import_params_as_dict(filename='jobdict.txt')
-    # contains N, binwidth, current/poisson, t_rec, t_recstart,
-    # simindex, synweight
-
-    neuronparamdict = import_params_as_dict(filename='neurondict.txt')
-    # contains tau_1, C_m, g_rr=g_1, g, V_reset, E_L, V_th
-
-    I_stimdict, r_stimdict, xi_stimdict = \
-        get_stim_params(simparameterdict, f, condition, dt)
-
-    # -------------------------------------------------------------------------
-    # Starting simulation part here
-    # -------------------------------------------------------------------------
-
-    # CREATE DEVICES
-    neuron = nest.Create('gif2_psc_exp',
-                         n=int(simparameterdict[ 'N' ]),
-                         params=neuronparamdict)
-
-    stim_I = nest.Create('ac_generator', params=I_stimdict)
-    stim_xi = nest.Create('noise_generator', params=xi_stimdict)
-    spikedetector = nest.Create('spike_detector')
-    nest.SetStatus(spikedetector, {"withgid": True,
-                                   "withtime": True,
-                                   "start": simparameterdict[ 't_recstart' ],
-                                   "to_file": False})
 
 
-    # BUILD NETWORK
-    nest.Connect(stim_I, neuron)
-    nest.Connect(stim_xi, neuron)
-    nest.Connect(neuron, spikedetector)
+if __name__ == '__main__':
+    import time
+    import nest
+    try: nest.set_verbosity('M_ERROR')
+    except: print('Changing the nest verbosity did not succeed')
+    try: nest.Install("gif2_module")
+    except: print ("The GIF2 model had already been installed")
+    dt = 0.01  # simulation timestep
+    freqindex = int(sys.argv[ 1 ])
+    maxindex = int(sys.argv[ 2 ])
+    show_fits = bool(sys.argv[ 3 ])
 
-    # SIMULATE
-    nest.Simulate(simparameterdict[ 't_rec' ] +
-                  simparameterdict[ 't_recstart' ])
+    # setting up the frequency array and determining the frequency from the array
+    frequencies = np.hstack((np.array([ 0 ]),
+                             np.logspace(-1., 2., num=maxindex )))
+    f = frequencies[ freqindex ]
+
+    # The script will iterate over all conditions in this list.
+    # It's strings should be recognised by get_stim_params()!
+    noise_conditions = ['R', 'r']
+
+    for condition in noise_conditions:
+        starttime = time.time()
+        nest.ResetKernel()
+        nest.SetKernelStatus({"local_num_threads": 16,
+                              "print_time": False,
+                              "overwrite_files": False,
+                              "resolution": dt})
+
+        simparameterdict = import_params_as_dict(filename='jobdict.txt')
+        # contains N, binwidth, current/poisson, t_rec, t_recstart,
+        # simindex, synweight
+
+        neuronparamdict = import_params_as_dict(filename='neurondict.txt')
+        # contains tau_1, C_m, g_rr=g_1, g, V_reset, E_L, V_th
+
+        I_stimdict, r_stimdict, xi_stimdict = \
+            get_stim_params(simparameterdict, f, condition, dt)
+
+        # -------------------------------------------------------------------------
+        # Starting simulation part here
+        # -------------------------------------------------------------------------
+
+        # CREATE DEVICES
+        neuron = nest.Create('gif2_psc_exp',
+                             n=int(simparameterdict[ 'N' ]),
+                             params=neuronparamdict)
+
+        stim_I = nest.Create('ac_generator', params=I_stimdict)
+        stim_xi = nest.Create('noise_generator', params=xi_stimdict)
+        spikedetector = nest.Create('spike_detector')
+        nest.SetStatus(spikedetector, {"withgid": True,
+                                       "withtime": True,
+                                       "start": simparameterdict[ 't_recstart' ],
+                                       "to_file": False})
 
 
-    # RECORDING
-    spike_senders = nest.GetStatus(spikedetector, "events")[ 0 ][ "senders" ]
-    spike_times = nest.GetStatus(spikedetector, "events")[ 0 ][ "times" ]
+        # BUILD NETWORK
+        nest.Connect(stim_I, neuron)
+        nest.Connect(stim_xi, neuron)
+        nest.Connect(neuron, spikedetector)
 
-    # EVALUATE
-    # Create the istogram to fit with
-    hist_bins, hist_heights, hist_binwidth = compute_histogram(
-        spike_times, simparameterdict)
+        # SIMULATE
+        nest.Simulate(simparameterdict[ 't_rec' ] +
+                      simparameterdict[ 't_recstart' ])
 
 
-    # Fit and compute gain
-    gain, exp_r_0 = compute_gain(hist_bins, hist_heights,
-                                 simparameterdict,
-                                 I_stimdict, f, dt)
+        # RECORDING
+        spike_senders = nest.GetStatus(spikedetector, "events")[ 0 ][ "senders" ]
+        spike_times = nest.GetStatus(spikedetector, "events")[ 0 ][ "times" ]
 
-    resultdict = dict(freqindex=freqindex,
-                      gain=gain,
-                      exp_r_0=exp_r_0,
-                      neuronparamdict=neuronparamdict,
-                      simparameterdict=simparameterdict,
-                      condition=condition)
+        # EVALUATE
+        # Create the istogram to fit with
+        hist_bins, hist_heights, hist_binwidth = compute_histogram(
+            spike_times, simparameterdict)
 
-    write_results(resultdict)
 
-    endtime = time.time()
-    print('condition {0} with frequency {1} took {2}ms.'.format(
-            condition, f, endtime - starttime))
-    if show_fits:
-        multiplot(condition, simparameterdict[ 'simindex' ], freqindex, hist_bins,
-                  hist_heights, f, gain[ 0 ] * I_stimdict[ 'amplitude' ],
-                  gain[ 1 ], exp_r_0)
+        # Fit and compute gain
+        gain, exp_r_0 = compute_gain(hist_bins, hist_heights,
+                                     simparameterdict,
+                                     I_stimdict, f, dt)
 
-    #nest.ResetKernel()
+        resultdict = dict(freqindex=freqindex,
+                          gain=gain,
+                          exp_r_0=exp_r_0,
+                          neuronparamdict=neuronparamdict,
+                          simparameterdict=simparameterdict,
+                          condition=condition)
 
+        write_results(resultdict)
+
+        endtime = time.time()
+        print('condition {0} with frequency {1} took {2}ms.'.format(
+                condition, f, endtime - starttime))
+        save_raw_data(resultdict, spike_times, spike_senders)
+        print('saving successful')
+        if show_fits:
+            multiplot(condition, simparameterdict[ 'simindex' ], freqindex, hist_bins,
+                      hist_heights, f, gain[ 0 ] * I_stimdict[ 'amplitude' ],
+                      gain[ 1 ], exp_r_0)

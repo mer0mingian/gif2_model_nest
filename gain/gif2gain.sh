@@ -9,4 +9,4 @@
 ##################################################################
 module load pystuff_new
 source activate mingpython
-srun python GIF2val_execution.py $SLURM_ARRAY_TASK_ID 71 1 $SLURM_ARRAY_JOB_ID 
+srun python gif2_gain.py $SLURM_ARRAY_TASK_ID 71 0 

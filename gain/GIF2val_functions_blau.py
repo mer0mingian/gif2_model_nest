@@ -124,6 +124,24 @@ def write_results(resultdict):
 	fd.close()
 
 
+def save_raw_data(resultdict, spike_times, spike_senders):
+	filename = 'gain_{0}_raw.txt'.format(
+		resultdict[ resultdict[ 'simparameterdict' ][ 'simindex' ] ])
+	spike_times_list = spike_times.tolist()
+	spike_senders_list = spike_senders.tolist()
+	times_string = '{0}_{1}_times_{2}'.format(
+		resultdict[ 'freqindex' ],
+		resultdict[ 'condition' ],
+		spike_times_list)
+	senders_string = '{0}_{1}_senders_{2}'.format(
+			resultdict[ 'freqindex' ],
+			resultdict[ 'condition' ],
+			spike_senders_list)
+	with open(filename, 'a') as resultfile:
+		resultfile.writelines(times_string, senders_string)
+		close(resultfile)
+
+
 def import_params_as_dict(filename='jobdict.txt'):
 	"""
 	imports simulation or neuron parameters from txt-file into distionary
@@ -305,7 +323,7 @@ def show_gain(plotdict, save=True):
 	plt.semilogx(freqs_high[ 1:-2 ], gains_high[ 1:-2, 0 ], color='blue', marker='o', ls=' ')
 	plt.semilogx(freqs_low[ 1:-2 ], gains_low[ 1:-2, 0 ], color='red', marker='o', ls=' ')
 	plt.grid(True)
-	plt.xlabel('Frequency [Hz]', size=9.)
+	# plt.xlabel('Frequency [Hz]', size=9.)
 	plt.ylabel('Normalised amplitude of signal gain', size=9.)
 	plt.xlim([ -1., 100. ])
 
@@ -314,7 +332,7 @@ def show_gain(plotdict, save=True):
 	plt.semilogx(freqs_high[ 1:-2 ], gains_high[ 1:-2, 1 ], color='blue', marker='o', ls=' ')
 	plt.semilogx(freqs_low[ 1:-2 ], gains_low[ 1:-2, 1 ], color='red', marker='o', ls=' ')
 	plt.xlabel('Frequency [Hz]', size=9.)
-	plt.ylabel('Phase of signal gain', size=9.)
+	plt.ylabel('Normalised phase of signal gain [deg]', size=9.)
 	plt.xlim([ -1., 100. ])
 	if save == True:
 		# exp_f_r, exp_r_0, C_m, g, g_1, tau_1:
@@ -362,6 +380,7 @@ def multiplot(condition, queueid, freqindex, bins, bars, f, amp, phase, offset):
 # -----------------------------------------------------------------------------
 # Evaluate the results
 # -----------------------------------------------------------------------------
+
 
 def compute_histogram(spike_times, simparameterdict):
 	"""
@@ -423,7 +442,7 @@ def compute_gain(bins, heights, simparamdict, I_stimdict, f, dt):
 
 	print('fitted values: {0} for f={1}'.format(popt, f))
 	gain[ 0 ] = abs(popt[ 0 ]) / I_1
-	gain[ 1 ] = -np.rad2deg(popt[ 2 ])
+	gain[ 1 ] = np.rad2deg(popt[ 2 ])
 
 	# generate the time series for the true current sinsusoidal
 	# stim_sinecurve = mysine.fit(bins - hist_binwidth, I_1, I_0, phase)
@@ -432,12 +451,15 @@ def compute_gain(bins, heights, simparamdict, I_stimdict, f, dt):
 	return gain, r_0_rc
 
 
-def gain_plots(filename='gains.csv', normalise=True, withone=False, **kwargs):
+def gain_plots(filename='gains.csv', normalise=True, withone=True, **kwargs):
 	"""
 	generates the plots for figure 6 from saved data files.
 	"""
 	gains, conditions = import_gain(filename)
 	gaindict = split_gain_conditions(gains)
-	gaindict = gain_normaliser(gaindict, normalise=normalise, withone=withone, **kwargs)
+	gaindict = gain_normaliser(gaindict, normalise=normalise,
+							   withone=withone, **kwargs)
+	gaindict[ 'gains_low' ][ :, 1 ] = -360.0 * gaindict[ 'gains_low' ][ :, 1 ] + 360.0
+	gaindict[ 'gains_high' ][ :, 1 ] = -360.0 * gaindict[ 'gains_high' ][ :, 1 ] + 360.0
 	fig = show_gain(gaindict, save=True)
 	return fig
