@@ -324,10 +324,10 @@ if __name__ == '__main__':
     C_m2 = 100.0
     indexarray = np.zeros(10)
     p_range = np.arange(50000.0, 95000.0, 5000.0)
-    C_range = np.arange(200.0, 750.0, 50.0)
-    g_range = np.arange(15.0, 40.0, 5.0)
-    g1_range = np.arange(15.0, 120.0, 5.0)
-    V_range = np.arange(6.0, 15.0, 3.0)
+    C_range = np.arange(500.0, 501.0)   #200.0, 750.0, 50.0)
+    g_range = np.arange(25.0, 26.0)  #15.0, 40.0, 5.0)
+    g1_range = np.arange(25.0, 120.0, 5.0)
+    V_range = np.arange(6.0, 18.0, 3.0)
     tau_1_range = np.arange(80.0, 130.0, 10.0)
     cases = len(C_range) * len(g_range) * len(g1_range) * len(V_range) * len(tau_1_range)
     g_m = 5.0
