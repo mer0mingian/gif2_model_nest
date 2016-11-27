@@ -14,11 +14,6 @@ np.set_printoptions(precision=4, suppress=True)
 
 
 class firing_rate_response:
-	"""
-	This class allows for initialisation of a fittable sine function with a
-	frequency fixed at the stimulation frequency.
-	"""
-
 	def __init__(self, recstart=2500.0):
 		V_dist = 6.0
 		self.gif_params = dict(tau_1=100.0, C_m=250.0, tau_syn_ex=0.5,
@@ -133,16 +128,16 @@ class firing_rate_response:
 
 
 if __name__ == '__main__':
-	gif_params = {"tau_1":      tau_1,
-				  "C_m":        C,  # C_m2,
-				  "tau_syn_ex": tauSyn,
-				  "tau_syn_in": tauSyn,
-				  "g_rr":       g1,  # g_1,
-				  "g":          g,  # g_m,
+	gif_params = {"tau_1":      100.0,
+				  "C_m":        500.0,  # C_m2,
+				  "tau_syn_ex": 0.5,
+				  "tau_syn_in": 0.5,
+				  "g_rr":       25.0,  # g_1,
+				  "g":          25.0,  # g_m,
 				  "V_m":        0.0,
-				  "V_reset":    V_theta - V_dist,
+				  "V_reset":    3.0,
 				  "E_L":        0.0,
-				  "V_th":       V_theta}
+				  "V_th":       15.0}
 
 	recstart = 1500.0
 	simtime = 5000.0

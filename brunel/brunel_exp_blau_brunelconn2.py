@@ -222,7 +222,7 @@ if __name__ == '__main__':
     dt = 0.1
     nest.set_verbosity('M_WARNING')
     nest.ResetKernel()
-    nest.SetKernelStatus({"resolution": dt, "print_time": False, "overwrite_files": True, "local_num_threads": 8})
+    nest.SetKernelStatus({"resolution": dt, "print_time": False, "overwrite_files": True, "local_num_threads": 16})
     try:
         nest.Install("gif2_module")
     except:
@@ -235,8 +235,8 @@ if __name__ == '__main__':
     alternative_connection = True
 
     # Simulation parameters
-    recstart = 0.0
-    simtime = 10000.0    # Simulation time in ms
+    recstart = 2000.0
+    simtime = 12000.0    # Simulation time in ms
     delay = 1.0         # synaptic delay in ms
     g = 5.0             # ratio inhibitory weight/excitatory weight
     eta = 2.0           # external rate relative to threshold rate
@@ -245,8 +245,8 @@ if __name__ == '__main__':
 
     # Network parameters
     order = 2500
-    NE = int(2 * (1. - frac) * order)   # number of excitatory neurons
-    NR = int(2 * frac * order)          # number of excitatory neurons
+    NE = int(2 * order)   # number of excitatory neurons
+    NR = int(2 * order)          # number of excitatory neurons
     NI = int(1 * order)                 # number of inhibitory neurons
     N_neurons = NE + NI + NR            # number of neurons in total
     N_rec = 150                         # record from N_rec neurons per population
@@ -273,9 +273,9 @@ if __name__ == '__main__':
                     "V_m":        0.0,
                     "V_th":       theta}
 
-    tau_1 = 120.0
-    C_m2 = 150.
-    g_1 = 10.0  # 85.0
+    tau_1 = 100.0
+    C_m2 = 500.
+    g_1 = 25.0  # 85.0
     g_m = 25.0  # 35.0
 #    tau_1 = 100.0
 #    C_m2 = 450.
@@ -289,9 +289,9 @@ if __name__ == '__main__':
                     "g_rr":       g_1,
                     "g":          g_m,
                     "V_m":        0.0,
-                    "V_reset":    3.0,
+                    "V_reset":    9.0,
                     "E_L":        0.0,
-                    "V_th":       15.0}
+                    "V_th":       theta}
 
     alpha = g * tau_1 / C_m     # regime determining effective leak
     beta = g_1 * tau_1 / C_m    # regime determining effective coupling
@@ -302,13 +302,14 @@ if __name__ == '__main__':
     J = 0.125           # postsynaptic amplitude in mV
     J_ex = J            # amplitude of excitatory postsynaptic potential
     J_in = -g * J_ex    # amplitude of inhibitory postsynaptic potential
-    h = 1.9  # 1.9      # ratio resonating weight/excitatory weight
+    h = 1.0  # 1.9      # ratio resonating weight/excitatory weight
     J_re = h * J        # amplitude of resonating postsynaptic potential
 
     # Stimulation rate parameters
     nu_th = theta / (J * CE * tauMem * np.exp(1) * tauSyn)
     nu_ex = eta * nu_th
-    p_rate = 1000.0 * nu_ex * CE * 2.75  # remove C_m
+    p_rate = 1000.0 * nu_ex * (CE + CR) * frac
+    # p_rate = 1000.0 * nu_ex * CE * 2.75  # remove C_m
     p_rate2 = 66000.0
 
     # print('threshold rate: {0}, external rate: {1}, stim rate: {2}'.format(nu_th, nu_ex, p_rate2))
@@ -349,11 +350,11 @@ if __name__ == '__main__':
     # multi = nest.Create("multimeter")
     # nest.SetStatus(multi, params={"interval": dt, "record_from": [ "V_m", "w" ], "withgid": True} )
 
-    nest.SetStatus(noise, [ {"rate": p_rate2, "amplitude": 0.025 * p_rate2, "frequency": 10.0, "phase": 0.0 } ] )
-    nest.SetStatus(noise2, [ {"rate": p_rate2, "amplitude": 0.025 * p_rate2, "frequency": 10.0 } ])
-    nest.SetStatus(espikes, [ {"label": "brunel-py-ex", "withtime": True, "withgid":  True, "to_file":  False} ])
-    nest.SetStatus(rspikes, [ {"label": "brunel-py-res", "withtime": True, "withgid":  True, "to_file":  False} ])
-    nest.SetStatus(ispikes, [ {"label": "brunel-py-in", "withtime": True, "withgid":  True, "to_file":  False} ])
+    nest.SetStatus(noise, [ {"rate": p_rate, "amplitude": 0.025 * p_rate, "frequency": 10.0, "phase": 0.0 } ] )
+    nest.SetStatus(noise2, [ {"rate": p_rate, "amplitude": 0.025 * p_rate, "frequency": 10.0 } ])
+    nest.SetStatus(espikes, [ {"label": "brunel-py-ex", "withtime": True, "withgid":  True, "to_file":  False, "start": recstart} ])
+    nest.SetStatus(rspikes, [ {"label": "brunel-py-res", "withtime": True, "withgid":  True, "to_file":  False, "start": recstart} ])
+    nest.SetStatus(ispikes, [ {"label": "brunel-py-in", "withtime": True, "withgid":  True, "to_file":  False, "start": recstart} ])
 
     print("Connecting devices")
 
