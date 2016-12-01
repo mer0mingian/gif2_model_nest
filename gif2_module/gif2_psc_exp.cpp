@@ -112,7 +112,7 @@ nest::gif2_psc_exp_dynamics( double,
   f[ S::V_M ] =
     ( -node.P_.g * V
       - w * node.P_.g_rr
-      + I_syn_ex - I_syn_in
+      + I_syn_ex + I_syn_in
       + node.P_.I_e + node.B_.I_stim_ ) / node.P_.C_m;
 
   // Adaptation current w.

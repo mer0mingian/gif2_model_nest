@@ -46,7 +46,7 @@ set( MODULE_HEADER ${NEST_MODULE_NAME}.h )
 
 # 4) Specify your module version
 set( MODULE_VERSION_MAJOR 2 )
-set( MODULE_VERSION_MINOR 1 )
+set( MODULE_VERSION_MINOR 2 )
 set( MODULE_VERSION "${MODULE_VERSION_MAJOR}.${MODULE_VERSION_MINOR}" )
 
 # 5) Leave the rest as is. All files in `sli` will be installed to
