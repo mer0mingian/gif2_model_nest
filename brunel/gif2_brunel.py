@@ -36,8 +36,8 @@ except:
 somevec = np.array(sys.argv[ 1:7 ], dtype=float)
 
 p_rate, C_m, gm, g1, tau_1, theta1 = somevec[ 0:6 ]
-recstart = 1500.0
-simtime = 2000.0  # Simulation time in ms
+recstart = 1000.0
+simtime = 1500.0  # Simulation time in ms
 delay = 1.0  # synaptic delay in ms
 delay_ex = 1.5
 delay_in = 0.8
