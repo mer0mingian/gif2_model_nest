@@ -116,7 +116,7 @@ def scatter_solutions(matrix):
     #ax.set_xlim(50000.0, 125000.0)
     #ax.set_ylim(150.0, 600.0)
     #ax.set_zlim(5.0, 125.0)
-    return fig    
+    return fig
 
 
 def run_specific_comparison(C, g, g1, tau_1=100.0, V_dist=6.0, runs=200):
@@ -149,7 +149,8 @@ def run_specific_comparison(C, g, g1, tau_1=100.0, V_dist=6.0, runs=200):
                   "V_m":        0.0,
                   "V_reset":    V_theta - V_dist,
                   "E_L":        0.0,
-                  "V_th":       V_theta}
+                  "V_th":       V_theta,
+                  "t_ref":      2.0}
 
     iaf_params = {"C_m":        250.0,
                   "tau_m":      10.0,
@@ -183,18 +184,18 @@ def run_specific_comparison(C, g, g1, tau_1=100.0, V_dist=6.0, runs=200):
     nest.SetStatus(iaf, iaf_params)
     nest.Connect(drive, gif, syn_spec={"model":  "static_synapse",
                                        "weight": J_ex * synweight,
-                                       "delay":  0.5})
+                                       "delay":  1.5})
     nest.Connect(drive, iaf, syn_spec={"model":  "static_synapse",
                                        "weight": J_ex * synweight,
-                                       "delay":  0.5})
+                                       "delay":  1.5})
     nest.Connect(gif, gifspikes)
     nest.Connect(iaf, iafspikes)
-    for p in np.linspace(50000.0, 100000.0, runs):  # 125000.0, runs):
+    for p in np.linspace(50000.0, 75000.0, runs):  # 125000.0, runs):
         nest.ResetNetwork()
         nest.SetStatus(gif, gif_params)
         nest.SetStatus(iaf, iaf_params)
         stm_params = {"rate":      p,
-                      "amplitude": 0.025 * p,
+                      "amplitude": 0.025 * 0.0,
                       "frequency": 10.0,
                       "phase":     0.0}
         nest.SetStatus(drive, stm_params)
@@ -220,7 +221,7 @@ def plot_comparison_resultarray(results, color='k', limity=True, lif=True, add_l
     if lif:
         plt.plot(results[ :, 0 ], results[ :, 2 ], color='b', label='iaf')
     plt.legend(loc='upper left')
-    plt.xlim([50000.0, 90000.0])
+    plt.xlim([50000.0, 75000.0])
     if limity:
         plt.ylim([ 0.0, 100.0 ])
     return fig
@@ -284,16 +285,13 @@ def maketenplotsfromsolutions(filename, numgraphs=10):
     return solution, fig1
 
 
-def makeoneplotfromsolutions(filename, color='k', lif=True):
-    """
-    work in progress
-    """
-    datamat = np.loadtxt(filename)
-    c = datamat[ np.argmin(datamat[ :, 10 ]), : ]
-    results = run_specific_comparison(c[ 1 ], c[ 2 ], c[ 3 ], tau_1=c[ 4 ], V_dist=c[ 5 ], runs=30)
-    add_label = ': C={0}, g={1}, g1={2}, t1={3}, dV={4}'.format(c[ 1 ], c[ 2 ], c[ 3 ], c[ 4 ], c[ 5 ])
-    fig1 = plot_comparison_resultarray(results, color=color, limity=True, lif=lif, add_label=add_label)
-    return fig1
+def num_close_frs(r1, r2, r3, r4, r5, r6):
+    i = 0
+    for j in product(r1, r2, r3, r4, r5, r6):
+        fr = compute_str_freq(j[ 0 ], j[ 5 ], j[ 1 ], j[ 2 ])
+        if np.isclose(fr, 10.0, atol=1.0, rtol=0.0):
+            i += 1
+    return i
 
 
 if __name__ == '__main__':
@@ -323,11 +321,11 @@ if __name__ == '__main__':
     p_rate = float(sys.argv[ 1 ])
     C_m2 = 100.0
     indexarray = np.zeros(10)
-    p_range = np.arange(50000.0, 95000.0, 5000.0)
-    C_range = np.arange(500.0, 501.0)   #200.0, 750.0, 50.0)
-    g_range = np.arange(25.0, 26.0)  #15.0, 40.0, 5.0)
-    g1_range = np.arange(25.0, 120.0, 5.0)
-    V_range = np.arange(6.0, 18.0, 3.0)
+    p_range = np.arange(52500.0, 75000.0, 2500.0)
+    C_range = np.arange(200.0, 500.0, 25.0)   #200.0, 750.0, 50.0)
+    g_range = np.arange(25.0, 80.0, 2.5)  #15.0, 40.0, 5.0)
+    g1_range = np.arange(25.0, 800.0, 2.5)
+    V_range = np.arange(5.0, 9.0, 0.5)
     tau_1_range = np.arange(80.0, 130.0, 10.0)
     cases = len(C_range) * len(g_range) * len(g1_range) * len(V_range) * len(tau_1_range)
     g_m = 5.0
@@ -346,7 +344,7 @@ if __name__ == '__main__':
     with open('excitability_{0}.csv'.format(sys.argv[ 1 ]), 'a') as output:
         for i in product(C_range, g_range, g1_range, p_range, V_range, tau_1_range):
             fr = compute_str_freq(i[ 0 ], i[ 5 ], i[ 1 ], i[ 2 ])
-            if np.isclose(fr, 10.0, atol=3.5, rtol=0.0):
+            if np.isclose(fr, 10.0, atol=1.0, rtol=0.0):
                 j += 1
                 # check for resonance frequency here
                 nest.ResetKernel()
