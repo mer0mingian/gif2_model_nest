@@ -234,3 +234,7 @@ print(    'C = {0}, g = {2}, g_1 = {1}, t_1 = 100.0, p = {3}, '.format(
 # p_rate, C, gm, g1, order
 #    somevec = sys.argv[ 1:6 ]
 #    run_specific_network(somevec)
+
+
+
+# 65000.0 200.0 25.0 58.0 100.0 5.615
