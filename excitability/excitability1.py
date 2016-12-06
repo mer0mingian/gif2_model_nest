@@ -334,7 +334,7 @@ if __name__ == '__main__':
         V_range = np.array([ 5.0, 7.0, 9.0 ])  #np.arange(5.0, 10.0, 0.5)
         tau_1_range = np.array([ 100.0, 100.0 ]) #np.arange(80.0, 130.0, 10.0)
     else:
-        p_range = np.arange(55000.0, 75000.0, 2500.0)
+        p_range = np.arange(55000.0, 90000.0, 5000.0)
         C_range = np.arange(200.0, 525.0, 25.0)
         g_range = np.arange(10.0, 90.0, 1.0)
         g1_range = np.arange(10.0, 90.0, 1.0)
@@ -347,10 +347,10 @@ if __name__ == '__main__':
     tauSyn = 0.5
     V_theta = 15.0
     tau_1 = 100.0
-    V_dist = 6.0
+    V_dist = 5.5
     synweight = 87.8
     J_ex = 0.125
-    J_re = 0.250
+    J_re = 0.125
 
     j = 0
     for i in product(C_range, g_range, g1_range, V_range, tau_1_range):
@@ -410,10 +410,10 @@ if __name__ == '__main__':
             # Connect everything
             nest.Connect(drive, gif, syn_spec={"model":  "static_synapse",
                                                "weight": J_ex * synweight,
-                                               "delay":  0.5})
+                                               "delay":  1.5})
             nest.Connect(drive, iaf, syn_spec={"model":  "static_synapse",
                                                "weight": J_ex * synweight,
-                                               "delay":  0.5})
+                                               "delay":  1.5})
             nest.Connect(gif, gifspikes)
             nest.Connect(iaf, iafspikes)
 
@@ -452,7 +452,7 @@ if __name__ == '__main__':
             gtzero = rate_iaf > 0.5
             lteighty = rate_iaf > 80.0
             roi2 = np.all((gtzero, lteighty), axis=0)
-            lroi = sum(roi2)
+            lroi = np.sum(roi2)
             diff2 = rate_iaf[ roi2 ] - rate_gif[ roi2 ]
             se2 = np.dot(diff2.T, diff2)
             rmse2 = np.sqrt(np.mean(se2))
@@ -467,8 +467,7 @@ if __name__ == '__main__':
 
 
             #rwiteout conditions:
-            conditions = [ rmse != 0.0, lroi > 0]
-            if np.all(conditions):
+            if (rmse != 0.0) and (lroi > 0):
                 # write out
                 indexarray = np.array(
                     [ fr, i[ 0 ], i[ 1 ], i[ 2 ], i[ 4 ], i[ 3 ], rmse, rmse2, rmse3, lroi ])
