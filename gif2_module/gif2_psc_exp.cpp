@@ -75,9 +75,9 @@ RecordablesMap< gif2_psc_exp >::create()
     names::V_m, &gif2_psc_exp::get_y_elem_< gif2_psc_exp::State_::V_M > );
   insert_( names::w, &gif2_psc_exp::get_y_elem_< gif2_psc_exp::State_::W > );
   insert_(
-    names::I_ex, &gif2_psc_exp::get_y_elem_< gif2_psc_exp::State_::I_syn_ex > );
+    names::I_syn_ex, &gif2_psc_exp::get_y_elem_< gif2_psc_exp::State_::I_syn_ex > );
   insert_(
-    names::I_in, &gif2_psc_exp::get_y_elem_< gif2_psc_exp::State_::I_syn_in > );
+    names::I_syn_in, &gif2_psc_exp::get_y_elem_< gif2_psc_exp::State_::I_syn_in > );
 
 }
 }
@@ -388,15 +388,15 @@ nest::gif2_psc_exp::calibrate()
 
 void
 nest::gif2_psc_exp::update( const Time& origin,
-  const long_t from,
-  const long_t to )
+  const long from,
+  const long to )
 {
   assert(
     to >= 0 && ( delay ) from < kernel().connection_manager.get_min_delay() );
   assert( from < to );
   assert( State_::V_M == 0 );
 
-  for ( long_t lag = from; lag < to; ++lag )
+  for ( long lag = from; lag < to; ++lag )
   {
     // Richardson et al. (2003) used Runge-Kutta second order with 10/20microsec.
     // We use the RK45 from gsl instead.

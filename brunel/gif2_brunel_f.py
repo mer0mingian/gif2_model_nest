@@ -74,7 +74,7 @@ def run_brunel(networkparamdict, fraction):
 		"E_L":        theta - V_dist - V_dist2,
 		"V_th":       theta,
 		"t_ref":      2.0}
-	print(theta, theta - V_dist, theta - V_dist - V_dist2)
+# 	print(theta, theta - V_dist, theta - V_dist - V_dist2)
 
 	synweight = 87.8
 	J = 0.125  # postsynaptic amplitude in mV
@@ -291,8 +291,8 @@ if __name__ == '__main__':
 					output.write(' \n')
 					output.close()
 	else:
-		networkparamdict = {'p_rate': 65000.0, 'C_m': 200.0, 'g': 47.0,
-		                   'g_1': 47.0, 'tau_1': 90.0, 'V_dist': 5.315,
+		networkparamdict = {'p_rate': 65000.0, 'C_m': 250.0, 'g': 25.0,
+		                   'g_1': 25.0, 'tau_1': 80.0, 'V_dist': 5.315,
 							'V_dist2': 0.0}
 
 		fractionindex = int(sys.argv[ 1 ])

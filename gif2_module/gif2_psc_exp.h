@@ -145,7 +145,7 @@ private:
   void init_state_( const Node& proto );
   void init_buffers_();
   void calibrate();
-  void update( const Time&, const long_t, const long_t );
+  void update( const Time&, const long, const long );
 
   // END Boilerplate function declarations ----------------------------
 
@@ -210,7 +210,7 @@ public:
 
     //! neuron state, must be C-array for GSL solver
     double_t y_[ STATE_VEC_SIZE ];
-    int_t r_; //!< number of refractory steps remaining
+    int r_; //!< number of refractory steps remaining
 
     State_( const Parameters_& ); //!< Default initialization
     State_( const State_& );
@@ -268,7 +268,7 @@ public:
    */
   struct Variables_
   {
-    int_t RefractoryCounts_;
+    int RefractoryCounts_;
   };
 
   // Access functions for UniversalDataLogger -------------------------------
