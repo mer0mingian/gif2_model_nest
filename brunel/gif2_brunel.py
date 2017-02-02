@@ -57,7 +57,7 @@ neuron_params = {
                 "tau_m":      10.0,
                 "tau_syn_ex": tauSyn,
                 "tau_syn_in": tauSyn,
-                "t_ref":      1.5,
+                "t_ref":      2.0,
                 "E_L":        0.0,
                 "V_reset":    0.0,
                 "V_m":        0.0,
@@ -74,7 +74,28 @@ neuron_params2 = {
                 "V_reset":    0.0,
                 "E_L":        0.0,
                 "V_th":       theta1,
-                "t_ref":      1.5}
+                "t_ref":      2.0}
+
+# gif_params = {"tau_1":      tau_1,
+#               "C_m":        C_m,  # C_m2,
+#               "tau_syn_ex": tauSyn,
+#               "tau_syn_in": tauSyn,
+#               "g_rr": i     [ 2 ],  # g_1,
+#               "g": i        [ 1 ],  # g_m,
+#               "V_m":        V_theta - V_dist,
+#               "V_reset":    V_theta - V_dist,
+#               "E_L":        -70.0 + Vdist2,
+#               "V_th":       V_theta}
+#
+# iaf_params = {"C_m":        250.0,
+#               "tau_m":      10.0,
+#               "tau_syn_ex": tauSyn,
+#               "tau_syn_in": tauSyn,
+#               "t_ref":      2.0,
+#               "E_L":        -65.0,
+#               "V_reset":    -65.0,
+#               "V_m":        -65.0,
+#               "V_th":       V_theta}
 
 synweight = 87.8
 J = 0.125  # postsynaptic amplitude in mV
