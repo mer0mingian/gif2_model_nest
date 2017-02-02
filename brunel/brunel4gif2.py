@@ -14,12 +14,11 @@ import shutil
 import matplotlib as mpl
 cluster = False
 if cluster:
-	mpl.use('Agg')
+    mpl.use('Agg')
 import matplotlib.pyplot as plt
 import nest
 from mingtools1 import *
 from elephant.statistics import isi, cv
-from mc_connectivity_transformer import compute_new_connectivity
 from itertools import product
 np.set_printoptions(formatter={'float': '{: 0.4f}'.format})
 
@@ -59,21 +58,21 @@ def construct_resultarray(resultlist, networkparamdict):
     resultarray = np.hstack((paramarray, resultarray))
     return resultarray
 
-def configure_nest_kernel(cluter=False):
+def configure_nest_kernel(cluster=cluster):
     dt = 0.1
     nest.set_verbosity('M_WARNING')
     nest.ResetKernel()
     if cluster:
-	    nest.SetKernelStatus(
-	            {"resolution":        dt,
-	             "print_time":        False,
-	             "overwrite_files":   True,
-	             "local_num_threads": 16})
-	else:
-	    nest.SetKernelStatus(
-	            {"resolution":        dt,
-	             "print_time":        True,
-	             "overwrite_files":   True})
+        nest.SetKernelStatus(
+                {"resolution":        dt,
+                 "print_time":        False,
+                 "overwrite_files":   True,
+                 "local_num_threads": 16})
+    else:
+        nest.SetKernelStatus(
+                {"resolution":        dt,
+                 "print_time":        True,
+                 "overwrite_files":   True})
     try:
         nest.Install("gif2_module")
     except:
@@ -81,107 +80,107 @@ def configure_nest_kernel(cluter=False):
 
 
 def looptester():
-	"""
-	This is a default script that should be adapted to the respective purpose.
+    """
+    This is a default script that should be adapted to the respective purpose.
 
-	It is intended to compute the array length required to adequately scan
-	parameter space for a suitable configuration of a GIF2 neuron in a Brunel
-	network.
+    It is intended to compute the array length required to adequately scan
+    parameter space for a suitable configuration of a GIF2 neuron in a Brunel
+    network.
 
-	Insert k as the array length in one of the shell scripts in this folder!
-	"""
+    Insert k as the array length in one of the shell scripts in this folder!
+    """
 
-	from mingtools1 import predict_str_freq
+    from mingtools1 import predict_str_freq
 
-	C_range = np.arange(250.0, 550.0, 10.0)
-	g_range = np.arange(5.0, 80.0, 2.5)
-	dV1_range = np.arange(3.0, 9.5, 0.1)
+    C_range = np.arange(250.0, 550.0, 10.0)
+    g_range = np.arange(5.0, 80.0, 2.5)
+    dV1_range = np.arange(3.0, 9.5, 0.1)
 
-	k = 0
-	# C
-	for C in C_range:
-	# g
-		g = C / 10.0
-	# g1
-		g1_range = np.arange(g, 80.0, 2.5)
-	# dV1
-		for i in product(g1_range, dV1_range):
-	# t1
-			t1_range = np.arange(50.0, 120.0, 10.0)
-			for j in t1_range:
-				if np.isclose(
-						predict_str_freq(j, g, i[ 0 ], C, remote=True),
-						10.0, atol=0.05, rtol=0.0):
-					k += 1
-	print(k)
+    k = 0
+    # C
+    for C in C_range:
+    # g
+        g = C / 10.0
+    # g1
+        g1_range = np.arange(g, 80.0, 2.5)
+    # dV1
+        for i in product(g1_range, dV1_range):
+    # t1
+            t1_range = np.arange(50.0, 120.0, 10.0)
+            for j in t1_range:
+                if np.isclose(
+                        predict_str_freq(j, g, i[ 0 ], C, remote=True),
+                        10.0, atol=0.05, rtol=0.0):
+                    k += 1
+    print(k)
 
 # ****************************************************************************************************************************
 # FORMER BETTER CONFIGURATION GENERATOR
 # ****************************************************************************************************************************
 
 def configuration_extractor():
-	"""
-	Detects three test arrays with rows containing parameter configs.
-	Use function convert_to_paramdict to obtain dict for run_brunel.
-	"""
-	exin_rates_lower_bound = 5.0
-	exin_rates_upper_bound = 7.5
-	distance_r_to_exin_bound = 2.0
-	cv_lower_bound = 0.85
-	cv_upper_bound = 1.15
-	distance_penalty = 6.0
+    """
+    Detects three test arrays with rows containing parameter configs.
+    Use function convert_to_paramdict to obtain dict for run_brunel.
+    """
+    exin_rates_lower_bound = 5.0
+    exin_rates_upper_bound = 7.5
+    distance_r_to_exin_bound = 2.0
+    cv_lower_bound = 0.85
+    cv_upper_bound = 1.15
+    distance_penalty = 6.0
 
-	data = np.loadtxt('brunel_results/brunel_array_results_15.csv')
-	# find all rows with acceptable E/I rates:
-	mean_exin = np.mean((data[:,8:9]),axis=1)
-	mean_exin_accept = np.all((
-	    mean_exin <= exin_rates_upper_bound, mean_exin >=exin_rates_lower_bound), axis=0)
+    data = np.loadtxt('brunel_results/brunel_array_results_15.csv')
+    # find all rows with acceptable E/I rates:
+    mean_exin = np.mean((data[:,8:9]),axis=1)
+    mean_exin_accept = np.all((
+        mean_exin <= exin_rates_upper_bound, mean_exin >=exin_rates_lower_bound), axis=0)
 
-	# is R rate also acceptable?
-	dist_r_exin = np.abs(data[:,10] - mean_exin)
-	dist_r_exin_accept = np.abs(dist_r_exin) <= distance_r_to_exin_bound
+    # is R rate also acceptable?
+    dist_r_exin = np.abs(data[:,10] - mean_exin)
+    dist_r_exin_accept = np.abs(dist_r_exin) <= distance_r_to_exin_bound
 
-	# where do both criteria hold?
-	rates_accept = np.all((mean_exin_accept, dist_r_exin_accept), axis=0)
-	print('We have {0} results with acceptable rates.'.format(rates_accept.sum()))
+    # where do both criteria hold?
+    rates_accept = np.all((mean_exin_accept, dist_r_exin_accept), axis=0)
+    print('We have {0} results with acceptable rates.'.format(rates_accept.sum()))
 
-	# if the rates fit, what are the resulting CVs?
-	cvs = data[:, 14]
-	cvs_accept = np.all((cvs <= cv_upper_bound, cvs >= cv_lower_bound), axis=0)
+    # if the rates fit, what are the resulting CVs?
+    cvs = data[:, 14]
+    cvs_accept = np.all((cvs <= cv_upper_bound, cvs >= cv_lower_bound), axis=0)
 
-	all_accept = np.all((rates_accept, cvs_accept), axis=0)
-	# also acceptable rates?
-	print('{0} among these have CVs between {1} and {2}'.format(
-	    all_accept.sum(), cv_lower_bound, cv_upper_bound))
+    all_accept = np.all((rates_accept, cvs_accept), axis=0)
+    # also acceptable rates?
+    print('{0} among these have CVs between {1} and {2}'.format(
+        all_accept.sum(), cv_lower_bound, cv_upper_bound))
 
 
-	# of the remaining configurations, which has...
-	# ... the largest dV2?
-	testindices1 = data[ :, 6 ] == np.amax(data[ all_accept, 6 ])
-	testconfigs1 = data[ testindices1, : ]
-	# ... the largest total dV?
-	testvalue2 =  np.amax(data[ all_accept, 6 ] + data[ all_accept, 5 ])
-	testindices2 = (data[ :, 5 ] + data[ :, 6 ]) == testvalue2
-	testconfigs2 = data[ testindices2, : ]
-	# ... the lowest RMSE of rate difference and dV total?
-	# testvalue3 = np.sqrt((distance_penalty * np.ones_like(data[ 
-	#   all_accept, 6 ]) - data[ all_accept, 6 ])**2 + dist_r_exin[ all_accept ]**2)
-	# testindices3 = np.sqrt((distance_penalty * np.ones_like(data[ :, 6 ]) - data[ 
-	#   :, 6 ])**2 + dist_r_exin**2) == np.amin(testvalue3)
-	# testconfigs3 = data[ testindices3, : ]
-	# ... the lower RMSE of rate difference and dV2?
-	testvalue3 = np.sqrt((distance_penalty * np.ones_like(data[ 
-	    all_accept, 6 ]) - data[ all_accept, 6 ])**2 + dist_r_exin[ all_accept ]**2)
-	testindices3 = np.sqrt((distance_penalty * np.ones_like(data[ :, 6 ]) - data[ 
-	    :, 6 ])**2 + dist_r_exin**2) == np.amin(testvalue3)
-	testconfigs3 = data[ testindices3, : ]
-	return testconfigs1, testconfigs2, testconfigs3
+    # of the remaining configurations, which has...
+    # ... the largest dV2?
+    testindices1 = data[ :, 6 ] == np.amax(data[ all_accept, 6 ])
+    testconfigs1 = data[ testindices1, : ]
+    # ... the largest total dV?
+    testvalue2 =  np.amax(data[ all_accept, 6 ] + data[ all_accept, 5 ])
+    testindices2 = (data[ :, 5 ] + data[ :, 6 ]) == testvalue2
+    testconfigs2 = data[ testindices2, : ]
+    # ... the lowest RMSE of rate difference and dV total?
+    # testvalue3 = np.sqrt((distance_penalty * np.ones_like(data[ 
+    #   all_accept, 6 ]) - data[ all_accept, 6 ])**2 + dist_r_exin[ all_accept ]**2)
+    # testindices3 = np.sqrt((distance_penalty * np.ones_like(data[ :, 6 ]) - data[ 
+    #   :, 6 ])**2 + dist_r_exin**2) == np.amin(testvalue3)
+    # testconfigs3 = data[ testindices3, : ]
+    # ... the lower RMSE of rate difference and dV2?
+    testvalue3 = np.sqrt((distance_penalty * np.ones_like(data[ 
+        all_accept, 6 ]) - data[ all_accept, 6 ])**2 + dist_r_exin[ all_accept ]**2)
+    testindices3 = np.sqrt((distance_penalty * np.ones_like(data[ :, 6 ]) - data[ 
+        :, 6 ])**2 + dist_r_exin**2) == np.amin(testvalue3)
+    testconfigs3 = data[ testindices3, : ]
+    return testconfigs1, testconfigs2, testconfigs3
 
 
 def convert_to_paramdict(input):
-	"""
-	Convert a row of an configuration_extractor output to run_brunel input.
-	"""
+    """
+    Convert a row of an configuration_extractor output to run_brunel input.
+    """
     networkparamdict = {
         'p_rate':   0,
         'C_m':      input[ 1 ],
@@ -295,9 +294,9 @@ def compute_new_connectivity(conn_probs, N_full_new, N_full_old, layers, pops, n
 
 def run_brunel(networkparamdict, plotting=True):
     """ a version that is driven just as the MC L5
-	!!! WARNING !!!
-	Possibly faulty connection for the poisson generators ->
-	return to all_to_all conn_rule.
+    !!! WARNING !!!
+    Possibly faulty connection for the poisson generators ->
+    return to all_to_all conn_rule.
     """
     assert 'K_ext' in networkparamdict, 'invalid networkparamdict'
     assert 'bg_rate' in networkparamdict, 'invalid networkparamdict'
@@ -445,13 +444,13 @@ def run_brunel(networkparamdict, plotting=True):
 
     # set the drive levels for all populations
     nest.SetStatus([ noise[ 0 ] ],
-        {"rate":      bg_rate,
+        {"rate":      bg_rate * K_ext[ 'E' ],
          "amplitude": 0.025 * 0.0, "frequency": 10.0, "phase": 0.0} )
     nest.SetStatus([ noise[ 1 ] ],
-        {"rate":      bg_rate,
+        {"rate":      bg_rate * K_ext[ 'I' ],
          "amplitude": 0.025 * 0.0, "frequency": 10.0, "phase": 0.0} )
     nest.SetStatus([ noise[ 2 ] ],
-        {"rate":      bg_rate,
+        {"rate":      bg_rate * K_ext[ 'R' ],
          "amplitude": 0.025 * 0.0, "frequency": 10.0, "phase": 0.0} )
 
     nest.SetStatus(espikes, [
@@ -472,16 +471,13 @@ def run_brunel(networkparamdict, plotting=True):
         pass
     
     nest.Connect([ noise[ 0 ] ], nodes_ex,
-                 conn_spec={'rule': 'fixed_indegree', 'indegree': K_ext[ 'E' ]}, 
-                 # 'rule': 'all_to_all'},
+                 conn_spec={'rule': 'all_to_all'}, 
                  syn_spec={'weight': J_ex, "delay": delay_ex})
     nest.Connect([ noise[ 1 ] ], nodes_in,
-                 conn_spec={'rule': 'fixed_indegree', 'indegree': K_ext[ 'I' ]}, 
-                 # conn_spec={'rule': 'all_to_all'},
+                 conn_spec={'rule': 'all_to_all'}, 
                  syn_spec={'weight': J_ex, "delay": delay_ex})
     nest.Connect([ noise[ 2 ] ], nodes_re,
-                 conn_spec={'rule': 'fixed_indegree', 'indegree': K_ext[ 'R' ]}, 
-                 # conn_spec={'rule': 'all_to_all'},
+                 conn_spec={'rule': 'all_to_all'}, 
                  syn_spec={'weight': J_ex, "delay": delay_ex})
 
     nest.Connect(nodes_ex[ 0:N_rec[ 'NE' ] ], espikes, syn_spec="excite")
@@ -604,24 +600,24 @@ def run_brunel(networkparamdict, plotting=True):
 
 if __name__ == '__main__':
 
-	print('Importing suitable GIF2 configurations')
-	testconfigs1, testconfigs2, testconfigs3 = configuration_extractor()
-	
-	print('Importing complete.')
-	
-	configure_nest_kernel(cluster=False)
-	print('Nest Kernel configured')
+    print('Importing suitable GIF2 configurations')
+    testconfigs1, testconfigs2, testconfigs3 = configuration_extractor()
+    
+    print('Importing complete.')
+    
+    configure_nest_kernel(cluster=False)
+    print('Nest Kernel configured')
 
-	networkdict = convert_to_paramdict(testconfigs1[0,:])
-	print('Chosen network parameters:')
-	for i, j in networkdict.iteritems():
-		print('{0} = {1}'.format(i,j))
-	print('\n')
+    networkdict = convert_to_paramdict(testconfigs1[0,:])
+    print('Chosen network parameters:')
+    for i, j in networkdict.iteritems():
+        print('{0} = {1}'.format(i,j))
+    print('\n')
 
-	print('Simulating')
-	resultlist, spikelists = run_brunel(networkdict)
+    print('Simulating')
+    resultlist, spikelists = run_brunel(networkdict)
 
-	print('Done. Congregating results. \n')
-	resultarray = construct_resultarray(resultlist, networkdict)
+    print('Done. Congregating results. \n')
+    resultarray = construct_resultarray(resultlist, networkdict)
 
-	print(resultarray)
+    print(resultarray)
