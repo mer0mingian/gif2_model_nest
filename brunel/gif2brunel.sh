@@ -6,4 +6,5 @@
 #SBATCH --mem=10000
 module load mpi/openmpi/1.10.0
 source activate mingpython
+
 srun python gif2_brunel_f.py 9 

@@ -98,7 +98,7 @@ def compute_new_connectivity(conn_probs, N_full_new, N_full_old, layers, pops, n
 
 if __name__ == "__main__":
 
-    microcircuit = False
+    microcircuit = True
     if microcircuit:
         #             2/3e      2/3i    4e      4i      5e      5i      6e      6i
         conn_probs = [ [ 0.1009, 0.1689, 0.0437, 0.0818, 0.0323, 0.,     0.0076, 0.     ],
