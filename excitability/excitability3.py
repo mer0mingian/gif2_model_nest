@@ -34,8 +34,7 @@ namelist = list()
 #namelist.append('fitted_excitability_weighted_746025.csv')
 #namelist.append('fitted_excitability_weighted_722850.csv')
 #namelist.append('fitted_excitability_weighted_753857.csv')
-namelist.append('fitted_excitability_weighted_753857.csv')
-
+namelist.append('manual_plotsets.csv')
 
 colorlist = ['r', 'g', 'c', 'k', 'y', 'm']
 linestyles = ['-', '--', '-.']

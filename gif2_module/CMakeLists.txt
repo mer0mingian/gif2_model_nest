@@ -1,4 +1,4 @@
-# examples/gif2_Module/CMakeLists.txt
+# examples/MyModule/CMakeLists.txt
 #
 # This file is part of NEST.
 #
@@ -31,22 +31,25 @@ cmake_minimum_required( VERSION 2.8.12 )
 # For more informations on how to extend and use your module see:
 #           https://nest.github.io/nest-simulator/extension_modules
 
-# 1) Name your module here, i.e. add later with -Dexternal-modules=gif2:
+# 1) Name your module here, i.e. add later with -Dexternal-modules=my:
 set( SHORT_NAME gif2 )
+
 #    the complete module name is here:
-set( NEST_MODULE_NAME ${SHORT_NAME}_module )
+set( MODULE_NAME ${SHORT_NAME}_module )
+
 # 2) Add all your sources here
 set( MODULE_SOURCES
      gif2_module.h gif2_module.cpp
      gif2_psc_exp.h gif2_psc_exp.cpp
     )
+
 # 3) We require a header name like this:
-set( MODULE_HEADER ${NEST_MODULE_NAME}.h )
+set( MODULE_HEADER ${MODULE_NAME}.h )
 # containing the class description of the class extending the SLIModule
 
 # 4) Specify your module version
 set( MODULE_VERSION_MAJOR 2 )
-set( MODULE_VERSION_MINOR 2 )
+set( MODULE_VERSION_MINOR 3 )
 set( MODULE_VERSION "${MODULE_VERSION_MAJOR}.${MODULE_VERSION_MINOR}" )
 
 # 5) Leave the rest as is. All files in `sli` will be installed to
@@ -80,6 +83,7 @@ execute_process(
     OUTPUT_VARIABLE NEST_COMPILER
     OUTPUT_STRIP_TRAILING_WHITESPACE
 )
+
 # One check on first execution, if `nest-config` is working.
 if ( NOT RES_VAR EQUAL 0 )
   message( FATAL_ERROR "Cannot run `${NEST_CONFIG}`. Please specify correct `nest-config` via -Dwith-nest=... " )
@@ -88,7 +92,7 @@ endif ()
 # Setting the compiler has to happen before the call to "project(...)" function.
 set( CMAKE_CXX_COMPILER "${NEST_COMPILER}" )
 
-project( ${NEST_MODULE_NAME} CXX )
+project( ${MODULE_NAME} CXX )
 
 # Get the install prefix.
 execute_process(
@@ -192,7 +196,7 @@ include( GNUInstallDirs )
 set( CPACK_GENERATOR TGZ )
 set( CPACK_SOURCE_GENERATOR TGZ )
 
-set( CPACK_PACKAGE_DESCRIPTION_SUMMARY "NEST Module ${NEST_MODULE_NAME}" )
+set( CPACK_PACKAGE_DESCRIPTION_SUMMARY "NEST Module ${MODULE_NAME}" )
 set( CPACK_PACKAGE_VENDOR "NEST Initiative (http://www.nest-initiative.org/)" )
 
 set( CPACK_PACKAGE_VERSION_MAJOR ${MODULE_VERSION_MAJOR} )
@@ -214,9 +218,9 @@ set( CPACK_SOURCE_IGNORE_FILES
     "CPackConfig\\\\.cmake"
     "CPackSourceConfig\\\\.cmake"
     )
-set( CPACK_SOURCE_PACKAGE_FILE_NAME ${NEST_MODULE_NAME} )
+set( CPACK_SOURCE_PACKAGE_FILE_NAME ${MODULE_NAME} )
 
-set( CPACK_PACKAGE_INSTALL_DIRECTORY "${NEST_MODULE_NAME} ${MODULE_VERSION}" )
+set( CPACK_PACKAGE_INSTALL_DIRECTORY "${MODULE_NAME} ${MODULE_VERSION}" )
 include( CPack )
 
 # add make dist target
@@ -224,59 +228,55 @@ add_custom_target( dist
     COMMAND ${CMAKE_MAKE_PROGRAM} package_source
     # not sure about this... seems, that it will be removed before dist...
     # DEPENDS doc
-    COMMENT "Creating a source distribution from ${NEST_MODULE_NAME}..."
+    COMMENT "Creating a source distribution from ${MODULE_NAME}..."
     )
 
 
 if ( BUILD_SHARED_LIBS )
   # When building shared libraries, also create a module for loading at runtime
   # with the `Install` command.
-  add_library( ${NEST_MODULE_NAME}_module MODULE ${MODULE_SOURCES} )
-  set_target_properties( ${NEST_MODULE_NAME}_module
+  add_library( ${MODULE_NAME}_module MODULE ${MODULE_SOURCES} )
+  set_target_properties( ${MODULE_NAME}_module
       PROPERTIES
       COMPILE_FLAGS "${NEST_CXXFLAGS} -DLTX_MODULE"
       LINK_FLAGS "${NEST_LIBS}"
       PREFIX ""
-      OUTPUT_NAME ${NEST_MODULE_NAME} )
-  install( TARGETS ${NEST_MODULE_NAME}_module
+      OUTPUT_NAME ${MODULE_NAME} )
+  install( TARGETS ${MODULE_NAME}_module
       DESTINATION ${CMAKE_INSTALL_LIBDIR}
       )
 endif ()
 
 # Build dynamic/static library for standard linking from NEST.
-add_library( ${NEST_MODULE_NAME}_lib ${MODULE_SOURCES} )
+add_library( ${MODULE_NAME}_lib ${MODULE_SOURCES} )
 if ( BUILD_SHARED_LIBS )
   # Dynamic libraries are initiated by a `global` variable of the `SLIModule`,
   # which is included, when the flag `LINKED_MODULE` is set.
-  target_compile_definitions( ${NEST_MODULE_NAME}_lib PRIVATE -DLINKED_MODULE )
+  target_compile_definitions( ${MODULE_NAME}_lib PRIVATE -DLINKED_MODULE )
 endif ()
-set_target_properties( ${NEST_MODULE_NAME}_lib
+set_target_properties( ${MODULE_NAME}_lib
     PROPERTIES
     COMPILE_FLAGS "${NEST_CXXFLAGS}"
     LINK_FLAGS "${NEST_LIBS}"
-    OUTPUT_NAME ${NEST_MODULE_NAME} )
+    OUTPUT_NAME ${MODULE_NAME} )
 
 # Install library, header and sli init files.
-install( TARGETS ${NEST_MODULE_NAME}_lib DESTINATION ${CMAKE_INSTALL_LIBDIR} )
+install( TARGETS ${MODULE_NAME}_lib DESTINATION ${CMAKE_INSTALL_LIBDIR} )
 install( FILES ${MODULE_HEADER} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} )
 install( DIRECTORY sli DESTINATION ${CMAKE_INSTALL_DATADIR} )
 
 # Install help.
-set( HELPDIRS "${PROJECT_SOURCE_DIR}:${PROJECT_SOURCE_DIR}/sli" )
 install( CODE
-    "execute_process(COMMAND ${CMAKE_COMMAND}
-          -DDOC_DIR='${CMAKE_INSTALL_FULL_DOCDIR}'
-          -DDATA_DIR='${CMAKE_INSTALL_FULL_DATADIR}'
-          -DHELPDIRS='${HELPDIRS}'
-          -DINSTALL_DIR='${CMAKE_INSTALL_PREFIX}'
-          -P ${CMAKE_INSTALL_FULL_DOCDIR}/generate_help.cmake
-        WORKING_DIRECTORY \"${PROJECT_BINARY_DIR}\"
-      )"
+    "execute_process(
+        COMMAND python -B parse_help.py ${PROJECT_SOURCE_DIR} ${PROJECT_BINARY_DIR} \"${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DOCDIR}/help\"
+        WORKING_DIRECTORY \"${CMAKE_INSTALL_PREFIX}/${NEST_DATADIR}/help_generator\"
+        )"
     )
+
 
 message( "" )
 message( "-------------------------------------------------------" )
-message( "${NEST_MODULE_NAME} Configuration Summary" )
+message( "${MODULE_NAME} Configuration Summary" )
 message( "-------------------------------------------------------" )
 message( "" )
 message( "C++ compiler         : ${CMAKE_CXX_COMPILER}" )
@@ -288,9 +288,9 @@ message( "NEST libraries flags : ${NEST_LIBS}" )
 message( "" )
 message( "-------------------------------------------------------" )
 message( "" )
-message( "You can build and install ${NEST_MODULE_NAME} now, using" )
+message( "You can build and install ${MODULE_NAME} now, using" )
 message( "  make" )
 message( "  make install" )
 message( "" )
-message( "${NEST_MODULE_NAME} will be installed to: ${CMAKE_INSTALL_FULL_LIBDIR}" )
+message( "${MODULE_NAME} will be installed to: ${CMAKE_INSTALL_FULL_LIBDIR}" )
 message( "" )

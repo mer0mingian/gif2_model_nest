@@ -32,3 +32,6 @@ excitability_753857:
     V_range = np.arange(6.0, 15.0, 3.0)
     tau_1_range = np.arange(80.0, 130.0, 10.0)
 
+
+adv_excitability_969513: more of less complete writeout
+adv_excitability_969512: see conditions
