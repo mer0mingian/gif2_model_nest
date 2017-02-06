@@ -1,6 +1,6 @@
 # coding=utf-8
 """
-This file collects all currently relevant functions for Simulating the
+This file collects all currerntly relevant functions for Simulating the
 isolated L5 from the Microcircuit, including the resonating population,
 as a Brunel network to find a reasonable parameter configuration for
 the GIF2 model for application in the multi-area model.
@@ -12,9 +12,11 @@ import time
 import sys
 import shutil
 import matplotlib as mpl
-cluster = False
-if cluster:
+if 'blaustein' in os.environ['HOSTNAME'].split('.')[ 0 ]:
+    cluster = True
     mpl.use('Agg')
+else: 
+    cluster = False
 import matplotlib.pyplot as plt
 import nest
 from mingtools1 import *
@@ -134,7 +136,8 @@ def configuration_extractor():
     # find all rows with acceptable E/I rates:
     mean_exin = np.mean((data[:,8:9]),axis=1)
     mean_exin_accept = np.all((
-        mean_exin <= exin_rates_upper_bound, mean_exin >=exin_rates_lower_bound), axis=0)
+        mean_exin <= exin_rates_upper_bound, 
+        mean_exin >=exin_rates_lower_bound), axis=0)
 
     # is R rate also acceptable?
     dist_r_exin = np.abs(data[:,10] - mean_exin)
@@ -142,11 +145,13 @@ def configuration_extractor():
 
     # where do both criteria hold?
     rates_accept = np.all((mean_exin_accept, dist_r_exin_accept), axis=0)
-    print('We have {0} results with acceptable rates.'.format(rates_accept.sum()))
+    print('We have {0} results with acceptable rates.'.format(
+        rates_accept.sum()))
 
     # if the rates fit, what are the resulting CVs?
     cvs = data[:, 14]
-    cvs_accept = np.all((cvs <= cv_upper_bound, cvs >= cv_lower_bound), axis=0)
+    cvs_accept = np.all((
+        cvs <= cv_upper_bound, cvs >= cv_lower_bound), axis=0)
 
     all_accept = np.all((rates_accept, cvs_accept), axis=0)
     # also acceptable rates?
@@ -163,16 +168,13 @@ def configuration_extractor():
     testindices2 = (data[ :, 5 ] + data[ :, 6 ]) == testvalue2
     testconfigs2 = data[ testindices2, : ]
     # ... the lowest RMSE of rate difference and dV total?
-    # testvalue3 = np.sqrt((distance_penalty * np.ones_like(data[ 
-    #   all_accept, 6 ]) - data[ all_accept, 6 ])**2 + dist_r_exin[ all_accept ]**2)
-    # testindices3 = np.sqrt((distance_penalty * np.ones_like(data[ :, 6 ]) - data[ 
-    #   :, 6 ])**2 + dist_r_exin**2) == np.amin(testvalue3)
-    # testconfigs3 = data[ testindices3, : ]
+    # ... not yet implemented
     # ... the lower RMSE of rate difference and dV2?
     testvalue3 = np.sqrt((distance_penalty * np.ones_like(data[ 
-        all_accept, 6 ]) - data[ all_accept, 6 ])**2 + dist_r_exin[ all_accept ]**2)
-    testindices3 = np.sqrt((distance_penalty * np.ones_like(data[ :, 6 ]) - data[ 
-        :, 6 ])**2 + dist_r_exin**2) == np.amin(testvalue3)
+        all_accept, 6 ]) - data[ all_accept, 6 ])**2 + dist_r_exin[
+        all_accept ]**2)
+    testindices3 = np.sqrt((distance_penalty * np.ones_like(data[
+     :, 6 ]) - data[ :, 6 ])**2 + dist_r_exin**2) == np.amin(testvalue3)
     testconfigs3 = data[ testindices3, : ]
     return testconfigs1, testconfigs2, testconfigs3
 
@@ -222,7 +224,8 @@ def find_new_C(K, Npre, Npost):
     return h3
 
 
-def compute_new_connectivity(conn_probs, N_full_new, N_full_old, layers, pops, newpopdict, new_structure, K_bg=None):
+def compute_new_connectivity(conn_probs, N_full_new, N_full_old, layers, 
+                             pops, newpopdict, new_structure, K_bg=None):
     """
     the core function.
     """
@@ -362,26 +365,22 @@ def run_brunel(networkparamdict, plotting=True):
     J_in = -g * J
 
     J *= np.array([ [ J_ex, J_ex, J_ex ],
-                   [ J_ex, J_ex, J_ex ],
-                   [ J_in, J_in, J_in ] ]) # * synweight
+                    [ J_ex, J_ex, J_ex ],
+                    [ J_in, J_in, J_in ] ]) 
 
     """ Previously, we assumed a microcircuit connectivity of just on layer.
     Now we extract L5 from the full microcircuit instead."""
 
-    #             2/3e      2/3i    4e      4i      5e      5i      6e      6i
-    conn_probs = [ [ 0.1009, 0.1689, 0.0437, 0.0818, 0.0323, 0., 0.0076, 0. ],
-                   [ 0.1346, 0.1371, 0.0316, 0.0515, 0.0755, 0., 0.0042, 0. ],
-                   [ 0.0077, 0.0059, 0.0497, 0.135, 0.0067, 0.0003, 0.0453,
-                     0. ],
-                   [ 0.0691, 0.0029, 0.0794, 0.1597, 0.0033, 0., 0.1057, 0. ],
-                   [ 0.1004, 0.0622, 0.0505, 0.0057, 0.0831, 0.3726, 0.0204,
-                     0. ],
-                   [ 0.0548, 0.0269, 0.0257, 0.0022, 0.06, 0.3158, 0.0086,
-                     0. ],
-                   [ 0.0156, 0.0066, 0.0211, 0.0166, 0.0572, 0.0197, 0.0396,
-                     0.2252 ],
-                   [ 0.0364, 0.001, 0.0034, 0.0005, 0.0277, 0.008, 0.0658,
-                     0.1443 ] ]
+    #     2/3e      2/3i    4e      4i      5e      5i      6e      6i
+    conn_probs = [ 
+        [ 0.1009, 0.1689, 0.0437, 0.0818, 0.0323, 0.,     0.0076, 0. ],
+        [ 0.1346, 0.1371, 0.0316, 0.0515, 0.0755, 0.,     0.0042, 0. ],
+        [ 0.0077, 0.0059, 0.0497, 0.135,  0.0067, 0.0003, 0.0453, 0. ],
+        [ 0.0691, 0.0029, 0.0794, 0.1597, 0.0033, 0.,     0.1057, 0. ],
+        [ 0.1004, 0.0622, 0.0505, 0.0057, 0.0831, 0.3726, 0.0204, 0. ],
+        [ 0.0548, 0.0269, 0.0257, 0.0022, 0.06,   0.3158, 0.0086, 0. ],
+        [ 0.0156, 0.0066, 0.0211, 0.0166, 0.0572, 0.0197, 0.0396, 0.2252 ],
+        [ 0.0364, 0.001,  0.0034, 0.0005, 0.0277, 0.008,  0.0658, 0.1443 ] ]
 
     layers = {'L23': 0, 'L4': 1, 'L5': 2, 'L6': 3}
     pops = {'E': 0, 'I': 1}
@@ -396,7 +395,7 @@ def run_brunel(networkparamdict, plotting=True):
     N_full_new = {
         'L23': {'E': 20683, 'I': 5834, 'R': 0},
         'L4':  {'E': 21915, 'I': 5479, 'R': 0},
-        'L5':  {'E': NE, 'I': NI, 'R': NR},
+        'L5':  {'E': NE,    'I': NI,   'R': NR},
         'L6':  {'E': 14395, 'I': 2948, 'R': 0}
     }
 
@@ -430,7 +429,7 @@ def run_brunel(networkparamdict, plotting=True):
     K = np.array(np.diag(np.array([ 1./NE, 1./NI, 1./NR ]).dot(syn_nums)), 
         dtype=int)
 
-    # print"Building network")
+    # Building network
     startbuild = time.time()
     nest.SetDefaults("iaf_psc_exp", neuron_params)
     nest.SetDefaults("gif2_psc_exp", neuron_params2)
@@ -453,15 +452,10 @@ def run_brunel(networkparamdict, plotting=True):
         {"rate":      bg_rate * K_ext[ 'R' ],
          "amplitude": 0.025 * 0.0, "frequency": 10.0, "phase": 0.0} )
 
-    nest.SetStatus(espikes, [
-        {"label":   "brunel-py-ex", "withtime": True, "withgid": True,
-         "to_file": False, 'start': recstart} ])
-    nest.SetStatus(rspikes, [
-        {"label":   "brunel-py-res", "withtime": True, "withgid": True,
-         "to_file": False, 'start': recstart} ])
-    nest.SetStatus(ispikes, [
-        {"label":   "brunel-py-in", "withtime": True, "withgid": True,
-         "to_file": False, 'start': recstart} ])
+    for spikedetect in [espikes, rspikes, ispikes]:
+        nest.SetStatus(spikedetect, [
+            {"label":   "brunel-py-in", "withtime": True, "withgid": True,
+             "to_file": False, 'start': recstart} ])
 
     # try, in case we loop over the function, not the script
     try:
@@ -470,57 +464,34 @@ def run_brunel(networkparamdict, plotting=True):
     except:
         pass
     
-    nest.Connect([ noise[ 0 ] ], nodes_ex,
-                 conn_spec={'rule': 'all_to_all'}, 
-                 syn_spec={'weight': J_ex, "delay": delay_ex})
-    nest.Connect([ noise[ 1 ] ], nodes_in,
-                 conn_spec={'rule': 'all_to_all'}, 
-                 syn_spec={'weight': J_ex, "delay": delay_ex})
-    nest.Connect([ noise[ 2 ] ], nodes_re,
-                 conn_spec={'rule': 'all_to_all'}, 
-                 syn_spec={'weight': J_ex, "delay": delay_ex})
+    for i in [ 'NE', 'NI', 'NR' ]:
+        nest.Connect(nodes_ex[ 0:N_rec[ i ] ], espikes, syn_spec="excite")
+    
+    nodes = dict()
+    nodes[ 0 ] = nodes_ex
+    nodes[ 1 ] = nodes_in
+    nodes[ 2 ] = nodes_re
+    noise_syn_dict = syn_spec={'weight': J_ex * synweight, "delay": delay_ex}
+    noise_conn_dict = {'rule': 'all_to_all'}
 
-    nest.Connect(nodes_ex[ 0:N_rec[ 'NE' ] ], espikes, syn_spec="excite")
-    nest.Connect(nodes_re[ 0:N_rec[ 'NR' ] ], rspikes, syn_spec="excite")
-    nest.Connect(nodes_in[ 0:N_rec[ 'NI' ] ], ispikes, syn_spec="excite")
-
-    nest.Connect(nodes_ex, nodes_ex,
-                 conn_spec={'rule': 'fixed_indegree', 'indegree': K[ 0, 0 ]},
-                 syn_spec={'weight': J[ 0, 0 ], "delay": delay_ex})
-    nest.Connect(nodes_ex, nodes_re,
-                 conn_spec={'rule': 'fixed_indegree', 'indegree': K[ 0, 1 ]},
-                 syn_spec={'weight': J[ 0, 1 ], "delay": delay_ex})
-    nest.Connect(nodes_ex, nodes_in,
-                 conn_spec={'rule': 'fixed_indegree', 'indegree': K[ 0, 2 ]},
-                 syn_spec={'weight': J[ 0, 2 ], "delay": delay_ex})
-    # print"Resonating connections")
-    nest.Connect(nodes_re, nodes_ex,
-                 conn_spec={'rule': 'fixed_indegree', 'indegree': K[ 1, 0 ]},
-                 syn_spec={'weight': J[ 1, 0 ], "delay": delay_ex})
-    nest.Connect(nodes_re, nodes_re,
-                 conn_spec={'rule': 'fixed_indegree', 'indegree': K[ 1, 1 ]},
-                 syn_spec={'weight': J[ 1, 1 ], "delay": delay_ex})
-    nest.Connect(nodes_re, nodes_in,
-                 conn_spec={'rule': 'fixed_indegree', 'indegree': K[ 1, 2 ]},
-                 syn_spec={'weight': J[ 1, 2 ], "delay": delay_ex})
-    # print"Inhibitory connections")
-    nest.Connect(nodes_in, nodes_ex,
-                 conn_spec={'rule': 'fixed_indegree', 'indegree': K[ 2, 0 ]},
-                 syn_spec={'weight': J[ 2, 0 ], "delay": delay_in})
-    nest.Connect(nodes_in, nodes_re,
-                 conn_spec={'rule': 'fixed_indegree', 'indegree': K[ 2, 1 ]},
-                 syn_spec={'weight': J[ 2, 1 ], "delay": delay_in})
-    nest.Connect(nodes_in, nodes_in,
-                 conn_spec={'rule': 'fixed_indegree', 'indegree': K[ 2, 2 ]},
-                 syn_spec={'weight': J[ 2, 2 ], "delay": delay_in})
-
+    for i in np.arange(2):
+        nest.Connect([ noise[ i ] ], nodes[ i ], 
+                conn_spec=noise_conn_dict, syn_spec=noise_syn_dict)
+        for j in np.arange(2):
+            if i == 2:
+                delays = delay_in
+            else:
+                delays = delay_ex
+            nest.Connect(nodes[ i ], nodes[ j ],
+                conn_spec={'rule': 'fixed_total_number', 'N': K[ i, j ]},
+                syn_spec={'weight': J[ i, j ], "delay": delays})
     endbuild = time.time()
 
-    # print"Simulating")
+    # simulate
     nest.Simulate(simtime + recstart)
     endsimulate = time.time()
 
-    # print'Computing results')
+    # read out events
     events_ex = nest.GetStatus(espikes, "events")[ 0 ]
     events_re = nest.GetStatus(rspikes, "events")[ 0 ]
     events_in = nest.GetStatus(ispikes, "events")[ 0 ]
@@ -546,6 +517,7 @@ def run_brunel(networkparamdict, plotting=True):
                 events_in[ 'times' ][ events_in[ 'senders' ] == gid ])
     spiketrains_allex = spiketrains_ex + spiketrains_re
     spiketrains_all = spiketrains_allex + spiketrains_in
+
     cv_ex = np.nanmean(
             [ cv(isi(spiketrain)) for spiketrain in spiketrains_ex ])
     cv_re = np.nanmean(
@@ -599,6 +571,10 @@ def run_brunel(networkparamdict, plotting=True):
 
 
 if __name__ == '__main__':
+    """
+    This extracts a set of possibly suitable configurations from one of the
+    brunel_array_results_X files and runs a single network.
+    """
 
     print('Importing suitable GIF2 configurations')
     testconfigs1, testconfigs2, testconfigs3 = configuration_extractor()
