@@ -36,6 +36,21 @@ np.set_printoptions(formatter={'float': '{: 0.4f}'.format})
 # BRUNEL NETWORK HELPER FUNCTIONS
 # ****************************************************************************************************************************
 
+def verbosity(input, verbosity=False, designation=None):
+    if verbosity:
+        if designation:
+            print('{0} is : {1}'.format(designation, input))
+        else:
+            print(input)
+
+def connect(source, target, syn_spec, conn_spec=None):
+    if (len(source) == 0 or len(target) == 0):
+        pass
+    else:
+        nest.Connect(source, target, 
+                     syn_spec=syn_spec,
+                     conn_spec=conn_spec)
+
 
 def writeout(simulation_index, resultarray, path=None):
     if resultarray[ 10 ] > 0.0:  # if resonance occurs
@@ -204,7 +219,9 @@ def convert_to_paramdict(input):
     return networkparamdict
 
 def print_results(i, somedict=None):
-    print('Fraction of resonating among excitatory neurons: {0}'.format(i[7+0]))
+    NE = int(4850 * (1-i[7]))
+    NR = int(4850 * i[7])
+    print('Fraction of resonating {1} among excitatory {2} neurons: {0}'.format(i[7], NR, NE+NR))
     print('Simulated time: {0}'.format(i[16]))
     print('Pop rates (E | I | R): {0} | {1} | {2}'.format(i[7+1], i[7+2], i[7+3]))
     print('CVs (E | I | R | total): {0} | {1} | {2} | {3}'.format(i[7+4], i[7+5], i[7+7], i[7+7]))
@@ -309,7 +326,7 @@ def compute_new_connectivity(conn_probs, N_full_new, N_full_old, layers,
 # THE L5 BRUNEL NETWORK
 # ****************************************************************************************************************************
 
-def run_brunel(networkparamdict, plotting=True):
+def run_brunel(networkparamdict, plotting=True, verbose=True):
     """ a version that is driven just as the MC L5
     !!! WARNING !!!
     Possibly faulty connection for the poisson generators ->
@@ -327,8 +344,9 @@ def run_brunel(networkparamdict, plotting=True):
     Vdist2 = networkparamdict[ 'V_dist2' ]
     K_ext = networkparamdict[ 'K_ext' ]
     bg_rate = networkparamdict[ 'bg_rate' ]
+    v = verbose
 
-    recstart = 7500.0
+    recstart = 2500.0
     simtime = 5000.0  # Simulation time in ms
     delay = 0.8  # synaptic delay in ms
     delay_ex = 1.5
@@ -336,9 +354,11 @@ def run_brunel(networkparamdict, plotting=True):
     g = 4.0  # ratio inhibitory weight/excitatory weight
 
     N = 4850
-    NE = int((1.0 - fraction) * N)
-    NR = int(fraction * N)
+    NE = np.max((int((1.0 - fraction) * N), 1))
+    NR = np.max((int(fraction * N), 1))
     NI = 1065
+    verbosity([NE, NI, NR], v)
+
     N_neurons = [ NE, NI, NR ] # number of neurons in total
     # record from N_rec neurons per population:
     N_rec = {'NE': int(NE / 10), 'NI': int(NI / 10), 'NR': int(NR / 10)}
@@ -357,7 +377,7 @@ def run_brunel(networkparamdict, plotting=True):
         "t_ref":      2.0,
         "E_L":        -65.0,
         "V_reset":    -65.0,
-        "V_m":        -65.0,
+        "V_m":        -58.0,
         "V_th":       theta}
 
     neuron_params2 = {
@@ -367,13 +387,11 @@ def run_brunel(networkparamdict, plotting=True):
         "tau_syn_in": tauSyn,
         "g_rr":       g1,
         "g":          gm,
-        "V_m":        theta - V_dist,
+        "V_m":        -58.0,
         "V_reset":    theta - V_dist,
         "E_L":        theta - V_dist - Vdist2,
         "V_th":       theta,
         "t_ref":      2.0}
-
-    # synweight = 87.8
 
     J = 0.15  # postsynaptic potential amplitude in mV
     J_ex = J  # amplitude of excitatory postsynaptic potential
@@ -382,7 +400,6 @@ def run_brunel(networkparamdict, plotting=True):
     # Compute the synaptic weights
     PSP_e = J
     PSP_ext = J
-    # PSP_e_23_4 = PSP_e * 2
     re = tau_m / tauSyn
     de = tauSyn - tau_m
     PSC_e_over_PSP_e = 1 / (
@@ -390,22 +407,15 @@ def run_brunel(networkparamdict, plotting=True):
                                          np.power(re, tauSyn / de)))
     PSC_i_over_PSP_i = PSC_e_over_PSP_e
     PSC_e = PSC_e_over_PSP_e * PSP_e
-    # PSC_e_23_4 = PSC_e_over_PSP_e * PSP_e_23_4
     PSP_i = - PSP_e * g
     PSC_i = PSC_i_over_PSP_i * PSP_i
     PSC_ext = PSC_e_over_PSP_e * PSP_ext
 
-    synweight_ex = PSC_e / 2.
-    synweight_in = PSC_i / 2.
-    synweight_ext = PSC_ext / 2.
-
-    # J = np.array([ [ J_ex, J_ex, J_ex ],
-    #                [ J_ex, J_ex, J_ex ],
-    #                [ J_in, J_in, J_in ] ]) 
-
-    # J = np.array([ [ PSC_e, PSC_e, PSC_e ], 
-    #                [ PSC_e, PSC_e, PSC_e ], 
-    #                [ PSC_i, PSC_i, PSC_i ] ])
+    # this are the 87.8 pA
+    synweight_ex = PSC_e
+    synweight_in = PSC_i
+    synweight_ext = PSC_ext
+    verbosity([ synweight_ex, synweight_in, synweight_ext ], v)
 
     """ Previously, we assumed a microcircuit connectivity of just on layer.
     Now we extract L5 from the full microcircuit instead."""
@@ -455,12 +465,14 @@ def run_brunel(networkparamdict, plotting=True):
 
     K_bg = [ [ 1600, 1500 ], [ 2100, 1900 ], [ 2000, 1900 ], [ 2900, 2100 ] ]
 
-    connmat, K_bg_new = compute_new_connectivity(conn_probs, N_full_new,
-                                                 N_full_old, layers, pops,
-                                                 newpopdict, new_structure,
-                                                 K_bg)
-    C = np.array(connmat[ 6:9, 6:9 ], dtype=int)
-
+    connmat, K_bg_new = compute_new_connectivity(
+                                         conn_probs, N_full_new,
+                                         N_full_old, layers, pops,
+                                         newpopdict, new_structure,
+                                         K_bg)
+    verbosity(K_bg_new, v)
+    C = connmat[ 6:9, 6:9 ]
+    verbosity(C, v)
 
     # Compute the internal synapses:
     """ Compute numbers of synapses assuming binomial degree distributions and
@@ -470,14 +482,18 @@ def run_brunel(networkparamdict, plotting=True):
         for j in np.arange(3):
             conn_prb = C[ k, j ]
             prod = N_neurons[ k ] * N_neurons[ j ]
-            # TODO: replace by find_Nsyn:
-            syn_nums[ k, j ] = np.log(
+            if prod <= 1.0:
+                syn_nums[ k, j ] = 0
+            else:
+                syn_nums[ k, j ] = np.log(
                     1. - conn_prb) / np.log((prod - 1.) / prod)
     # These are the synapse numbers (K only in the Potjans paper)
     syn_nums = np.array(syn_nums, dtype=int)
     # Compute the indegree as syn_num / Npost:
-    K = np.array(np.diag(np.array([ 1./NE, 1./NI, 1./NR ]).dot(syn_nums)), 
+    K = np.array(
+            np.diag(np.array([ 1./NE, 1./NI, 1./NR ])).dot(syn_nums), 
         dtype=int)
+    verbosity([ syn_nums, K ], v)
 
     # Compute the external synapses
     # External synapses correspond to the columns in the Potjans connectivity
@@ -491,18 +507,21 @@ def run_brunel(networkparamdict, plotting=True):
         for source in [ 'E', 'I' ]:
             drive_layers_to_[ targetpop ][ source ] = 0.0
 
+    external_drive = False
+    if external_drive:
     # fill the dictionary with rates
-    for targetpop in drive_layers_to_.keys():
-        for sourcelayer in rates.keys():
-            for source in [ 'E', 'I' ]:
-                indeg = int(find_Nsyn(
-                    connmat[ new_structure[ sourcelayer ][ source ],
-                             new_structure[ 'L5' ][ targetpop ] ],
-                    N_full_new[ sourcelayer ][ source ],
-                    N_full_new[ 'L5' ][ targetpop ]))
-                drive_layers_to_[ targetpop ][ source ] += int(indeg * \
-                    rates[ sourcelayer ][ source ] / \
-                    N_full_new[ 'L5' ][ targetpop ])
+        for targetpop in drive_layers_to_.keys():
+            for sourcelayer in rates.keys():
+                for source in [ 'E', 'I' ]:
+                    indeg = int(find_Nsyn(
+                        connmat[ new_structure[ sourcelayer ][ source ],
+                                 new_structure[ 'L5' ][ targetpop ] ],
+                        N_full_new[ sourcelayer ][ source ],
+                        N_full_new[ 'L5' ][ targetpop ]))
+                    drive_layers_to_[ targetpop ][ source ] += int(indeg * \
+                        rates[ sourcelayer ][ source ] / \
+                        N_full_new[ 'L5' ][ targetpop ])
+    verbosity(drive_layers_to_, v)
 
     # ###################### Setting up Nodes ######################
 
@@ -517,6 +536,11 @@ def run_brunel(networkparamdict, plotting=True):
     rspikes = nest.Create("spike_detector")
     ispikes = nest.Create("spike_detector")
     layer_nodes = nest.Create("sinusoidal_poisson_generator", 6)
+
+    if NR == 1:
+        NR = 0
+    if NE == 1:
+        NE = 0
 
     # ###################### Configuring ######################
 
@@ -546,20 +570,31 @@ def run_brunel(networkparamdict, plotting=True):
     # ###################### Connecting ######################
     
     # Connect pops to detectors
-    nest.Connect(nodes_ex[ 0:N_rec[ 'NE' ] ], espikes, syn_spec="excite")
-    nest.Connect(nodes_in[ 0:N_rec[ 'NI' ] ], ispikes, syn_spec="excite")
-    nest.Connect(nodes_re[ 0:N_rec[ 'NR' ] ], rspikes, syn_spec="excite")
+    connect_all = True
+    if not connect_all:
+        connect(nodes_ex[ 0:N_rec[ 'NE' ] ], espikes, syn_spec="excite")
+        connect(nodes_in[ 0:N_rec[ 'NI' ] ], ispikes, syn_spec="excite")
+        connect(nodes_re[ 0:N_rec[ 'NR' ] ], rspikes, syn_spec="excite")
+    else:
+        connect(nodes_ex, espikes, syn_spec="excite")
+        connect(nodes_in, ispikes, syn_spec="excite")
+        connect(nodes_re, rspikes, syn_spec="excite")
+
     
     # Connect populations amongst each other
-    nodes = dict()
-    nodes[ 0 ] = nodes_ex
-    nodes[ 1 ] = nodes_in
-    nodes[ 2 ] = nodes_re
+    nodes = [ nodes_ex, nodes_in, nodes_re ]
+    # nodes[ 0 ] = nodes_ex
+    # nodes[ 1 ] = nodes_in
+    # nodes[ 2 ] = nodes_re
     for i in nodes.keys():
         # connect the background drive 
-        nest.Connect([ noise[ i ] ], list(nodes[ i ]), 
+        connect([ noise[ i ] ], list(nodes[ i ]), 
                 syn_spec={'weight': synweight_ext, "delay": delay_ex}, 
                 conn_spec={'rule': 'all_to_all'})
+        if verbose:
+            print('Connecting noise for {0} with {2} synapses with' + \
+                  ' weight {3} and delay {4}'.format(
+                        nodes.keys()[ i ], 1, K[ j, i ], synweight_ext, delay_ex))        
         for j in nodes.keys():
             if i == 1:              # if source inhibitory, set delays
                 delay = delay_in
@@ -568,9 +603,13 @@ def run_brunel(networkparamdict, plotting=True):
                 delay = delay_ex
                 weight = synweight_ex
             # connect populations in L5
-            nest.Connect(list(nodes[ i ]), list(nodes[ j ]),
+            connect(list(nodes[ i ]), list(nodes[ j ]),
                 conn_spec={'rule': 'fixed_total_number', 'N': K[ j, i ]},
                 syn_spec={'weight': weight, "delay": delay})
+            if verbose:
+                print('Connecting from {0} to {1} with {2} synapses with' + \
+                      'weight {3} and delay {4}'.format(i, j, K[ j, i ], 
+                                                        weight, delay))
             # Indegrees K: source = col, target = row
             # Weights J: source = row, target = col
 
@@ -587,7 +626,7 @@ def run_brunel(networkparamdict, plotting=True):
             else:
                 delay = delay_ex
                 weight = synweight_ex
-            nest.Connect([ layer_nodes[ k ] ], 
+            connect([ layer_nodes[ k ] ], 
                          nodes[ targetnum ],
                          conn_spec={'rule': 'all_to_all'},
                          syn_spec={'weight': weight, "delay": delay})
@@ -606,9 +645,30 @@ def run_brunel(networkparamdict, plotting=True):
     nevents_ex = nest.GetStatus(espikes, "n_events")[ 0 ]
     nevents_re = nest.GetStatus(rspikes, "n_events")[ 0 ]
     nevents_in = nest.GetStatus(ispikes, "n_events")[ 0 ]
-    rate_ex = nevents_ex / simtime * 1000.0 / N_rec[ 'NE' ]
-    rate_re = nevents_re / simtime * 1000.0 / N_rec[ 'NR' ]
-    rate_in = nevents_in / simtime * 1000.0 / N_rec[ 'NI' ]
+
+    dt = networkparamdict[ 'dt' ]
+
+    if not connect_all:
+        if N_rec[ 'NE' ] > 0:
+            rate_ex = nevents_ex / simtime * 1000.0 / N_rec[ 'NE' ]
+        else:
+            rate_ex = 0.0
+        if N_rec[ 'NR' ] > 0:
+            rate_re = nevents_re / simtime * 1000.0 / N_rec[ 'NR' ]
+        else: 
+            rate_re = 0.0
+        rate_in = nevents_in / simtime * 1000.0 / N_rec[ 'NI' ]
+    else:
+        if NE > 0:
+            rate_ex = nevents_ex / simtime * 1000.0 / NE
+        else:
+            rate_ex = 0.0
+        if NR > 0:
+            rate_re = nevents_re / simtime * 1000.0 / NR
+        else: 
+            rate_re = 0.0
+        rate_in = nevents_in / simtime * 1000.0 / NI
+
 
     # CVs:
     spiketrains_ex = list()
@@ -626,10 +686,16 @@ def run_brunel(networkparamdict, plotting=True):
     spiketrains_allex = spiketrains_ex + spiketrains_re
     spiketrains_all = spiketrains_allex + spiketrains_in
 
-    cv_ex = np.nanmean(
-            [ cv(isi(spiketrain)) for spiketrain in spiketrains_ex ])
-    cv_re = np.nanmean(
-            [ cv(isi(spiketrain)) for spiketrain in spiketrains_re ])
+    if len(spiketrains_ex) > 0:
+        cv_ex = np.nanmean(
+                [ cv(isi(spiketrain)) for spiketrain in spiketrains_ex ])
+    else:
+        cv_ex = 0.0
+    if len(spiketrains_re) > 0:
+        cv_re = np.nanmean(
+                [ cv(isi(spiketrain)) for spiketrain in spiketrains_re ])
+    else:
+        cv_re = 0.0
     cv_in = np.nanmean(
             [ cv(isi(spiketrain)) for spiketrain in spiketrains_in ])
     cv_all = np.nanmean(
@@ -668,6 +734,7 @@ def run_brunel(networkparamdict, plotting=True):
         plt.xlim(0, simtime)
         plt.savefig('driven_plots/Rasterplot_{2}_{0}_{1}.png'.format(
                 int(fraction) * 10, 10, int(p_rate)))
+    print('pop sizes', NE, NI, NR)
     return [ fraction, rate_ex, rate_in, rate_re, cv_ex, cv_in, cv_re, cv_all,
              recstart, simtime ], [ spiketrains_all, spiketrains_ex,
                                     spiketrains_in, spiketrains_re, espikes,
@@ -693,11 +760,12 @@ if __name__ == '__main__':
     print('Nest Kernel configured')
 
     networkdict = convert_to_paramdict(testconfigs1[0,:])
-    networkdict[ 'V_dist2' ] += 5.0
-    networkdict[ 'V_dist' ] += 3.0
-    # networkdict[ 'fraction' ] = .01
+    networkdict[ 'V_dist2' ] += 1.5
+    networkdict[ 'V_dist' ] += 2.1
+    networkdict[ 'dt' ] = 0.1
+    # networkdict[ 'fraction' ] = 0.5
     # for i, j in networkdict[ 'K_ext' ].iteritems():
-    #     networkdict[ 'K_ext' ][ i ] = j / 2.
+    #     networkdict[ 'K_ext' ][ i ] = j / 3.
     print('Chosen network parameters:')
     for i, j in networkdict.iteritems():
         print('{0} = {1}'.format(i,j))
