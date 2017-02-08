@@ -9,4 +9,4 @@
 module load mpi/openmpi/1.10.0
 source activate mingpython
 
-srun python brunel4gif2.py
+srun python brunel4gif2.py 1
