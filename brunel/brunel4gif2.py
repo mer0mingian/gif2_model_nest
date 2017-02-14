@@ -7,6 +7,9 @@ the GIF2 model for application in the multi-area model.
 
 options to take sys.argv's, e.g. from gif2brunel.sh:
 1 - cluster variable
+
+NEW:
+- normal clipped distribution for synaptic weights and connections
 """
 
 import os
@@ -43,6 +46,37 @@ def printoptions(*args, **kwargs):
     np.set_printoptions(*args, **kwargs)
     yield 
     np.set_printoptions(**original)
+
+def define_synweights(Cm, tau_m, tauSyn, J=0.15, g=4.0):
+    J_ex = J  # amplitude of excitatory postsynaptic potential
+    J_in = -g * J
+    # Compute the synaptic weights
+    PSP_e = J
+    PSP_ext = J
+    re = tau_m / tauSyn
+    de = tauSyn - tau_m
+    PSC_e_over_PSP_e = 1 / (
+        1 / Cm * tau_m * tauSyn / de * (np.power(re, tau_m / de) - 
+                                         np.power(re, tauSyn / de)))
+    PSC_i_over_PSP_i = PSC_e_over_PSP_e
+    PSC_e = PSC_e_over_PSP_e * PSP_e
+    PSP_i = - PSP_e * g
+    PSC_i = PSC_i_over_PSP_i * PSP_i
+    PSC_ext = PSC_e_over_PSP_e * PSP_ext
+    #  standard deviation of PSC amplitudes relative to mean PSC amplitudes:
+    PSC_rel_sd = 0.1
+    # this are the 87.8 pA:
+    weight_dict = {'E': {'distribution': 'normal_clipped', 'low': 0.0, 
+                         'mu': PSC_e, 'sigma': PSC_e * PSC_rel_sd},
+                   'R': {'distribution': 'normal_clipped', 'low': 0.0,
+                         'mu': PSC_e, 'sigma': PSC_e * PSC_rel_sd},
+                   'I': {'distribution': 'normal_clipped', 'high': 0.0,
+                         'mu': PSC_i, 'sigma': np.abs(PSC_i * PSC_rel_sd)},
+                   'ext': {'distribution': 'normal_clipped', 'low': 0.0, 
+                           'mu': PSC_ext, 'sigma': PSC_ext * PSC_rel_sd}
+                  }
+    return weight_dict
+
 
 def define_structures(NE, NI, NR):
     """define all the structures for the MC connectivity"""
@@ -402,9 +436,26 @@ def run_brunel(networkparamdict, external_drive=True, plotting=True, verbose=Tru
 
     recstart = 2500.0
     simtime = 2500.0  # Simulation time in ms
-    delay = 0.8  # synaptic delay in ms
-    delay_ex = 1.5
-    delay_in = 0.8
+
+    # interpopulation delays from the Microcircuit:
+    # synaptic delays in ms
+    delay_dicts = {'E': {'distribution': 'normal_clipped', 
+                        'low': 0.1, 
+                        'mu': 1.5, 
+                        'sigma': 0.75
+                        },
+                   'I': {'distribution': 'normal_clipped', 
+                        'low': 0.1,
+                        'mu': 0.8, 
+                        'sigma': 0.4
+                        } ,
+                   'R': {'distribution': 'normal_clipped', 
+                         'low': 0.1, 
+                         'mu': 1.5, 
+                         'sigma': 0.75
+                        },
+                  }
+
     g = 4.0  # ratio inhibitory weight/excitatory weight
 
     N = 4850
@@ -444,29 +495,11 @@ def run_brunel(networkparamdict, external_drive=True, plotting=True, verbose=Tru
         "V_th":       theta,
         "t_ref":      2.0}
 
-    J = 0.15  # postsynaptic potential amplitude in mV
-    J_ex = J  # amplitude of excitatory postsynaptic potential
-    J_in = -g * J
 
-    # Compute the synaptic weights
-    PSP_e = J
-    PSP_ext = J
-    re = tau_m / tauSyn
-    de = tauSyn - tau_m
-    PSC_e_over_PSP_e = 1 / (
-        1 / Cm * tau_m * tauSyn / de * (np.power(re, tau_m / de) - 
-                                         np.power(re, tauSyn / de)))
-    PSC_i_over_PSP_i = PSC_e_over_PSP_e
-    PSC_e = PSC_e_over_PSP_e * PSP_e
-    PSP_i = - PSP_e * g
-    PSC_i = PSC_i_over_PSP_i * PSP_i
-    PSC_ext = PSC_e_over_PSP_e * PSP_ext
+    weight_dict = define_synweights(Cm, tau_m, tauSyn, J=0.15, g=4.0)
 
-    # this are the 87.8 pA
-    synweight_ex = PSC_e
-    synweight_in = PSC_i
-    synweight_ext = PSC_ext
-    # verbosity([ synweight_ex, synweight_in, synweight_ext ], v, 'weights:\n')
+    verbosity([ weight_dict[ 'E' ], weight_dict[ 'I' ], 
+                weight_dict[ 'ext' ] ], v, 'weights:\n')
 
 
     conn_probs_old, layers, pops_old, pops_new, structure_new, structure_old, neuron_nums_new, neuron_nums_old, rates = define_structures(NE, NI, NR)
@@ -478,17 +511,12 @@ def run_brunel(networkparamdict, external_drive=True, plotting=True, verbose=Tru
     conn_probs_old = np.asarray(conn_probs_old)
     conn_probs_new_L5 = conn_probs_new[ 6:9, 6:9 ]
     verbosity(conn_probs_new_L5, v, 'Potjans-Connectivity: \n')
+
     # Compute the synapse numbers:
     """ Compute numbers of synapses assuming binomial degree distributions and
     allowing for multapses(see Potjans and Diesmann 2012 Cereb Cortex Eq.1)"""
-
-    # import pdb; pdb.set_trace()
-    # These are the synapse numbers (K only in the Potjans paper)
+    # These are the synapse numbers (K only in the Potjans paper):
     syn_nums_L5 = np.array(syn_nums_new[ 6:9, 6:9 ], dtype=int)
-    # Compute the syn_nums as syn_num / Npost:
-    # if verbose:
-    #     print('{0} {1}'.format('Syn_nums: \n', np.array(syn_nums_new, dtype=int)))
-    #     print('{0} {1}'.format('Syn_nums_old: \n', np.array(syn_nums_old, dtype=int)))
 
     # ###################### Setting up Nodes ######################
 
@@ -512,9 +540,6 @@ def run_brunel(networkparamdict, external_drive=True, plotting=True, verbose=Tru
         nest.SetStatus([ noise[ j ] ],
             {"rate":      bg_rate * K_ext[ i ],
              "amplitude": 0.0, "frequency": 10.0, "phase": 0.0} )
-        # if verbose:
-        #     print('Set noise to {0} with rate {1} and syn_nums {2}'.format(
-        #         i, bg_rate, K_ext[ i ]))
 
     for spikedetect in [espikes, rspikes, ispikes]:
         nest.SetStatus(spikedetect, [
@@ -522,44 +547,36 @@ def run_brunel(networkparamdict, external_drive=True, plotting=True, verbose=Tru
              "to_file": False, 'start': recstart} ])
 
     # try, in case we loop over the function, not the script
-    try:
-        nest.CopyModel("static_synapse", "excite",
-                       {"weight": synweight_ex, "delay": delay_in})
-    except:
-        pass
+    excite = {'model': 'static_synapse', 
+              'weight': weight_dict[ 'E' ], 
+              'delay': 0.8}
 
     # ###################### Connecting ######################
     
-    # Connect pops to detectors
-    connect(nodes_ex, espikes, syn_spec="excite")
-    connect(nodes_in, ispikes, syn_spec="excite")
-    connect(nodes_re, rspikes, syn_spec="excite")
+    # DETECTORS
+    connect(nodes_ex, espikes, syn_spec=excite)
+    connect(nodes_in, ispikes, syn_spec=excite)
+    connect(nodes_re, rspikes, syn_spec=excite)
 
-
-    # connect the background drive 
+    # BACKGROUND 
     for i in np.arange(len(nodes)):
         connect([ noise[ i ] ], list(nodes[ i ]), 
-                syn_spec={'weight': synweight_ext, "delay": delay_ex}, 
+                syn_spec={'weight': weight_dict[ 'ext' ], "delay": 0.75}, 
                 conn_spec={'rule': 'all_to_all'})
 
-    # Connect populations amongst each other
-    for i in np.arange(len(nodes)):
-        for j in np.arange(len(nodes)):
-            if i == 1:              # if source inhibitory, set delays
-                delay = delay_in
-                weight = synweight_in
-            else:
-                delay = delay_ex
-                weight = synweight_ex
+    # POPULATIONS
+    for sp, spx in pops_new.iteritems():
+        for tp, tpx in pops_new.iteritems():
             # connect populations in L5
-            connect(list(nodes[ i ]), list(nodes[ j ]),
-                conn_spec={'rule': 'fixed_total_number', 
-                           'N': syn_nums_L5[ j, i ]},
-                syn_spec={'weight': weight, "delay": delay})
-                # syn_numss K: source = col, target = row
-                # Weights J: source = row, target = col
+            connect(list(nodes[ spx ]), list(nodes[ tpx ]),
+                    conn_spec={'rule': 'fixed_total_number', 
+                               'N': syn_nums_L5[ tpx, spx ]},
+                    syn_spec={'weight': weight_dict[ sp ], 
+                              'delay': delay_dicts[ sp ]})
+            # syn_numss K: source = col, target = row
+            # Weights J: source = row, target = col
 
-    # connect drive from other layers
+    # LAYERS
     verbosity(external_drive, v, "Using external layers' drive: ")
     if external_drive:
         k = 0
@@ -590,20 +607,15 @@ def run_brunel(networkparamdict, external_drive=True, plotting=True, verbose=Tru
                     rate = rates[ layer ][ source_pop ]
                     virtual_rate += rate * indegree
                 # distinguish between weights for excitatroy/inhibitory drive:
-                if source_pop == 'I':
-                    delay = delay_in
-                    weight = synweight_in
-                else:
-                    delay = delay_ex
-                    weight = synweight_ex
                 # connect:
                 nest.SetStatus([ layer_nodes[ k ] ],
                     {"rate":      virtual_rate  , "frequency": 10.0,
                      "amplitude": 0.025 * 0.0, "phase": 0.0})
                 connect([ layer_nodes[ k ] ], 
-                     nodes[ pops_new[ target_pop ] ],
-                     conn_spec={'rule': 'all_to_all'},
-                     syn_spec={'weight': weight, "delay": delay})
+                          nodes[ pops_new[ target_pop ] ],
+                          conn_spec={'rule': 'all_to_all'},
+                          syn_spec={'weight': weight_dict[ source_pop ], 
+                                    'delay': delay_dicts[ source_pop ]})
                 if verbose:
                     print(
                         'Connecting {0}->{1} with {2} rate'.format(
@@ -613,7 +625,7 @@ def run_brunel(networkparamdict, external_drive=True, plotting=True, verbose=Tru
 
     endbuild = time.time()
 
-    # simulate
+    # SIMULATE
     if verbose:
         print('Starting simulation')
     nest.Simulate(simtime + recstart)
@@ -760,11 +772,11 @@ if __name__ == '__main__':
         networkdict[ 'V_dist2' ] = 6.3999
         networkdict[ 'V_dist' ] = 6.0
         networkdict[ 'fraction' ] = 0.5
-        # print('Chosen network parameters:')
-        # if sys.argv[ 1 ]:
-        #     for i, j in networkdict.iteritems():
-        #         print('{0} = {1}'.format(i,j))
-        #     print('\n')
+        print('Chosen network parameters:')
+        if sys.argv[ 1 ]:
+            for i, j in networkdict.iteritems():
+                print('{0} = {1}'.format(i,j))
+            print('\n')
 
         print('Simulating')
         resultlist, spikelists = run_brunel(networkdict, 
