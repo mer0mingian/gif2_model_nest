@@ -1,0 +1,1039 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+% #######################################################################
+% relatively universal latex article 
+% assembled by Daniel Mingers, Aug 2016
+% #######################################################################
+%
+\usepackage[dvipsnames]{xcolor}% custom text colours, set before pstricks, tikz
+% use includegraphics
+% use figure in minipage
+\usepackage[tx]{sfmath}% Fancy Font
+% No idea, what this does
+\usepackage[english]{babel}
+% English language/hyphenation, add german
+\usepackage{amsthm}\usepackage{textcomp}% math stuff
+\usepackage{enumerate}% more elaborate environments
+\usepackage{multicol}% cell control in tables
+\usepackage{tikz}% diagrams, pacakge 'ms'
+%\usepackage{authblk}							% manage author affiliations
+% better citation control
+ 					% {naturemag} if not using natbib
+% links
+\usepackage[normalem]{ulem}% strikethrough with \sout{}
+%\usepackage[inline]{enumitem}					% allow for multiple items in one line
+%
+% ######################### Commentary/ Todos ###########################
+% Put % before of what you want disabled
+% Select what to do with todonotes: 
+% \usepackage[disable]{todonotes} % notes not showed
+\usepackage[draft]{todonotes}% notes showed
+% Select what to do with command \comment:  
+% \newcommand{\comment}[1]{}  %comment not showed
+\newcommand{\comment}[1]{\textcolor{gray}{#1}} %comment showed, \bfseries disabled
+\newcommand{\commentl}[1]{\par {\color{gray} #1 \par}}
+%
+% Use todonotes with: \todo{...}, \todo[inline]{...}, \listoftodos
+% \newcommand{\todoD}[1]{\todo[author=Daniel:, color=green!40, size=\small]{\begin{spacing}{0.5}#1 \end{spacing}}}
+\newcommand{\todoDi}[1]{\todo[color=green!40, inline]{#1}}
+\newcommand{\todoD}[2][]{\todo[caption={#2}, color=green!40, size=\small #1]{\renewcommand{\baselinestretch}{0.5}\selectfont #2 \par}}
+% Use comments with: \comment{...}
+%
+% ######################## Custom Environments ##########################
+%
+%% custom theorems if needed
+%\newtheoremstyle{mytheor}
+    %{1ex}{1ex}{\normalfont}{0pt}{\scshape}{.}{1ex}
+    %{{\thmname{#1 }}{\thmnumber{#2}}{\thmnote{ (#3)}}}
+%\theoremstyle{mytheor}
+%\newtheorem{defi}{Definition}
+%
+% ######################### Custom Page Layout ##########################
+%
+% page geometry
+
+\linespread{1.3}
+\newcommand{\linia}{\rule{\linewidth}{0.5pt}}
+%
+
+\renewcommand{\maketitle}{
+\begin{center} \vspace{2ex} {\huge \textsc{\@title}} \vspace{1ex} \\ \linia\\ \@author \hfill \@date \vspace{4ex} \end{center} }
+
+\usepackage{fancyhdr}
+
+\lhead{} \chead{} \rhead{} 
+\lfoot{Footer \textnumero{} 1} \cfoot{} \rfoot{Page \thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+%
+% ########################### Sectioning ################################
+%
+\usepackage{sectsty}%	 all section titles centered and bolded
+%\allsectionsfont{\centering\bfseries\large}
+%\renewcommand\thesection{Sectionname~\arabic{section}.} % add section label
+% Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+%\numberwithin{equation}{section} 
+% Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+%\numberwithin{figure}{subsection} 
+% Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+%\numberwithin{table}{section} 
+%
+% ################ Manually defined commands ############################
+%
+%\newcommand{\dft}[2]{\ensuremath\frac{\mathrm{d}#1}{\mathrm{d}#2}}
+\newcommand{\dft}[1]{\ensuremath\frac{\mathrm{d}#1}{\mathrm{d}t}}	% df/dt
+\newcommand{\ct}{\textcolor{red}{Cite!}}							% remind myself to cite
+\newcommand{\ut}[1]{\ensuremath\;\mathrm{#1}}						% units
+\newcommand{\findref}{\textcolor{red}{find ref }}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+%
+%###############################################################################################################################################
+%________________________Begin Document here____________________________
+%###############################################################################################################################################
+\end_preamble
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding utf8
+\fontencoding T1
+\font_roman "default" "default"
+\font_sans "tgheros" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family sfdefault
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 11
+\spacing single
+\use_hyperref true
+\pdf_bookmarks false
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks true
+\pdf_backref section
+\pdf_pdfusetitle false
+\pdf_quoted_options "allcolors=blue"
+\papersize a4paper
+\use_geometry true
+\use_package amsmath 2
+\use_package amssymb 2
+\use_package cancel 0
+\use_package esint 1
+\use_package mathdots 0
+\use_package mathtools 0
+\use_package mhchem 0
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style plainnat
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle fancy
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Master Thesis article
+\end_layout
+
+\begin_layout Author
+Daniel Mingers
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+% For affils use 
+\backslash
+author[1,2]{Name}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+This 
+\strikeout on
+is the
+\strikeout default
+ will be an abstract.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+% #######################################################################
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Date
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+today
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%
+\backslash
+flushbottom				% text fills page completely.
+ block.
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%
+\backslash
+thispagestyle{empty}		% skip footline and other stuff
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+% #######################################################################
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Subsection
+Oscillations for cognitive processes
+\end_layout
+
+\begin_layout Standard
+Within recent years, a number of publications has related local control
+ of cognitive functions in mammalian cortex to the interplay of 
+\begin_inset Formula $\gamma$
+\end_inset
+
+-range to lower-frequency oscillations 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+citep{Fries2015,Bastos2015}
+\end_layout
+
+\end_inset
+
+.
+ Experiments suggest that 
+\begin_inset Formula $\gamma$
+\end_inset
+
+-band activity from primary sources in the supragranular neocortical layers
+ are a neuronal correlate of bottom-up processing of sensory information,
+ whereas top-down control is represented by lower frequency oscillations
+ from primary sources in infragranular layers 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+citep[Results, 2nd par]{Bollimunta2011a}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+citep[p4, upper left]{VanKerkoerle}
+\end_layout
+
+\end_inset
+
+.
+ In a series of hierarchically connected areas these differential bottom-up
+ and top-down streams are beneficial, because activation representing an
+ attended stimulus can be selectively prioritised for processing.
+ Given the two distinct frequency bands, a prioritised stimulus can then,
+ for example, be encoded in cross-frequency interactions, such as phase-amplitud
+e coupling 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+citep[1st only mentions FA-coupling, 2nd describes the processing in streams]{Je
+nsen,Spaak2012,Osipova2008,Jensen2014}
+\end_layout
+
+\end_inset
+
+.
+ The aforementioned concept for differential cortical processing streams
+ is now widely accepted and establishes coherence between a number of theories,
+ such as "Communication through coherence" 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+citep{Fries2005}
+\end_layout
+
+\end_inset
+
+ and "Predictive coding" 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+citep{Bastos2012}
+\end_layout
+
+\end_inset
+
+.
+ The perhaps most prominent example is the hierarchy of mammalian visual
+ cortex 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+citep{Felleman91_1}
+\end_layout
+
+\end_inset
+
+, where top-down control is mediated in the 
+\begin_inset Formula $\vartheta$
+\end_inset
+
+ 
+\begin_inset Formula $(4\mhyphen7\ut{Hz})$
+\end_inset
+
+ or 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-band 
+\begin_inset Formula $(8\mhyphen12.5\ut{Hz})$
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+citep[focusses on theta, but Bastos 2015 also mentions $
+\backslash
+alpha$]{AndreMoraesBastos2015}
+\end_layout
+
+\end_inset
+
+ and coordinated by thalamic nuclei acting as relay stations 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+citep[last page bottom]{Jensen2014, Saalmann2012}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Mysteries of the lower layers
+\end_layout
+
+\begin_layout Standard
+While 
+\begin_inset Formula $\gamma$
+\end_inset
+
+-oscillations in the brain have been investigated for roughly 30 years now
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+citep{Gray1989}
+\end_layout
+
+\end_inset
+
+, some mysteries still remain hidden in the lower layers of visual cortex.
+ Most notably, the frequency bands of oscillations reported for the top-down
+ processing along a given hierarchy vary across recording methods, species
+ and brain regions: for example, 
+\begin_inset CommandInset citation
+LatexCommand cite
+after "abstract"
+key "Sun"
+
+\end_inset
+
+ report 
+\begin_inset Formula $10\mhyphen15\ut{Hz}$
+\end_inset
+
+ in rat visual cortex, 
+\begin_inset CommandInset citation
+LatexCommand cite
+after "p2, bottom"
+key "VanKerkoerle"
+
+\end_inset
+
+ already yield 
+\begin_inset Formula $5\mhyphen15\ut{Hz}$
+\end_inset
+
+ in the macaque monkey, 
+\begin_inset CommandInset citation
+LatexCommand cite
+after "see abstract"
+key "AndreMoraesBastos2015"
+
+\end_inset
+
+ exclusively talk about the 
+\begin_inset Formula $\beta$
+\end_inset
+
+ band at 
+\begin_inset Formula $14\mhyphen18\ut{Hz}$
+\end_inset
+
+, while 
+\begin_inset CommandInset citation
+LatexCommand cite
+after "abstract"
+key "Buffalo11_11262"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset citation
+LatexCommand cite
+after "abstract"
+key "Fries2015"
+
+\end_inset
+
+ refer to 
+\begin_inset Formula $\vartheta$
+\end_inset
+
+-rhythms at 
+\begin_inset Formula $6\mhyphen16\ut{Hz}$
+\end_inset
+
+ in rhesus and 
+\begin_inset Formula $7\mhyphen8\ut{Hz}$
+\end_inset
+
+ in macaque monkey respectively - all with laminar recordings from visual
+ cortex areas
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+For simplicity, we focus on oscillations in the 
+\begin_inset Formula $\vartheta$
+\end_inset
+
+- 
+\begin_inset Formula $(4\mhyphen7\ut{Hz})$
+\end_inset
+
+, and 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-range 
+\begin_inset Formula $(8\mhyphen12.5\ut{Hz})$
+\end_inset
+
+, which we refer to as 
+\shape italic
+low-frequency oscillations (LFO)
+\shape default
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+citep[definition of the frequency bands]{Gerrard2007, VanAlbada2009}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+.
+ The variability of oscillation frequencies across brain regions (e.g.
+ exclusively 
+\begin_inset Formula $\beta$
+\end_inset
+
+ in motor cortex 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+citep{Schoeffelen2005}
+\end_layout
+
+\end_inset
+
+) suggests that local, dynamic properties of cortex govern the expression
+ of LFOs.
+ In consequence we first investigated LFOs in models, such as the local
+ cortical microcircuit 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+citep{Potjans}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+red
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+maybe first cite some review about microcircuit here?
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+.
+ We know from previous simulation studies 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+citep{Potjans}
+\end_layout
+
+\end_inset
+
+ that, other than 
+\begin_inset Formula $\gamma$
+\end_inset
+
+-range oscillations, LFOs do not emerge in biologically informed networks
+ of leaky integrate-and-fire neurons - 'informed' pertaining to external
+ input, number of neurons, synapses, scaling and connectivity in a cortical
+ microcircuit.
+ This holds true, when extending the simulation to the full visual hierarchy
+ with all areas represented by appropriately scaled and interconnected microcirc
+uits 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+citep{Schmidt2015a}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+A choice of models
+\end_layout
+
+\begin_layout Standard
+More recently differential high- and low-frequency oscillations in visual
+ cortex were successfully simulated 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+citep{Helmer2015, Mejias}
+\end_layout
+
+\end_inset
+
+ in similarly constructed biologically informed multi-scale models of visual
+ cortex.
+ Mejias and colleagues recreated the differential oscillatory activation
+ that produce the Granger-causal influence along the visual hierarchy first
+ experimentally shown by 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+citet{VanKerkoerle}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+citet{AndreMoraesBastos2015}
+\end_layout
+
+\end_inset
+
+.
+ A central prediction from the study is that inhibitory chandelier cells
+ and irregular spiking interneurons that are targeted by pyramidal neuron
+ projections from layer 5 control the phase-amplitude coupling of 
+\begin_inset Formula $\alpha$
+\end_inset
+
+- and 
+\begin_inset Formula $\gamma$
+\end_inset
+
+-oscillations within one local microcircuit.
+ Helmer and colleagues were able to also reproduce other cross-frequency
+ interactions that can be observed in biological brain networks and exhibit
+ control over a dynamic hierarchical placement of areas in terms of phase
+ delays.
+ They propose that layer-specific expression of oscillatory frequencies
+ arises from inter-layer interactions.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+red
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+more details here?
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+ However, neither study explains the how a specific intrinsic firing rate
+ resonance is achieved by a network layer, nor the way it is dynamically
+ configured to selectively gate processing by changing the phase delay relative
+ to other areas.
+ Indeed, we were primarily interested in the expression of such intrinsic
+ lower frequency oscillations and their phase relation across areas.
+ To this end, the resonance arising in a smaller version of the network
+ by 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+citet{Schmidt2015a}
+\end_layout
+
+\end_inset
+
+, modified at the level of the single-neuron model, was investigated.
+ Aside from Mejias' and colleagues proposal it was, however, unclear how
+ the differential frequency bands were realised in the local microcircuit.
+\end_layout
+
+\begin_layout Subsection
+Subthreshold resonance and resulting network responses
+\end_layout
+
+\begin_layout Standard
+Although population rate models may capture realistic differential oscillations
+ in frequency bands that are associated with feedforward and feedback processing
+, a smaller spatial scale is required to explain the frequency preferences
+ of involved oscillating populations.
+ In particular, a number of experimental studies has associated resonance
+ at network level to subthreshold resonance of the membrane voltage of single
+ neurons 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+citep{Hutcheon1996a}
+\end_layout
+
+\end_inset
+
+, which also shows preferred frequencies 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+citep[for a review see]{Hutcheon2000}
+\end_layout
+
+\end_inset
+
+.
+ Biological subthreshold membrane potential resonance arises from voltage-gated
+ ionic currents with slow time scales 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+citep{Ulrich2002a,White1995}
+\end_layout
+
+\end_inset
+
+.
+ By manipulation of some variables governing the ion channels responsible
+ for these slow time scales, a combined experimental and modelling study
+ recently modified frequencies of network level resonance: shifting the
+ peak frequency of subthreshold resonance implicitly also shifted the respective
+ peak in network power spectrum
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+citep[methods]{Chen2016a}
+\end_layout
+
+\end_inset
+
+.
+ The ion channels reconfigured to achieve this shift are located on apical
+ dendrites of pyramidal neurons in the cortical layer 5, which, in turn,
+ are commonly associated with LFOs in the 
+\begin_inset Formula $\vartheta$
+\end_inset
+
+- and lower 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-range 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+citep{Schmidt2016,Hutcheon1996}
+\end_layout
+
+\end_inset
+
+.
+ Thus we tested whether 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-oscillations, that did not occur the in the microcircuit 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+citep{Potjans}
+\end_layout
+
+\end_inset
+
+ and multi-area model 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+citep{Schmidt2015a}
+\end_layout
+
+\end_inset
+
+ naturally, would arise when neurons with appropriately configured subthreshold
+ resonance preference were introduced to the model.
+ As animal studies indicated that up to 50% of the excitatory pyramidal
+ population in layer 5 expresses subthreshold resonance at LFOs 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+citep{Silva1991}
+\end_layout
+
+\end_inset
+
+, we used this as a ballpark number for the size of the excitatory subpopulation
+ in layer 5 of the Potjans- and Schmidt-models.
+ The implementation of subthreshold resonance itself was achieved by replacing
+ the respective LIF-neurons in the models by 
+\shape italic
+generalised integrate-and-fire neurons with two membrane variables (GIF2)
+\shape default
+, as proposed by 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Richardson2003a"
+
+\end_inset
+
+.
+ Other than in the study by 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+citet{Mejias}
+\end_layout
+
+\end_inset
+
+ et al., our model further included a thalamic population to investigate
+ the relative amplitude in 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-drive to a visual area required to elicit propagation of the oscillation
+ to neighbouring areas.
+\begin_inset Newpage newpage
+\end_inset
+
+
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "library.bib,addlib.bib"
+options "default"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_body
+\end_document
