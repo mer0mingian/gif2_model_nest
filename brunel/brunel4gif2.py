@@ -20,8 +20,7 @@ import sys
 import shutil
 import contextlib
 import matplotlib as mpl
-if ('blaustein' in os.environ['HOSTNAME'].split('.')[ 0 ] or
-    int(sys.argv[ 1 ]) == 0):
+if ('blaustein' in os.environ['HOSTNAME'].split('.')[ 0 ]):
         cluster = True
         mpl.use('Agg')
         print('recognised cluster')
@@ -30,11 +29,12 @@ else:
     print('working locally')
 import matplotlib.pyplot as plt
 import nest
-from mingtools1 import *
 from elephant.statistics import isi, cv
 from itertools import product
 np.set_printoptions(formatter={'float': '{: 0.4f}'.format})
 
+from mingtools1 import *
+from brunel_helper import *
 
 # ****************************************************************************************************************************
 # BRUNEL NETWORK HELPER FUNCTIONS
@@ -213,29 +213,6 @@ def configure_nest_kernel(cluster=cluster):
         pass
 
 
-def looptester():
-    """
-    This is a default script that should be adapted to the respective purpose.
-
-    It is intended to compute the array length required to adequately scan
-    parameter space for a suitable configuration of a GIF2 neuron in a Brunel
-    network.
-
-    Insert k as the array length in one of the shell scripts in this folder!
-    """
-
-    from mingtools1 import predict_str_freq
-
-    dV1_range = np.arange(3.0, 9.5, 0.05)
-    dV2_range = np.arange(4.0, 9.5, 0.05)
-    k = 0
-    # conn_probs_new_L5
-    for i in dV1_range:
-        for j in dV2_range:
-            k += 1
-    print(k)
-
-
 def convert_to_paramdict(input):
     """
     Convert a row of an configuration_extractor output to run_brunel input.
@@ -261,165 +238,14 @@ def print_results(i, somedict=None):
     print('Pop rates (E | I | R): {0} | {1} | {2}'.format(i[7+1], i[7+2], i[7+3]))
     print('CVs (E | I | R | total): {0} | {1} | {2} | {3}'.format(i[7+4], i[7+5], i[7+7], i[7+7]))
 
-# ****************************************************************************************************************************
-# FORMER BETTER CONFIGURATION GENERATOR
-# ****************************************************************************************************************************
-
-def configuration_extractor():
-    """
-    Detects three test arrays with rows containing parameter configs.
-    Use function convert_to_paramdict to obtain dict for run_brunel.
-    """
-    exin_rates_lower_bound = 5.0
-    exin_rates_upper_bound = 7.5
-    distance_r_to_exin_bound = 2.0
-    cv_lower_bound = 0.85
-    cv_upper_bound = 1.15
-    distance_penalty = 6.0
-
-    data = np.loadtxt('brunel_results/brunel_array_results_15.csv')
-    # find all rows with acceptable E/I rates:
-    mean_exin = np.mean((data[:,8:9]),axis=1)
-    mean_exin_accept = np.all((
-        mean_exin <= exin_rates_upper_bound, 
-        mean_exin >=exin_rates_lower_bound), axis=0)
-
-    # is R rate also acceptable?
-    dist_r_exin = np.abs(data[:,10] - mean_exin)
-    dist_r_exin_accept = np.abs(dist_r_exin) <= distance_r_to_exin_bound
-
-    # where do both criteria hold?
-    rates_accept = np.all((mean_exin_accept, dist_r_exin_accept), axis=0)
-    print('We have {0} results with acceptable rates.'.format(
-        rates_accept.sum()))
-
-    # if the rates fit, what are the resulting CVs?
-    cvs = data[:, 14]
-    cvs_accept = np.all((
-        cvs <= cv_upper_bound, cvs >= cv_lower_bound), axis=0)
-
-    all_accept = np.all((rates_accept, cvs_accept), axis=0)
-    # also acceptable rates?
-    print('{0} among these have CVs between {1} and {2}'.format(
-        all_accept.sum(), cv_lower_bound, cv_upper_bound))
-
-
-    # of the remaining configurations, which has...
-    # ... the largest dV2?
-    testindices1 = data[ :, 6 ] == np.amax(data[ all_accept, 6 ])
-    testconfigs1 = data[ testindices1, : ]
-    # ... the largest total dV?
-    testvalue2 =  np.amax(data[ all_accept, 6 ] + data[ all_accept, 5 ])
-    testindices2 = (data[ :, 5 ] + data[ :, 6 ]) == testvalue2
-    testconfigs2 = data[ testindices2, : ]
-    # ... the lowest RMSE of rate difference and dV total?
-    # ... not yet implemented
-    # ... the lower RMSE of rate difference and dV2?
-    testvalue3 = np.sqrt((distance_penalty * np.ones_like(data[ 
-        all_accept, 6 ]) - data[ all_accept, 6 ])**2 + dist_r_exin[
-        all_accept ]**2)
-    testindices3 = np.sqrt((distance_penalty * np.ones_like(data[
-     :, 6 ]) - data[ :, 6 ])**2 + dist_r_exin**2) == np.amin(testvalue3)
-    testconfigs3 = data[ testindices3, : ]
-    return testconfigs1, testconfigs2, testconfigs3
-
-# ****************************************************************************************************************************
-# MICROCIRCUIT CONNECTIVITY TRANSFORMER FUNCTIONS
-# ****************************************************************************************************************************
-
-def find_Nsyn(Cold, Npre, Npost):
-    """
-    compute h3 = syn_nums = actual number of synapses = K_in * Npost
-    """
-    assert Npost != 0
-    assert Npre != 0
-    h1 = np.log(1. - Cold)
-    h2 = (Npre * Npost - 1.) / (Npre * Npost)
-    h3 = h1 / np.log(h2)
-    return h3
-
-
-def find_new_C(K, Npre, Npost):
-    """
-    find new connection probability
-    """
-    assert Npost != 0
-    assert Npre != 0
-    h1 = (Npre * Npost - 1.) / float(Npre * Npost)
-    h2 = np.power(h1, K)
-    h3 = 1. - h2
-    return h3
-
-
-def compute_new_connectivity(conn_probs_old, neuron_nums_new, neuron_nums_old, layers, 
-                             pops_old, pops_new, structure_new, structure_old):
-    """
-    the core function.
-    """
-    n_new_pops_per_layer = len(pops_new)
-    n_pops_per_layer = len(pops_old)
-    n_layers = len(layers)
-    n_pops_new = n_layers * n_new_pops_per_layer
-    n_pops_old = n_layers * n_pops_per_layer
-    conn_probs_new = np.zeros((n_pops_new, n_pops_new))
-    syn_nums_new = np.zeros((n_pops_new, n_pops_new))
-    syn_nums_old = np.zeros((n_pops_old, n_pops_old))
-
-    for tl, tl_dict in neuron_nums_new.iteritems():
-        for tp, tp_size in tl_dict.iteritems():
-            bindex_t = structure_new[ tl ][ tp ]
-
-            for sl, sl_dict in neuron_nums_new.iteritems():
-                for sp, sp_size in sl_dict.iteritems():
-                    bindex_s = structure_new[ sl ][ sp ]
-                    if (sp_size == 0 or tp_size == 0):                         # target or source have size 0?
-                        conn_probs_new[ bindex_t, bindex_s ] = 0
-                        syn_nums_new[ bindex_t, bindex_s ] = 0
-                    else:
-                        # collect the old connectivity:
-                        if 'R' in sp:                                          # take source connectivity from E for R?
-                            source_index = structure_old[ sl ][ 'E' ]          # get the source index for the old connectivity list
-                            Npre_old = neuron_nums_old[ sl ][ 'E' ]
-                        else:
-                            source_index = structure_old[ sl ][ sp ]           # get the source index for the old connectivity list
-                            Npre_old = neuron_nums_old[ sl ][ sp ]
-                        if 'R' in tp:                                          # take target connectivity from E for R?
-                            target_index = structure_old[ tl ][ 'E' ]          # get the target index for the old connectivity list
-                            Npost_old = neuron_nums_old[ tl ][ 'E' ]
-                        else:                                                  # just E and I populations connecting
-                            target_index = structure_old[ tl ][ tp ]           # get the target index for the old connectivity list
-                            Npost_old = neuron_nums_old[ tl ][ tp ]
-                        Cold = conn_probs_old[ target_index ][ source_index ]  # get the 'old' connectivity list entry
-
-                        # compute new connectivity:
-                        if Cold == 0:                                          # was connectivity 0 anyway?
-                            conn_probs_new[ bindex_t, bindex_s ] = 0
-                        else:                                                  # compute new connectivity
-                            n_syn = find_Nsyn(Cold, Npre_old, Npost_old)       # replaces K with Nsyn, find_C with find_Nsyn
-                            rel = float(sp_size) / float(Npre_old) * float(tp_size) / float(Npost_old)  # number of synapses with same relation as between old population sizes
-                            # put synapse number into matrix
-                            syn_nums_new[ bindex_t, bindex_s ] = n_syn * rel
-                            syn_nums_old[ target_index, source_index ] = n_syn
-
-                            conn_probs_new_L5 = find_new_C(
-                                float(syn_nums_new[ bindex_t, bindex_s ]), #* rel, 
-                                neuron_nums_new[ sl ][ sp ], 
-                                neuron_nums_new[ tl ][ tp ])
-                            conn_probs_new[ bindex_t, bindex_s ] = conn_probs_new_L5
-    return conn_probs_new, syn_nums_new, syn_nums_old
-
-
 
 # ****************************************************************************************************************************
 # THE L5 BRUNEL NETWORK
 # ****************************************************************************************************************************
 
-def run_brunel(networkparamdict, external_drive=True, plotting=True, verbose=True):
-    """ a version that is driven just as the MC L5
-    !!! WARNING !!!
-    Possibly faulty connection for the poisson generators ->
-    return to all_to_all conn_rule.
-    """
+def run_brunel(networkparamdict, external_drive=True, plotting=True, 
+               verbose=True):
+    """ a version that is driven just as the MC L5 """
     assert 'K_ext' in networkparamdict, 'K_ext missing, invalid networkparamdict'
     assert 'bg_rate' in networkparamdict, 'bg_rate missing, invalid networkparamdict'
     fraction = networkparamdict[ 'fraction' ]
@@ -435,7 +261,10 @@ def run_brunel(networkparamdict, external_drive=True, plotting=True, verbose=Tru
     v = verbose
 
     recstart = 2500.0
-    simtime = 2500.0  # Simulation time in ms
+    if 'simtime' in networkparamdict.keys():
+        simtime = networkparamdict[ 'simtime' ]
+    else:
+        simtime = 2500.0  # Simulation time in ms
 
     # interpopulation delays from the Microcircuit:
     # synaptic delays in ms
@@ -498,8 +327,8 @@ def run_brunel(networkparamdict, external_drive=True, plotting=True, verbose=Tru
 
     weight_dict = define_synweights(Cm, tau_m, tauSyn, J=0.15, g=4.0)
 
-    verbosity([ weight_dict[ 'E' ], weight_dict[ 'I' ], 
-                weight_dict[ 'ext' ] ], v, 'weights:\n')
+    # verbosity([ weight_dict[ 'E' ], weight_dict[ 'I' ], 
+    #             weight_dict[ 'ext' ] ], v, 'weights:\n')
 
 
     conn_probs_old, layers, pops_old, pops_new, structure_new, structure_old, neuron_nums_new, neuron_nums_old, rates = define_structures(NE, NI, NR)
@@ -591,8 +420,6 @@ def run_brunel(networkparamdict, external_drive=True, plotting=True, verbose=Tru
                     syns = syn_nums_new[ structure_new[ 'L5' ][ target_pop ],
                                       structure_new[ layer ][ source_pop ] ]
                     # if no synapses or one pop is empty
-                    if (verbose and 'R' in target_pop):
-                        print(neuron_nums_new[ 'L5' ][ target_pop ], syns)
                     if np.any([syns == 0.0, 
                               neuron_nums_new[ layer ][ source_pop ] == 0,
                               neuron_nums_new[ 'L5' ][ target_pop ] == 0]):
@@ -601,9 +428,9 @@ def run_brunel(networkparamdict, external_drive=True, plotting=True, verbose=Tru
                     # compute the indegree from synapse numbers
                         indegree = syns / float(
                                         neuron_nums_new[ 'L5' ][ target_pop ])
-                    if verbose:
-                        print("INDEGREE {3}{1}->{2}: {0}".format(
-                                    indegree, source_pop, target_pop, layer))
+                    # if verbose:
+                    #     print("INDEGREE {3}{1}->{2}: {0}".format(
+                    #                 indegree, source_pop, target_pop, layer))
                     rate = rates[ layer ][ source_pop ]
                     virtual_rate += rate * indegree
                 # distinguish between weights for excitatroy/inhibitory drive:
@@ -681,6 +508,14 @@ def run_brunel(networkparamdict, external_drive=True, plotting=True, verbose=Tru
     cv_all = np.nanmean(
             [ cv(isi(spiketrain)) for spiketrain in spiketrains_all ])
 
+    # for sp in [ spiketrains_ex, spiketrains_in, spiketrains_re, spiketrains_all ]:
+    #     sp = sp[ np.isnan(sp) == False ] 
+    # cv_ex = np.mean([ cv(isi(spiketrain)) for spiketrain in spiketrains_ex ])
+    # cv_in = np.mean([ cv(isi(spiketrain)) for spiketrain in spiketrains_in ])
+    # cv_re = np.mean([ cv(isi(spiketrain)) for spiketrain in spiketrains_re ])
+    # cv_all = np.mean([ cv(isi(spiketrain)) for spiketrain in spiketrains_all ])
+
+
     if plotting:
         plt.clf()
         # Raster:
@@ -693,7 +528,7 @@ def run_brunel(networkparamdict, external_drive=True, plotting=True, verbose=Tru
                 plt.plot(spiketrain - recstart,
                          offset * np.ones_like(spiketrain),
                          'b.',
-                         markersize=2)
+                         markersize=1)
         for spiketrain in spiketrains_re:
             if np.any(spiketrain):
                 offset += 1
@@ -701,7 +536,7 @@ def run_brunel(networkparamdict, external_drive=True, plotting=True, verbose=Tru
                 plt.plot(spiketrain - recstart,
                          offset * np.ones_like(spiketrain),
                          'g.',
-                         markersize=2)
+                         markersize=1)
         for spiketrain in spiketrains_in:
             if np.any(spiketrain):
                 offset += 1
@@ -709,16 +544,21 @@ def run_brunel(networkparamdict, external_drive=True, plotting=True, verbose=Tru
                 plt.plot(spiketrain - recstart,
                          offset * np.ones_like(spiketrain),
                          'r.',
-                         markersize=2)
+                         markersize=1)
         plt.ylim(0, offset)
         plt.xlim(0, simtime)
         plt.savefig('driven_plots/Rasterplot_{2}_{0}_{1}.png'.format(
                 int(fraction) * 10, 10, int(p_rate)))
 
+    detectordict = {'ex_dict': events_ex,
+                    'in_dict': events_in,
+                    're_dict': events_re}
+
     return [ fraction, rate_ex, rate_in, rate_re, cv_ex, cv_in, cv_re, cv_all,
              recstart, simtime ], [ spiketrains_all, spiketrains_ex,
                                     spiketrains_in, spiketrains_re, espikes,
-                                    ispikes, rspikes ]
+                                    ispikes, rspikes, detectordict]
+    # TODO: actually, all the spiketrain outputs lack GIDs and are obsolete
 
 # ****************************************************************************************************************************
 # MAIN FILE CODE
@@ -726,8 +566,17 @@ def run_brunel(networkparamdict, external_drive=True, plotting=True, verbose=Tru
 
 
 if __name__ == '__main__':
-    paramscan = True
-    if paramscan:
+    if int(sys.argv[ 1 ]) == 1:
+        purpose = 'paramscan'
+    elif int(sys.argv[ 1 ]) == 2:
+        purpose = 'ratescan'
+    elif int(sys.argv[ 1 ]) == 0:
+        purpose = 'single sim'
+    elif int(sys.argv[ 1 ]) == 3:
+        purpose = 'fractionscan'
+
+
+    if purpose == 'paramscan':
         """ PARAMETERSCAN
             argvalues:  1 - cluster
                         2 - parameterscan
@@ -752,51 +601,142 @@ if __name__ == '__main__':
                             external_drive=True, plotting=False, verbose=False)
                     resultarray = construct_resultarray(
                             resultlist, networkdict)
-                    writeout(20, resultarray, path='brunel_results/')
+                    writeout(int(sys.argv[ 2 ]), resultarray, path='brunel_results/')
 
-    else: 
+    elif purpose == 'single sim': 
         """
         This extracts a set of possibly suitable configurations from one of the
         brunel_array_results_X files and runs a single network.
         """
         print('Importing suitable GIF2 configurations')
-        testconfigs1, testconfigs2, testconfigs3 = configuration_extractor()
+        testconfigs1, testconfigs2, testconfigs3 = configuration_extractor(20)
         print('Importing complete.')
         nest.ResetKernel()
         configure_nest_kernel(cluster=cluster)
-        if int(sys.argv[ 1 ]):
-            nest.SetKernelStatus({'print_time': True})
+        nest.SetKernelStatus({'print_time': True})
         print('Nest Kernel configured')
 
         networkdict = convert_to_paramdict(testconfigs1[0,:])
-        networkdict[ 'V_dist2' ] = 6.3999
-        networkdict[ 'V_dist' ] = 6.0
+        networkdict[ 'V_dist2' ] = 7.75
+        networkdict[ 'V_dist' ] = 3.8
         networkdict[ 'fraction' ] = 0.5
+        networkdict[ 'simtime' ] = 10000.
         print('Chosen network parameters:')
         if sys.argv[ 1 ]:
             for i, j in networkdict.iteritems():
                 print('{0} = {1}'.format(i,j))
-            print('\n')
 
         print('Simulating')
         resultlist, spikelists = run_brunel(networkdict, 
-                                            external_drive=True, verbose=False)
+            external_drive=True, verbose=True, plotting=True)
 
         print('Done. Congregating results. \n')
         resultarray = construct_resultarray(resultlist, networkdict)
-        writeout(20, resultarray, path='brunel_results/')
 
-        # print(resultarray)
         print_results(resultarray)
 
+
+        # do we also want some plots?
+        analytics = False
+        if analytics == True:
+            # First, collect all the spike data
+            detectordict = spikelists[ -1 ]
+            spikearray_all = np.array([[0.],[0.]])
+            for key in detectordict.keys():
+                detectordict[ key ][ 'spikearray' ] = np.vstack((
+                               detectordict[ key ][ u'senders' ],
+                               detectordict[ key ][ u'times' ]))
+                spikearray_all = np.hstack((spikearray_all, 
+                               detectordict[ key ][ 'spikearray' ]))
+            # cut off the initialisation point:
+            spikearray_all = spikearray_all[ :, 1: ]
+
+
+            # spectrum
+            t_min = 0.0 # recstart
+            t_max = networkdict[ 'simtime' ] # t_min + simtime
+
+            # concatenate all spikes
+            timeseries_all = pop_rate_time_series(spikearray_all.T, 
+                5915, t_min, t_max)
+
+            # # compute the spectrum
+            power, freq = spectrum(spikearray_all, 5915, t_min, t_max,
+                               resolution=2.0, kernel='binned', Df=None)
+            # # plotting
+            fig = plt.figure()
+            ax = fig.add_subplot(111)
+            ax.set_title('Power spectrum Layer 5')
+            ax.plot(freq, power, color='k', markersize=3)
+            ax.set_xlabel('Frequency [Hz]', size=16)
+            ax.set_ylabel('Power', size=16)
+            ax.set_xlim(0.0, 500.0)
+            ax.set_yscale("Log")
+            plt.savefig('driven_plots/spectrum_test.png')
+            # plt.savefig(os.path.join(self.output_dir, self.label + 
+            #     '_power_spectrum_' + area + '_' + pop + '.' + 
+            #     keywords['output']))
+
+
+
+            # USE NITIME FOR PLOTTING THE SPECTRUM:
+            # import scipy.signal as sig
+            # import scipy.stats.distributions as dist
+            # import nitime.algorithms as tsa
+            # # import nitime.utils as utils
+            # # from nitime.viz import winspect
+            # from nitime.viz import plot_spectral_estimate
+
+            # # def dB(x, out=None):
+            # #     if out is None:
+            # #         return 10 * np.log10(x)
+            # #     else:
+            # #         np.log10(x, out)
+            # #         np.multiply(out, 10, out)
+            # # ln2db = dB(np.e)
+            # # freqs, d_psd = tsa.periodogram(timeseries_all)
+
+            # f, adaptive_psd_mt, nu = tsa.multi_taper_psd(timeseries_all, 
+            #                                 adaptive=True, jackknife=False)
+            # # dB(adaptive_psd_mt, adaptive_psd_mt)
+            # # p975 = dist.chi2.ppf(.975, nu)
+            # # p025 = dist.chi2.ppf(.025, nu)
+            # # l1 = ln2db * np.log(nu / p975)
+            # # l2 = ln2db * np.log(nu / p025)
+            # # hyp_limits = (adaptive_psd_mt + l1, adaptive_psd_mt + l2)
+
+            # fig = plt.figure()
+            # ax = fig.add_subplot(111)
+            # ax.set_title('Power spectrum Layer 5')
+            # ax.plot(f, adaptive_psd_mt, color='k', markersize=3)
+            # ax.set_yscale("Log")
+            # # fig06 = plot_spectral_estimate(freqs, psd, (adaptive_psd_mt,), hyp_limits,
+            # #                        elabels=('MT with adaptive weighting and 95% interval',))
+            # plt.savefig('driven_plots/spectrum_test.png')
+
+
+    elif purpose == 'rate_scan': 
+        pass
+
+    elif purpose == 'fraction_scan':
+        pass
+
     """
-    V_dist2 = 5.55078
+    fraction = 0.5
+    V_dist2 = 7.95
+    p_rate = 0
     bg_rate = 8.0
     g = 25.0
     g_1 = 32.5
-    V_dist = 6.1
+    V_dist = 3.6
     C_m = 250.0
     K_ext = {'I': 1900, 'R': 2000, 'E': 2000}
     tau_1 = 50.0
+
+    'V_dist': 3.8,
+    'V_dist2': 7.75,
+    'g_1': 32.5,
+    'tau_1': 50.0
+
     Will have equal firing rates at fraction 0.5
     """
