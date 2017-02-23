@@ -9,22 +9,228 @@ import time
 import sys
 import shutil
 import contextlib
-import matplotlib as mpl
+import nest
+# import matplotlib as mpl
 if ('blaustein' in os.environ['HOSTNAME'].split('.')[ 0 ]):
         cluster = True
-        mpl.use('Agg')
+        # mpl.use('Agg')
         print('recognised cluster')
 else: 
     cluster = False
     print('working locally')
-import matplotlib.pyplot as plt
-from elephant.statistics import isi, cv
-from itertools import product
+# import matplotlib.pyplot as plt
+try:
+    from elephant.statistics import isi, cv
+except ImportError:
+    print('Warning: elephant functions not available!')
 np.set_printoptions(formatter={'float': '{: 0.4f}'.format})
-
-import correlation_toolbox.correlation_analysis as corr
-import correlation_toolbox.helper as ch
+# import correlation_toolbox.correlation_analysis as corr
+# import correlation_toolbox.helper as ch
 from mingtools1 import *
+
+
+# ****************************************************************************************************************************
+# BRUNEL NETWORK HELPER FUNCTIONS
+# ****************************************************************************************************************************
+
+@contextlib.contextmanager
+def printoptions(*args, **kwargs):
+    original = np.get_printoptions()
+    np.set_printoptions(*args, **kwargs)
+    yield 
+    np.set_printoptions(**original)
+
+def define_synweights(Cm, tau_m, tauSyn, J=0.15, g=4.0):
+    J_ex = J  # amplitude of excitatory postsynaptic potential
+    J_in = -g * J
+    # Compute the synaptic weights
+    PSP_e = J
+    PSP_ext = J
+    re = tau_m / tauSyn
+    de = tauSyn - tau_m
+    PSC_e_over_PSP_e = 1 / (
+        1 / Cm * tau_m * tauSyn / de * (np.power(re, tau_m / de) - 
+                                         np.power(re, tauSyn / de)))
+    PSC_i_over_PSP_i = PSC_e_over_PSP_e
+    PSC_e = PSC_e_over_PSP_e * PSP_e
+    PSP_i = - PSP_e * g
+    PSC_i = PSC_i_over_PSP_i * PSP_i
+    PSC_ext = PSC_e_over_PSP_e * PSP_ext
+    #  standard deviation of PSC amplitudes relative to mean PSC amplitudes:
+    PSC_rel_sd = 0.1
+    # this are the 87.8 pA:
+    weight_dict = {'E': {'distribution': 'normal_clipped', 'low': 0.0, 
+                         'mu': PSC_e, 'sigma': PSC_e * PSC_rel_sd},
+                   'R': {'distribution': 'normal_clipped', 'low': 0.0,
+                         'mu': PSC_e, 'sigma': PSC_e * PSC_rel_sd},
+                   'I': {'distribution': 'normal_clipped', 'high': 0.0,
+                         'mu': PSC_i, 'sigma': np.abs(PSC_i * PSC_rel_sd)},
+                   'ext': {'distribution': 'normal_clipped', 'low': 0.0, 
+                           'mu': PSC_ext, 'sigma': PSC_ext * PSC_rel_sd}
+                  }
+    return weight_dict
+
+
+def define_structures(NE, NI, NR):
+    """define all the structures for the MC connectivity"""
+    """ Previously, we assumed a microcircuit connectivity of just on layer.
+    Now we extract L5 from the full microcircuit instead."""
+
+    #     2/3e      2/3i    4e      4i      5e      5i      6e      6i
+    conn_probs_old = [ 
+        [ 0.1009, 0.1689, 0.0437, 0.0818, 0.0323, 0.,     0.0076, 0. ],
+        [ 0.1346, 0.1371, 0.0316, 0.0515, 0.0755, 0.,     0.0042, 0. ],
+        [ 0.0077, 0.0059, 0.0497, 0.135,  0.0067, 0.0003, 0.0453, 0. ],
+        [ 0.0691, 0.0029, 0.0794, 0.1597, 0.0033, 0.,     0.1057, 0. ],
+        [ 0.1004, 0.0622, 0.0505, 0.0057, 0.0831, 0.3726, 0.0204, 0. ],
+        [ 0.0548, 0.0269, 0.0257, 0.0022, 0.06,   0.3158, 0.0086, 0. ],
+        [ 0.0156, 0.0066, 0.0211, 0.0166, 0.0572, 0.0197, 0.0396, 0.2252 ],
+        [ 0.0364, 0.001,  0.0034, 0.0005, 0.0277, 0.008,  0.0658, 0.1443 ] ]
+
+    layers = {'L23': 0, 'L4': 1, 'L5': 2, 'L6': 3}
+    pops_old = {'E': 0, 'I': 1}
+    pops_new = {'E': 0, 'I': 1, 'R': 2}
+
+    structure_new = {'L23': {'E': 0, 'I': 1, 'R': 2},
+                     'L4':  {'E': 3, 'I': 4, 'R': 5},
+                     'L5':  {'E': 6, 'I': 7, 'R': 8},
+                     'L6':  {'E': 9, 'I': 10, 'R': 11}}
+
+    structure_old = {'L23': {'E': 0, 'I': 1},
+                     'L4':  {'E': 2, 'I': 3},
+                     'L5':  {'E': 4, 'I': 5},
+                     'L6':  {'E': 6, 'I': 7}}
+
+
+    # Numbers of neurons in full-scale model
+    neuron_nums_new = {
+        'L23': {'E': 20683, 'I': 5834, 'R': 0},
+        'L4':  {'E': 21915, 'I': 5479, 'R': 0},
+        'L5':  {'E': NE,    'I': NI,   'R': NR},
+        'L6':  {'E': 14395, 'I': 2948, 'R': 0}
+    }
+
+    neuron_nums_old = {
+        'L23': {'E': 20683, 'I': 5834},
+        'L4':  {'E': 21915, 'I': 5479},
+        'L5':  {'E': 4850, 'I': 1065},
+        'L6':  {'E': 14395, 'I': 2948}
+    }
+
+    # the rates extracted from the microcircuit
+    rates = {
+             'L23': {'E':0.971, 'I':2.868},
+             'L4' : {'E':4.746, 'I':5.396},
+             # 'L5' : {'E':8.142, 'I':9.078},
+             'L6' : {'E':0.991, 'I':7.523}
+            }
+
+    return conn_probs_old, layers, pops_old, pops_new, structure_new, structure_old, neuron_nums_new, neuron_nums_old, rates
+
+
+def verbosity(input, verbosity=False, designation=None):
+    """function for giving verbose ouput in run_brunel"""
+    if verbosity:
+        if designation:
+            # with printoptions(precision=3, suppress=True):
+            print('{0} {1}'.format(designation, input))
+        else:
+            pass
+#            print(input)
+
+def connect(source, target, syn_spec, conn_spec=None):
+    """nest.Connect wrapper to catch 0-pops"""
+    if (len(source) == 0 or len(target) == 0):
+        pass
+    else:
+        nest.Connect(source, target, 
+                     syn_spec=syn_spec,
+                     conn_spec=conn_spec)
+
+def create(neuron_model, number=1):
+    """nest.Connect wrapper to catch 0-pops"""
+    if number == 0:
+        return ()
+    else:
+        return nest.Create(neuron_model, number)
+
+
+def writeout(simulation_index, resultarray, path=None):
+    if resultarray[ 10 ] > 0.0:  # if resonance occurs
+        with open(path + 'brunel_array_results_{0}.csv'.format(
+                simulation_index), 'a') as output:
+            np.savetxt(output, resultarray, fmt="%12.6G",
+                       newline=' ')
+            output.write(' \n')
+            output.close()
+    else:
+        with open(path + 'brunel_array_results_{0}_0.csv'.format(
+                simulation_index), 'a') as output:
+            np.savetxt(output, resultarray, fmt="%12.6G",
+                       newline=' ')
+            output.write(' \n')
+            output.close()
+
+
+def construct_resultarray(resultlist, networkparamdict):
+    resultarray = np.array(resultlist)
+    paramlist = [ networkparamdict[ 'p_rate' ],
+                  networkparamdict[ 'C_m' ],
+                  networkparamdict[ 'g' ],
+                  networkparamdict[ 'g_1' ],
+                  networkparamdict[ 'tau_1' ],
+                  networkparamdict[ 'V_dist' ],
+                  networkparamdict[ 'V_dist2' ] ]
+    paramarray = np.array(paramlist, dtype=float)
+    resultarray = np.hstack((paramarray, resultarray))
+    return resultarray
+
+def configure_nest_kernel(cluster=cluster):
+    dt = 0.1
+    nest.set_verbosity('M_WARNING')
+    nest.ResetKernel()
+    if cluster:
+        nest.SetKernelStatus(
+                {"resolution":        dt,
+                 "print_time":        False,
+                 "overwrite_files":   True,
+                 "local_num_threads": 16})
+    else:
+        nest.SetKernelStatus(
+                {"resolution":        dt,
+                 "print_time":        True,
+                 "overwrite_files":   True})
+    try:
+        nest.Install("gif2_module")
+    except:
+        pass
+
+
+def convert_to_paramdict(input):
+    """
+    Convert a row of an configuration_extractor output to run_brunel input.
+    """
+    networkparamdict = {
+        'p_rate':   0,
+        'C_m':      input[ 1 ],
+        'g':        input[ 2 ],
+        'g_1':      input[ 3 ],
+        'tau_1':    input[ 4 ],
+        'V_dist':   input[ 5 ],
+        'V_dist2':  input[ 6 ],
+        'K_ext':   {'E': 2000, 'I': 1900, 'R': 2000},
+        'bg_rate':  8., 
+        'fraction': input[ 7 ]}
+    return networkparamdict
+
+def print_results(i, somedict=None):
+    NE = int(4850 * (1-i[7]))
+    NR = int(4850 * i[7])
+    print('Fraction of resonating {1} among excitatory {2} neurons: {0}'.format(i[7], NR, NE+NR))
+    print('Simulated time: {0}'.format(i[16]))
+    print('Pop rates (E | I | R): {0} | {1} | {2}'.format(i[7+1], i[7+2], i[7+3]))
+    print('CVs (E | I | R | total): {0} | {1} | {2} | {3}'.format(i[7+4], i[7+5], i[7+7], i[7+7]))
+
 
 # ****************************************************************************************************************************
 # FORMER BETTER CONFIGURATION GENERATOR
@@ -233,368 +439,4 @@ def compute_new_connectivity(conn_probs_old, neuron_nums_new, neuron_nums_old, l
     return conn_probs_new, syn_nums_new, syn_nums_old
 
 
-# ****************************************************************************************************************************
-# VISTOOLS, MOSTLY FROM THE MAM
-# ****************************************************************************************************************************
 
-import numpy as np
-
-def pop_rate_time_series(data_array, num_neur, t_min, t_max,
-                         resolution=10., kernel='binned'):
-    """
-    BY MAX SCHMIDT, MULTI-AREA MODEL: ana_vistool_helpers.py
-    Computes time series of the population-averaged rates of a group of neurons.
-
-    Parameters
-    ----------
-    data_array : numpy.ndarray
-        Array with spike data.
-        column 0: neuron_ids, column 1: spike times
-    tmin : float
-        Minimal time for the calculation.
-    tmax : float
-        Maximal time for the calculation.
-    num_neur: int
-        Number of recorded neurons. Needs to provided explicitly
-        to avoid corruption of results by silent neurons not
-        present in the given data.
-    kernel : {'gauss_time_window', 'alpha_time_window', 'rect_time_window'}, optional
-        Specifies the kernel to be convolved with the spike histogram.
-        Defaults to 'binned', which corresponds to no convolution.
-    resolution: float, optional
-        Width of the convolution kernel. Specifically it correponds to:
-        - 'binned' : bin width of the histogram
-        - 'gauss_time_window' : sigma
-        - 'alpha_time_window' : time constant of the alpha function
-        - 'rect_time_window' : width of the moving rectangular function
-        Defaults to 1 ms.
-
-    Returns
-    -------
-    time_series : numpy.ndarray
-        Time series of the population rate
-    """
-    if kernel == 'binned':
-        rate, times = np.histogram(data_array[:, 1], bins=int((t_max - t_min) / (resolution)),
-                                   range=(t_min + resolution / 2., t_max + resolution / 2.))
-        rate = rate / (num_neur * resolution / 1000.0)
-        rates = np.array([])
-        last_time_step = times[0]
-
-        for ii in range(1, times.size):
-            rates = np.append(
-                rates, rate[ii - 1] * np.ones_like(np.arange(last_time_step, times[ii], 1.0)))
-            last_time_step = times[ii]
-
-        time_series = rates
-    else:
-        spikes = data_array[:, 1][data_array[:, 1] > t_min]
-        spikes = spikes[spikes < t_max]
-        binned_spikes = np.histogram(spikes, bins=int(
-            (t_max - t_min)), range=(t_min, t_max))[0]
-        if kernel == 'rect_time_window':
-            kernel = np.ones(int(resolution)) / resolution
-        if kernel == 'gauss_time_window':
-            sigma = resolution
-            time_range = np.arange(-0.5 * (t_max - t_min),
-                                   0.5 * (t_max - t_min), 1.0)
-            kernel = 1 / (np.sqrt(2.0 * np.pi) * sigma) * \
-                np.exp(-(time_range ** 2 / (2 * sigma ** 2)))
-        if kernel == 'alpha_time_window':
-            alpha = 1 / resolution
-            time_range = np.arange(-0.5 * (t_max - t_min),
-                                   0.5 * (t_max - t_min), 1.0)
-            time_range[time_range < 0] = 0.0
-            kernel = alpha * time_range * np.exp(-alpha * time_range)
-
-        rate = np.convolve(kernel, binned_spikes, mode='same')
-        rate = rate / (num_neur / 1000.0)
-        time_series = rate
-
-    return time_series
-
-
-
-def pop_rate_distribution(data_array, t_min, t_max, num_neur):
-    """
-    Calculates firing rate distribution over neurons in a given array of spikes.
-    Rates are calculated in spikes/s. Assumes spikes are sorted according to time.
-    First calculates rates for individual neurons and then averages over neurons.
-
-    Parameters
-    ----------
-    data_array : numpy.ndarray
-        Array with spike data.
-        column 0: neuron_ids, column 1: spike times
-    tmin : float
-        Minimal time stamp to be considered in ms.
-    tmax : float
-        Maximal time stamp to be considered in ms.
-    num_neur: int
-        Number of recorded neurons. Needs to provided explicitly
-        to avoid corruption of results by silent neurons not
-        present in the given data.
-
-    Returns
-    -------
-    bins : numpy.ndarray
-        Left edges of the distribution bins
-    vals : numpy.ndarray
-        Values of the distribution
-    mean : float
-        Arithmetic mean of the distribution
-    std : float
-        Standard deviation of the distribution
-    """
-    indices = np.where(np.logical_and(data_array[:, 1] > t_min,
-                                      data_array[:, 1] < t_max))
-    neurons = data_array[:, 0][indices]
-    neurons = np.sort(neurons)
-    n = neurons[0]
-    rates = np.zeros(num_neur)
-    ii = 0
-    for i in xrange(neurons.size):
-        if neurons[i] == n:
-            rates[ii] += 1
-        else:
-            n = neurons[i]
-            ii += 1
-    rates /= (t_max - t_min) / 1000.
-    vals, bins = np.histogram(rates, bins=100)
-    vals = vals / float(np.sum(vals))
-    if num_neur > 0. and t_max != t_min and len(data_array) > 0 and len(indices) > 0:
-        return bins[0:-1], vals, np.mean(rates), np.std(rates)
-    else:
-        return np.arange(0, 20., 20. / 100.), np.zeros(100), 0.0, 0.0
-
-
-# Synchrony measures
-def synchrony(data_array, num_neur, t_min, t_max, resolution=1.0):
-    """
-    Compute the synchrony of an array of spikes as the coefficient
-    of variation of the population rate.
-    Uses pop_rate_time_series().
-
-
-    Parameters
-    ----------
-    data_array : numpy.ndarray
-        Array with spike data.
-        column 0: neuron_ids, column 1: spike times
-    tmin : float
-        Minimal time for the calculation of the histogram in ms.
-    tmax : float
-        Maximal time for the calculation of the histogram in ms.
-    resolution : float, optional
-        Bin width of the histogram. Defaults to 1 ms.
-
-    Returns
-    -------
-    synchrony : float
-        Synchrony of the population.
-    """
-    spike_count_histogramm = pop_rate_time_series(
-        data_array, num_neur, t_min, t_max, resolution=resolution)
-    mean = np.mean(spike_count_histogramm)
-    variance = np.var(spike_count_histogramm)
-    synchrony = variance / mean
-    return synchrony
-
-
-def spike_synchrony(spike_data, t_min, t_max):
-    """
-    Compute the synchrony of a population of neurons as the ratio of
-    the temporal variance of the population-averaged spike rate
-    and the population-averaged temporal variance of single cell spike
-    rates. The spike rates are computed as spike histograms with bin width 1 ms.
-    See http://www.scholarpedia.org/article/Synchrony_measures, Eg. (4).
-
-    Parameters
-    ----------
-    data_array : numpy.ndarray
-        Array with spike data.
-        column 0: neuron_ids, column 1: spike times
-    t_min : float
-        Minimal time point to be considered in ms.
-    t_max : float
-        Maximal time point to be considered in ms.
-
-    Returns
-    -------
-    synchrony : float
-        Synchrony of the population.
-    """
-    total_rate = np.zeros((t_max - t_min))
-    variances = []
-
-    neurons = np.unique(spike_data[:, 0])
-    for n in neurons:
-        dat = spike_data[np.where(spike_data[:, 0] == n)]
-        rate = np.histogram(dat, bins=int((t_max - t_min)),
-                            range=(t_min, t_max))[0]
-        rate = np.array(rate, dtype=np.float)
-        rate /= 1000.
-        total_rate += rate
-        variances.append(np.var(rate))
-    total_rate /= neurons.size
-    synchrony = np.sqrt(np.var(total_rate) / np.mean(variances))
-    return synchrony
-
-
-def spectrum(data_array, num_neur, t_min, t_max, resolution=1., kernel='binned', Df=None):
-    """
-    Compute compound power spectrum of a population of neurons.
-    Uses the powerspec function of the correlation toolbox.
-
-    Parameters
-    ----------
-    data_array : numpy.ndarray
-        Array with spike data.
-        column 0: neuron_ids, column 1: spike times
-    t_min : float
-        Minimal time for the calculation of the histogram in ms.
-    t_max : float
-        Maximal time for the calculation of the histogram in ms.
-    num_neur: int
-        Number of recorded neurons. Needs to provided explicitly
-        to avoid corruption of results by silent neurons not
-        present in the given data.
-    kernel : {'gauss_time_window', 'alpha_time_window', 'rect_time_window'}, optional
-        Specifies the kernel to be convolved with the spike histogram.
-        Defaults to 'binned', which corresponds to no convolution.
-    resolution: float, optional
-        Width of the convolution kernel. Specifically it correponds to:
-        - 'binned' : bin width of the histogram
-        - 'gauss_time_window' : sigma
-        - 'alpha_time_window' : time constant of the alpha function
-        - 'rect_time_window' : width of the moving rectangular function
-        Defaults to 1 ms.
-    Df : float, optional
-        Window width of sliding rectangular filter (smoothing) of the spectrum.
-        The default value is None and leads to no smoothing.
-
-    Returns
-    -------
-    power : numpy.ndarray
-        Values of the power spectrum.
-    freq : numpy.ndarray
-        Discrete frequency values
-    """
-    rate = pop_rate_time_series(
-        data_array, num_neur, t_min, t_max, kernel=kernel, resolution=resolution)
-    rate = ch.centralize(rate, units=True)
-    freq, power = corr.powerspec([rate * 1e-3], 1., Df=resolution)
-    return power[0][freq > 0], freq[freq > 0]
-
-
-def cross_correlation(time_series1, time_series2):
-    """
-    Compute cross-correlation coefficient between two time series.
-    Uses numpy.correlate.
-
-    Parameters
-    ----------
-    time_series1, time_series2 : numpy.ndarray
-        The two time series to correlate with each other.
-
-    Returns
-    -------
-    t : numpy.ndarray
-        Discrete time lag values
-    corr : numpy.ndarray
-        Cross-correlation values
-    """
-    rates = [time_series1, time_series2]
-
-    dat = [ch.centralize(rates[0], units=True),
-           ch.centralize(rates[1], units=True)]
-    freq, crossspec = corr.crossspec(dat, 1.)
-    t, cross = corr.crosscorrfunc(freq, crossspec)
-    return t, cross[0][1]
-
-
-def cross_coherence(data_array1, data_array2, num_neur1, num_neur2,
-                    t_min, t_max, resolution=1., kernel='binned'):
-    """
-    Computes compound cross coherence between 2 populations of neurons
-
-    Parameters
-    ----------
-    data_array1, data_array2 : numpy.ndarray
-        Arrays with spike data.
-        column 0: neuron_ids, column 1: spike times
-    num_neur1, num_neur2: int
-        Number of recorded neurons. Needs to provided explicitly
-        to avoid corruption of results by silent neurons not
-        present in the given data.
-    t_min : float
-        Minimal time for the calculation.
-    t_max : float
-        Maximal time for the calculation.
-    kernel : {'gauss_time_window', 'alpha_time_window', 'rect_time_window'}, optional
-        Specifies the kernel to be convolved with the spike histogram.
-        Defaults to 'binned', which corresponds to no convolution.
-    resolution: float, optional
-        Width of the convolution kernel. Specifically it correponds to:
-        - 'binned' : bin width of the histogram
-        - 'gauss_time_window' : sigma
-        - 'alpha_time_window' : time constant of the alpha function
-        - 'rect_time_window' : width of the moving rectangular function
-        Defaults to 1 ms.
-
-    Returns
-    -------
-    cr : numpy.ndarray
-        Cross-coherence values
-    freq : numpy.ndarray
-        Discrete frequency values
-    """
-    rate_time_series1 = pop_rate_time_series(
-        data_array1, num_neur1, t_min, t_max, resolution=resolution, kernel=kernel)
-    rate_time_series2 = pop_rate_time_series(
-        data_array2, num_neur2, t_min, t_max, resolution=resolution, kernel=kernel)
-
-    d = [rate_time_series1, rate_time_series2]
-    freq, cr = corr.crossspec(d, 1.0, Df=resolution)
-    return cr[0][1][0:freq.size / 2], freq[0:freq.size / 2]
-
-
-def corrcoeff(data_array, t_min, t_max, resolution=1., subsample=None):
-    """
-    Computes the correlation coefficient averaged across
-    single cells of the given data_array.
-    Uses correlation_toolbox.helper to prepare the spike data.
-    Parameters
-    ----------
-    data_array : numpy.ndarray
-        Array with spike data.
-        column 0: neuron_ids, column 1: spike times
-    t_min : float
-        Minimal time for the calculation of the histogram in ms.
-    t_max : float
-        Maximal time for the calculation of the histogram in ms.
-    resolution : float, optional
-        Bin width of the histogram. Defaults to 1 ms.
-    subsample : int, optional
-        Number of neurons to consider in the calculation.
-        Default value of None corresponds to taking the entire population into account.
-
-    Returns
-    -------
-    corrcoeff : float
-        Mean correlation coefficient of the population
-    """
-
-    min_gid = np.min(data_array[:, 0])
-    if subsample:
-        data_array = data_array[
-            np.where(data_array[:, 0] < min_gid + subsample)]
-    spikes = ch.sort_gdf_by_id(data_array)
-    spikes = ch.strip_binned_spiketrains(spikes[1])[:subsample]
-    bins, hist = ch.instantaneous_spike_count(
-        spikes, resolution, tmin=t_min, tmax=t_max)
-    cc = np.corrcoef(hist)
-    cc = np.extract(1 - np.eye(cc[0].size), cc)
-    cc[np.where(np.isnan(cc))] = 0.
-    corrcoeff = np.mean(cc)
-    return corrcoeff
