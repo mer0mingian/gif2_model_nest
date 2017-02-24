@@ -1,0 +1,13 @@
+spectrum_standard, rasterplot_standard:
+    single sim:
+        networkdict[ 'V_dist2' ] = 7.75
+        networkdict[ 'V_dist' ] = 3.8
+        networkdict[ 'fraction' ] = 0.5
+        networkdict[ 'simtime' ] = 2500.
+    multi_taper_spectrum(networkdict, spikelists, resolution=0.25, xlims=[ 0.0, 60.0 ])
+    modulation = 0.0
+
+spectrum_modulated, rasterplot_modulated:
+    same as above with modulation auf noise = 0.025
+
+

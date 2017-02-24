@@ -394,7 +394,7 @@ if __name__ == '__main__':
         networkdict[ 'V_dist2' ] = 7.75
         networkdict[ 'V_dist' ] = 3.8
         networkdict[ 'fraction' ] = 0.5
-        networkdict[ 'simtime' ] = 10000.
+        networkdict[ 'simtime' ] = 50000.
         networkdict[ 'modulation' ] = float(sys.argv[ 3 ])
         print('Chosen network parameters:')
         if int(sys.argv[ 1 ]):
@@ -412,13 +412,13 @@ if __name__ == '__main__':
 
 
         # do we also want some plots?
-        plotting = True
+        plotting = False
         targetname = str(sys.argv[ 2 ])
         if plotting:
             print('Creating plots.')
             rasterplot(spikelists, networkdict, targetname)
             multi_taper_spectrum(networkdict, spikelists, targetname,
-                                 resolution=0.1, xlims=[ 0.0, 60.0 ])
+                                 resolution=5.0, xlims=[ 0.0, 100.0 ])
 
     elif purpose == 'rate_scan': 
         pass
