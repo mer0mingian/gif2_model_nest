@@ -21,7 +21,8 @@ else:
     cluster = False
     np.set_printoptions(formatter={'float': '{: 0.4f}'.format})
     print('working locally')
-
+label_size = 12
+mpl.rcParams['xtick.labelsize'] = label_size 
 import matplotlib.pyplot as plt
 from matplotlib.ticker import FixedLocator
 from matplotlib.colors import LogNorm
@@ -40,16 +41,17 @@ except ImportError:
 # ****************************************************************************************************************************
 
 
-def rasterplot(spikelists, networkdict, targetname):
+def rasterplot(spikelists, networkdict, targetname, length=None):
     """
     Creates a 3-coloured rasterplo from the outputdict of run_brunel
     """
+    plt.clf()
     fraction = networkdict[ 'fraction' ]
     recstart = 2500.0
     spiketrains_ex, spiketrains_in, spiketrains_re = spikelists[ 1:4 ]
     # Raster:
     figu = plt.figure("Rasterplot")
-    figu.set_size_inches(18.5, 10.5)
+    # figu.set_size_inches(18.5, 10.5)
     offset = 0
     for spiketrain in spiketrains_ex:
         if np.any(spiketrain):
@@ -76,25 +78,32 @@ def rasterplot(spikelists, networkdict, targetname):
                      'r.',
                      markersize=1)
     plt.ylim(0, offset)
-    plt.xlim(0, networkdict[ 'simtime' ])
+    ax = figu.gca()
+    ax.set_xlabel('Time [ms]', size=16)
+    ax.set_ylabel('Neuron GID', size=16)
+    if length is not None:
+        plt.xlim(0, length)
+    else:
+        plt.xlim(0, networkdict[ 'simtime' ])
     plt.savefig('driven_plots/Rasterplot_{0}.png'.format(targetname), dpi=300)
 
 
 
-def multi_taper_spectrum(networkdict, spikelists, targetname, resolution=0.1, 
-                         xlims=[ 0.0, 150.0 ]):
+def multi_taper_spectrum(networkdict, spikelists, targetname, hist_binwidth, 
+                         NW, xlims=[ 0.0, 150.0 ]):
     """
     create a spectral plot with histogram bin width resolution
     """
     import nitime as nt
+    plt.clf()
 
-    # def dB(x, out=None):
-    #     if out is None:
-    #         return 10 * np.log10(x)
-    #     else:
-    #         np.log10(x, out)
-    #         np.multiply(out, 10, out)
-    # ln2db = dB(np.e)
+    def dB(x, out=None):
+        if out is None:
+            return 10 * np.log10(x)
+        else:
+            np.log10(x, out)
+            np.multiply(out, 10, out)
+    ln2db = dB(np.e)
 
 
     # First, collect all the spike data
@@ -116,49 +125,71 @@ def multi_taper_spectrum(networkdict, spikelists, targetname, resolution=0.1,
     # convert the unsorted spikes in to a time series :
     t_min = 2500.0 # recstart
     t_max = 2500.0 + networkdict[ 'simtime' ] # t_min + simtime
-    resolution = resolution # histogram bin width in ms
+    # resolution = resolution # histogram bin width in ms
     num_neur = 5915 # num neurons in L5
 
-    rate, times = np.histogram(spikearray_all[ 1, : ], bins=int((t_max - t_min) / (resolution)),
-                               range=(t_min + resolution / 2., t_max + resolution / 2.))
-    rate = rate / (num_neur * resolution / 1000.0)
-    time_series = np.array([])
-    last_time_step = times[0]
-
-    # bloats the rate array up to 0.1 milliseconds again
-    # for ii in range(1, times.size):
-    #     time_series = np.append(
-    #         time_series, rate[ii - 1] * np.ones_like(np.arange(last_time_step, times[ii], 1.0)))
-    #     last_time_step = times[ii]
-    # this may cause smoothing but actually did not work out well
+    # rate, times = np.histogram(spikearray_all[ 1, : ], bins=int((t_max - t_min) / (resolution)),
+    #                            range=(t_min + resolution / 2., t_max + resolution / 2.))
+    # rate = rate / (num_neur * resolution / 1000.0)
 
     # spectrum
     # Fs is the signal sampling rate. since we bin in resolution * 1e-3, the
     # inverse of that is our sampling frequency
-    Fs = np.power(resolution * 1e-3, -1.)
+    # Fs = np.power(resolution * 1e-3, -1.)
+
+    rectime = networkdict[ 'simtime' ] # recording time in ms
+    n_hist_bins = rectime / hist_binwidth
+    Fs = n_hist_bins / (rectime / 1000.0)  # histogram sampling freq [Hz]
+
+    rate, times = np.histogram(spikearray_all[ 1, : ], 
+                bins=int(n_hist_bins),
+                range=(t_min + hist_binwidth / 2., 
+                       t_max + hist_binwidth / 2.))
+    rate = rate / (num_neur * hist_binwidth / 1000.0)
+
+
     freqs, psd_est, nu = nt.algorithms.spectral.multi_taper_psd(
-                        rate, Fs=Fs, adaptive=True, jackknife=False)
-    # dB(psd_est, psd_est)
-    # shift the peak!
+                        rate, Fs=Fs, NW=NW, adaptive=True, jackknife=False)
 
     # plotting
     fig = plt.figure()
     ax = fig.add_subplot(111)
-    ax.set_title('Power spectrum Layer 5', size=20)
-    ax.plot(freqs, psd_est, color='k', markersize=3)
-    ax.set_xlabel('Frequency [Sp/s]', size=16)
-    ax.set_ylabel('Power', size=16)
-    try:
-        ax.set_yscale("Log")
-    except UserWarning:
-        pass
-#    ax.set_xlim(xlims)
-    ax.set_ylim([ psd_est.min(), psd_est.max() + 1. ])
-    plt.savefig('driven_plots/spectrum_{0}.png'.format(targetname))
-    # plt.savefig(os.path.join(self.output_dir, self.label + 
-    #     '_power_spectrum_' + area + '_' + pop + '.' + 
-    #     keywords['output']))
+    show_variability = False
 
+    if not show_variability:
+        ax.set_title('Power spectrum Layer 5', size=20)
+        ax.plot(freqs, psd_est, color='k', linewidth=1., label='PSD')
+        ax.set_xlabel('Frequency [Sp/s]', size=16)
+        ax.set_ylabel('Power', size=16)
+        try:
+            ax.set_yscale("Log")
+        except UserWarning:
+            pass
+        ax.set_xlim(xlims)
+        ax.set_ylim([ psd_est.min(), psd_est.max() + 1. ])
+        plt.savefig('driven_plots/spectrum_{0}.png'.format(targetname))
+    else:
+        import scipy.stats.distributions as dist
+
+        print('WARNING: NOT CORRECTLY IMPLEMENTED INTERVALS')
+        p975 = dist.chi2.ppf(.975, nu)
+        p025 = dist.chi2.ppf(.025, nu)
+        l1 = nu / p975
+        l2 = nu / p025
+        hyp_limits = np.log(( l1, l2 ) + psd_est)
+
+        # temporarily change to notation from nitime function
+        ax.set_title('MT with adaptive weighting and 95% interval, BW=1Hz', size=14)
+        ax.plot(freqs, psd_est, color=c, linewidth=1., label='PSD')
+        ax.fill_between(freqs, hyp_limits[0], y2=hyp_limits[1], color=(1, 0, 0, .3), alpha=0.5)
+        # ax_limits = (psd_est.min() - 2*np.abs(psd_est.min()),
+        #              psd_est.max() + 1.25*np.abs(psd_est.max()))
+        # ax.set_ylim(ax_limits)
+        ax.legend()
+        ax.set_yscale("Log")
+        ax.set_xlabel('Frequency [Sp/s]', size=16)
+        ax.set_ylabel('Power', size=16)
+        plt.savefig('driven_plots/spectrum_{0}.png'.format(targetname))
 
 
 # ****************************************************************************************************************************

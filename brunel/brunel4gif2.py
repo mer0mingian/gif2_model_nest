@@ -340,8 +340,7 @@ def run_brunel(networkparamdict, external_drive=True, plotting=True,
 
 
 if __name__ == '__main__':
-    if int(sys.argv[ 1 ]) == 1:
-        purpose = 'paramscan'
+    if int(sys.argv[ 1 ]) == 1:        purpose = 'paramscan'
     elif int(sys.argv[ 1 ]) == 2:
         purpose = 'ratescan'
     elif int(sys.argv[ 1 ]) == 0:
@@ -383,7 +382,7 @@ if __name__ == '__main__':
         brunel_array_results_X files and runs a single network.
         """
         print('Importing suitable GIF2 configurations')
-        testconfigs1, testconfigs2, testconfigs3 = configuration_extractor(20)
+        testconfigs1, testconfigs2, testconfigs3 = configuration_extractor(21)
         print('Importing complete.')
         nest.ResetKernel()
         configure_nest_kernel(cluster=cluster)
@@ -394,7 +393,7 @@ if __name__ == '__main__':
         networkdict[ 'V_dist2' ] = 7.75
         networkdict[ 'V_dist' ] = 3.8
         networkdict[ 'fraction' ] = 0.5
-        networkdict[ 'simtime' ] = 50000.
+        networkdict[ 'simtime' ] = 7500.
         networkdict[ 'modulation' ] = float(sys.argv[ 3 ])
         print('Chosen network parameters:')
         if int(sys.argv[ 1 ]):
@@ -410,15 +409,17 @@ if __name__ == '__main__':
 
         print_results(resultarray)
 
-
         # do we also want some plots?
-        plotting = False
+        plotting = True
         targetname = str(sys.argv[ 2 ])
         if plotting:
+            plt.clf()
             print('Creating plots.')
-            rasterplot(spikelists, networkdict, targetname)
+            rasterplot(spikelists, networkdict, targetname, length=1000)
             multi_taper_spectrum(networkdict, spikelists, targetname,
-                                 resolution=5.0, xlims=[ 0.0, 100.0 ])
+                                hist_binwidth=2.0, 
+                                NW=16, 
+                                xlims=[ 0.0, 150.0 ])
 
     elif purpose == 'rate_scan': 
         pass
